@@ -1,6 +1,6 @@
 # PayReady
 
-PayReady ayuda a elegir, integrar y probar pasarelas de pago en proyectos de software. Incluye el catálogo, el asesor, las plantillas y los validadores de **PagoKit v0.2.2**, de Enrique Rocha / tododeia.
+PayReady ayuda a elegir, integrar y probar pasarelas de pago en proyectos de software. Incluye un catálogo de proveedores, plantillas de integración y validadores para revisar el checkout y las notificaciones.
 
 | Edición | Instalación | Uso |
 | --- | --- | --- |
@@ -11,6 +11,6 @@ Claude Code conserva los comandos y hooks nativos del plugin. Codex usa una skil
 
 ## Procedencia
 
-Adaptación y guías de Alanmeza.ai. Basado en [PagoKit](https://github.com/Hainrixz/agente-pagokit/tree/d3720d9fd292cc2cfffbd5b6f6fce5f45ede97fa), distribuido bajo MIT. El código conserva [LICENSE](LICENSE) y [NOTICE](NOTICE). La [guía de tododeia](https://www.tododeia.com/community/agente-pagokit) documenta el proyecto original.
+Ediciones y guías de Alanmeza.ai. Consulta [LICENSE](LICENSE) y [NOTICE](NOTICE) para ver los avisos del código distribuido.
 
 Usa cuentas de prueba y verifica la documentación vigente de cada proveedor antes de habilitar cobros.
