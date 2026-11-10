@@ -1,0 +1,98 @@
+{
+  "id": "mobbex",
+  "name": "Mobbex",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 3,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "AR"
+  ],
+  "method_coverage_regions": [
+    "AR"
+  ],
+  "currencies": [
+    "ARS"
+  ],
+  "methods": [
+    "card",
+    "modo",
+    "transferencias_30",
+    "rapipago",
+    "pago_facil"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "UNKNOWN. Mobbex documents webhook delivery (JSON POST on status change: approved/rejected/expired, TLS 1.2+, configurable retries) but no signature header or algorithm was verifiable. API auth uses `x-api-key` and `x-access-token` headers generated from the console. Do NOT assume those headers are echoed on inbound webhooks. Generate a handler that re-fetches the transaction and dedups, and flag the gap.",
+    "expected_filenames": [
+      "webhook",
+      "mobbex-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://mobbex.dev/webhooks",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "MOBBEX_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Headers `x-api-key` and `x-access-token`, both generated from the console's Developers section. No prefix pattern — leave null."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "MOBBEX_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "MOBBEX_API_KEY",
+    "webhook_secret": "MOBBEX_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Argentine QR/card commissions reportedly range 0.8%–3.99% depending on funding source, but that is a market-wide figure, not Mobbex's rate card. Do not populate."
+  },
+  "docs_url": "https://mobbex.dev/webhooks",
+  "score_modifiers": {},
+  "notes": [
+    "The API-first Argentine alternative to Mercado Pago, with self-serve signup, a sandbox with simulated webhooks, and native support for installments (cuotas) and subscriptions — the three things Argentine checkout actually needs. Argentina currently has only mercadopago in providers.json.",
+    "SDKs: SDKs and platform plugins are advertised at mobbex.dev with a sandbox including test cards and simulated webhooks. Official server package names not verified.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Second AR option alongside mercadopago. Prefer Mobbex when the merchant wants a real API and marketplace split rather than Mercado Pago's checkout.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

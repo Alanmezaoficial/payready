@@ -1,0 +1,108 @@
+{
+  "id": "polar",
+  "name": "Polar",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 1,
+  "integration_level": "advise",
+  "role": "mor",
+  "merchant_domicile_regions": [
+    "GLOBAL",
+    "US",
+    "EU",
+    "UK"
+  ],
+  "method_coverage_regions": [
+    "GLOBAL",
+    "US",
+    "EU",
+    "UK"
+  ],
+  "currencies": [
+    "GBP",
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "link"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": true,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED. Standard Webhooks spec (Svix-compatible): headers `webhook-id`, `webhook-timestamp`, `webhook-signature`. HMAC-SHA256 over `<webhook-id>.<webhook-timestamp>.<raw body>`, base64, header value prefixed `v1,`. Timestamp IS signed. Gotcha PagoKit must encode: the webhook secret must be base64-decoded before use in manual verification (the SDKs do this internally). Retries: 10 attempts with exponential backoff, 10s timeout, endpoint auto-disabled after 10 consecutive non-2xx. IP allowlist available (3.134.238.10, 3.129.111.220, 52.15.118.168, 74.220.50.0/24, 74.220.58.0/24). Polar does NO",
+    "expected_filenames": [
+      "webhook",
+      "polar-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://polar.sh/docs/integrate/webhooks/delivery",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "POLAR_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN. Verified only that auth is a Bearer organization access token; the `polar_oat_`/`polar_pat_` prefixes commonly cited were NOT confirmed in the fetched docs. Webhook secret is a plain base64 string, no prefix."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "POLAR_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "POLAR_API_KEY",
+    "webhook_secret": "POLAR_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "VERIFIED from docs. Starter (free plan): 5% + $0.50. Pro ($20/mo): 3.8% + $0.40. Growth ($100/mo): 3.6% + $0.35. Scale ($400/mo): 3.4% + $0.30. Plus: non-US cards +1.5%; dispute $15 flat; payout via Stripe $2/mo active + 0.25% + $0.25 per withdrawal; cross-border FX 0.25% (EU) to 1% (elsewhere). Orgs created before 2026-05-27 grandfathered at 4% + $0.40. Transaction fees are NOT refunded on refund."
+  },
+  "docs_url": "https://polar.sh/docs/integrate/webhooks/delivery",
+  "score_modifiers": {},
+  "notes": [
+    "The only MoR in this cluster with first-class usage-based billing AND a documented LLM-token ingestion strategy — i.e. the exact billing shape an AI app built with Claude Code needs, from a provider that also absorbs VAT/sales-tax liability. Open source, so the generated integration is inspectable.",
+    "SDKs: Node `@polar-sh/sdk` (+ framework adapters for Next.js, Nuxt, Astro, Hono), Python `polar-sdk`, and Better Auth / Convex community plugins. Official.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps paddle/dodo/creem on MoR; overlaps orb/metronome/lago on metered billing. Uniquely does both in one integration.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ],
+  "mor": {
+    "is_mor": true,
+    "mode": "always"
+  }
+}

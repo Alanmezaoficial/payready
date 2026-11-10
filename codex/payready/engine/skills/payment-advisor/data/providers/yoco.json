@@ -1,0 +1,103 @@
+{
+  "id": "yoco",
+  "name": "Yoco",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 6,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "ZA"
+  ],
+  "method_coverage_regions": [
+    "ZA"
+  ],
+  "currencies": [
+    "ZAR"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED, and the reference implementation for this cluster: Yoco implements the Standard Webhooks spec. Three headers — `webhook-id`, `webhook-timestamp`, `webhook-signature`. Signed content is `${webhook-id}.${webhook-timestamp}.${rawBody}`; HMAC-SHA256 keyed with the base64-decoded portion of the endpoint secret; result base64-encoded and carried as a space-separated list of `v1,<sig>` values (supporting rotation). Timestamp IS covered — enforce a tolerance window (spec convention 5 min / 300s) and use `webhook-id` as the idempotency key. Constant-time compare required. Because it is spec-c",
+    "expected_filenames": [
+      "webhook",
+      "yoco-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.yoco.com/online/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "YOCO_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "PARTIALLY VERIFIED. Yoco uses `sk_test_` / `sk_live_` secret keys and `pk_test_` / `pk_live_` public keys; webhook endpoint secrets are `whsec_`-prefixed base64 per the Standard Webhooks convention. Exact charset/length UNKNOWN."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "YOCO_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "YOCO_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "YOCO_API_KEY",
+    "webhook_secret": "YOCO_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "PARTIALLY VERIFIED. ~2.95% for online card payments (excl. VAT) on the Yoco gateway, no monthly fee on entry tiers. Volume-negotiated below that. Verify current rate card before shipping a number."
+  },
+  "docs_url": "https://developer.yoco.com/online/",
+  "score_modifiers": {},
+  "notes": [
+    "Best-in-cluster developer experience for South Africa and the only provider here that ships a genuinely modern, spec-compliant webhook implementation. Self-serve onboarding for individuals and small businesses, where Peach and Payfast require heavier merchant paperwork.",
+    "SDKs: No first-party server SDK; Yoco ships a first-party JS SDK (Yoco Popup / Inline) for the browser. Server side is direct REST. Any Standard Webhooks library (`standardwebhooks` on npm/PyPI) verifies its webhooks correctly.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Peach Payments and Payfast in ZA. Yoco for solo devs/SMEs and DX; Peach when PayShap, Capitec Pay, M-PESA or multi-country ZA/KE/MU is needed.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

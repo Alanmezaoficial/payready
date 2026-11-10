@@ -1,0 +1,115 @@
+{
+  "id": "recurrente",
+  "name": "Recurrente",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 3,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "GT",
+    "SV",
+    "HN",
+    "CR",
+    "NI",
+    "PA"
+  ],
+  "method_coverage_regions": [
+    "GT",
+    "SV",
+    "HN",
+    "CR",
+    "NI",
+    "PA"
+  ],
+  "currencies": [
+    "CRC",
+    "GTQ",
+    "HNL",
+    "NIO",
+    "USD"
+  ],
+  "methods": [
+    "card"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED — Svix standard. Headers `svix-id`, `svix-timestamp`, `svix-signature`. Algorithm HMAC-SHA256 over `{svix_id}.{svix_timestamp}.{raw_body}`, secret prefixed `whsec_` and base64-decoded before use. Timestamp covered; use a 300s tolerance plus svix-id dedup. The official `svix` npm/PyPI package verifies this directly. Events include intent.succeeded, intent.pending, intent.failed, intent.canceled, intent.paid, plus subscription, setup-intent, refund and dispute events.",
+    "expected_filenames": [
+      "webhook",
+      "recurrente-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.recurrente.com/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "RECURRENTE_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Headers `X-PUBLIC-KEY` and `X-SECRET-KEY`. Test keys are distinguished by account/environment rather than a documented literal prefix — do not fabricate a `sk_test_` regex. Webhook secret is separately prefixed `whsec_` (Svix convention)."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "RECURRENTE_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "RECURRENTE_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "RECURRENTE_API_KEY",
+    "webhook_secret": "RECURRENTE_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN for 2026. Do not populate."
+  },
+  "docs_url": "https://docs.recurrente.com/",
+  "score_modifiers": {},
+  "notes": [
+    "A modern, developer-first subscription gateway built for Central America, where regions.json currently has zero providers and falls back to a 5% MoR. It is also the only provider in this cluster that uses Svix — meaning PagoKit can reuse an off-the-shelf, well-tested verifier instead of hand-rolling one.",
+    "SDKs: No official first-party server SDK verified, but webhook verification is solved by the official `svix` library. REST API is clean and well documented.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Best-in-class for GT/SV/HN subscription SaaS. Overlaps dlocal_go and placetopay in Central America but is the only one purpose-built for recurring billing there.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

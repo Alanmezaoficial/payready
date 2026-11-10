@@ -1,0 +1,297 @@
+{
+  "id": "lemonsqueezy",
+  "name": "Lemon Squeezy",
+  "last_verified_at": "2026-05-20",
+  "verified_by": "human",
+  "status": "active",
+  "phase": 1,
+  "wave": 0,
+  "integration_level": "build",
+  "role": "mor",
+  "acquired_by": "stripe",
+  "successor": "stripe-managed-payments",
+  "merchant_domicile_regions": [
+    "US",
+    "CA",
+    "UK",
+    "EU",
+    "AU",
+    "NZ",
+    "JP",
+    "MX",
+    "BR",
+    "CO",
+    "AR",
+    "CL",
+    "PE",
+    "ZA",
+    "NG",
+    "KE",
+    "IN",
+    "SG",
+    "HK"
+  ],
+  "method_coverage_regions": [
+    "GLOBAL"
+  ],
+  "regions": [
+    "US",
+    "CA",
+    "UK",
+    "EU",
+    "AU",
+    "NZ",
+    "JP",
+    "MX",
+    "BR",
+    "CO",
+    "AR",
+    "CL",
+    "PE",
+    "ZA",
+    "NG",
+    "KE",
+    "IN",
+    "SG",
+    "HK"
+  ],
+  "currencies": [
+    "USD",
+    "EUR",
+    "GBP",
+    "CAD",
+    "AUD",
+    "JPY",
+    "MXN",
+    "BRL",
+    "COP",
+    "ARS",
+    "CLP",
+    "PEN",
+    "ZAR",
+    "NGN",
+    "KES",
+    "INR",
+    "SGD",
+    "HKD"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "klarna",
+    "afterpay"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": true,
+    "tokenization_owner": "provider",
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false,
+    "stablecoin_settlement": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "signature_header": "X-Signature",
+    "algorithm": "HMAC-SHA256",
+    "signature_includes_timestamp": false,
+    "replay_mitigation_strategy": "event-id-dedup",
+    "required_events_minimum": [
+      "order_created",
+      "subscription_created",
+      "subscription_updated",
+      "subscription_cancelled",
+      "subscription_payment_failed",
+      "subscription_payment_refunded"
+    ],
+    "expected_filenames": [
+      "webhook",
+      "lemonsqueezy-webhook",
+      "ls-webhook"
+    ],
+    "ip_allowlist_available": false,
+    "verification_family": "hmac_raw_body",
+    "signature_location": "header",
+    "hash_algo": "sha256",
+    "secret_encoding": "raw",
+    "digest_encoding": "hex",
+    "signed_payload_template": "{raw_body}",
+    "signature_covers_body": true,
+    "payload_authoritative": true,
+    "timestamp_source": "none",
+    "event_id_pointer": "/meta/event_id",
+    "event_type_pointer": "/meta/event_name",
+    "secret_env": "LEMONSQUEEZY_WEBHOOK_SECRET",
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20",
+      "source_url": "https://docs.lemonsqueezy.com",
+      "note": "Migrated from the v1 catalog; scheme cross-checked against skills/webhook-verifier/signatures.md."
+    },
+    "header_format": {
+      "kind": "raw"
+    }
+  },
+  "checkout_spec": {
+    "pattern": "hosted_overlay",
+    "create_endpoint": "POST https://api.lemonsqueezy.com/v1/checkouts",
+    "auth": {
+      "in": "header",
+      "name": "Authorization",
+      "scheme": "Bearer {secret}"
+    },
+    "amount_unit": "minor",
+    "idempotency": {
+      "supported": false
+    },
+    "response_redirect_pointer": "/data/attributes/url",
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20"
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "LEMONSQUEEZY_API_KEY",
+      "pattern": "^lmnsq_(test|live)_[A-Za-z0-9_-]{40,}$",
+      "live_pattern": "^lmnsq_live_[A-Za-z0-9_-]{40,}$",
+      "test_prefix": "lmnsq_test_",
+      "live_prefix": "lmnsq_live_",
+      "scope": "server"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "LEMONSQUEEZY_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "secret_key_pattern": "^lmnsq_(test|live)_[A-Za-z0-9_-]{40,}$",
+  "env_vars": {
+    "secret": "LEMONSQUEEZY_API_KEY",
+    "webhook_secret": "LEMONSQUEEZY_WEBHOOK_SECRET"
+  },
+  "detection": {
+    "sdk_import_patterns": [
+      "@lemonsqueezy/"
+    ],
+    "verifier_names": [
+      "verifyLemonSignature",
+      "lemonSqueezyVerifyHmac",
+      "verifyLemonSqueezySignature"
+    ],
+    "sdk_call_patterns": [
+      "createCheckout("
+    ],
+    "live_key_patterns": [
+      "lmnsq_live_"
+    ]
+  },
+  "onboarding": {
+    "model": "application_review",
+    "time_to_keys_days": "0-1",
+    "individual_allowed": true
+  },
+  "settlement": {
+    "holds_funds": true,
+    "payout_delay_days": "14-30"
+  },
+  "pci": {
+    "scope": "not_applicable",
+    "pan_touches_server": false,
+    "hosted_fields": true,
+    "requires_script_inventory": true,
+    "loader_exempt_from_sri": [
+      "app.lemonsqueezy.com"
+    ]
+  },
+  "recurring": {
+    "rails": [
+      "card"
+    ],
+    "mandate_lifecycle": false,
+    "network_txn_id_required": false
+  },
+  "mor": {
+    "is_mor": true,
+    "mode": "always",
+    "handles": [
+      "vat_eu",
+      "sales_tax_us",
+      "gst_au_in_nz",
+      "invoicing",
+      "chargebacks"
+    ],
+    "disables_capabilities": [
+      "marketplace_payouts",
+      "custom_tax_engine",
+      "deep_checkout_branding"
+    ]
+  },
+  "tax_handling": {
+    "automated_collection": true,
+    "vat_eu": true,
+    "sales_tax_us": true,
+    "gst_au_in_nz": true,
+    "notes": "Full Merchant of Record — Lemon Squeezy handles VAT, sales tax, GST collection and remittance globally."
+  },
+  "fees": {
+    "card_domestic_pct": 5,
+    "card_domestic_fixed_usd": 0.5,
+    "notes": "5% + $0.50 per transaction (MoR-inclusive). Plus payout fees by region."
+  },
+  "kyc": {
+    "individual_allowed": true,
+    "time_to_activate_days": "0-1"
+  },
+  "developer_experience": {
+    "sdk_quality": 4,
+    "docs_quality": 5,
+    "sandbox": true,
+    "test_keys_prefix": "lmnsq_test_",
+    "live_keys_prefix": "lmnsq_live_"
+  },
+  "sdks": {
+    "node": {
+      "pkg": "@lemonsqueezy/lemonsqueezy.js"
+    },
+    "python": {
+      "pkg": "lemonsqueezy-python"
+    }
+  },
+  "api_version": "v1",
+  "recommended_api_flow": "checkout_overlay",
+  "frontend_options": [
+    "hosted",
+    "embedded"
+  ],
+  "anti_patterns": [
+    "Do not try to collect tax IDs yourself for VAT — Lemon Squeezy does it as the merchant of record.",
+    "Webhooks are not timestamped — always dedup by event id stored in your DB."
+  ],
+  "test_cards": {
+    "success": "4242 4242 4242 4242",
+    "decline": "4000 0000 0000 0002"
+  },
+  "docs_url": "https://docs.lemonsqueezy.com",
+  "score_modifiers": {
+    "digital_goods_cross_border": 4,
+    "wants_no_fiscal_overhead": 4,
+    "latam_individual_seller": 2,
+    "us_saas": 1,
+    "needs_cash_payment_only": -5,
+    "marketplace_multi_seller": -4
+  },
+  "notes": [
+    "Acquired by Stripe in July 2024. Still operates independently in 2026. Stripe Managed Payments is the successor for new MoR users (preview April 2026)."
+  ]
+}

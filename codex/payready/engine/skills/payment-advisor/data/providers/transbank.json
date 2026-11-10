@@ -1,0 +1,110 @@
+{
+  "id": "transbank",
+  "name": "Transbank Webpay Plus",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 2,
+  "integration_level": "advise",
+  "role": "acquirer",
+  "merchant_domicile_regions": [
+    "CL"
+  ],
+  "method_coverage_regions": [
+    "CL"
+  ],
+  "currencies": [
+    "CLP"
+  ],
+  "methods": [
+    "card",
+    "redcompra"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "return_url_commit",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "NONE — Transbank has NO webhooks. Flow is: POST /transactions to create, redirect the buyer, receive a POST back to return_url carrying `token_ws`, then MANDATORY `PUT /rswebpaytransaction/api/webpay/v1.2/transactions/{token}` to commit. An uncommitted transaction is reversed automatically. Generating a webhook handler for Transbank is a correctness bug, not a gap.",
+    "expected_filenames": [
+      "webhook",
+      "transbank-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://www.transbankdevelopers.cl/documentacion/webpay",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "TRANSBANK_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Paired headers `Tbk-Api-Key-Id` (commerce code) and `Tbk-Api-Key-Secret` (API key). Public integration credentials exist for the sandbox. No `sk_`-style prefix — does not fit secret_key_pattern."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "TRANSBANK_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "TRANSBANK_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "TRANSBANK_API_KEY",
+    "webhook_secret": "TRANSBANK_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "Chilean entity and a commercial agreement required."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Transbank pricing is set per merchant contract and by the Chilean interchange regime; no public flat rate verified. Do not populate."
+  },
+  "docs_url": "https://www.transbankdevelopers.cl/documentacion/webpay",
+  "score_modifiers": {},
+  "notes": [
+    "Transbank does NOT send webhooks. Webpay Plus redirects the buyer back with a token and the merchant must commit it. An uncommitted transaction auto-reverses, so a missing commit is a money-loss bug that presents as 'the payment just failed'. Prefer the official SDK's getTransactionResult(), which fetches and acknowledges in one call, over a hand-rolled PUT. Deadline and endpoint above still need verification against Transbank's current docs before this provider is promoted past 'advise'.",
+    "Chile is effectively a Transbank monopoly for card acquiring; almost no Chilean e-commerce ships without Webpay Plus. Nothing currently in providers.json serves CL beyond Mercado Pago. Critically, it is the provider that most breaks PagoKit's webhook-shaped generator.",
+    "SDKs: Official first-party SDKs maintained under the TransbankDevelopers GitHub org for PHP, Node, Python, Ruby, Java and .NET, plus official Magento/WooCommerce/PrestaShop plugins. Strong SDK coverage.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Only real option for CL card acquiring. Complements fintoc/khipu (A2A bank transfer) rather than competing.",
+    "Onboarding: application_review. Chilean entity and a commercial agreement required."
+  ],
+  "commit_required": {
+    "sdk_method": "getTransactionResult(token)",
+    "endpoint": "PUT https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions/{token}",
+    "deadline_seconds": 600,
+    "on_timeout": "The transaction auto-reverses. Treat an uncommitted token as UNKNOWN, never as failed, and reconcile it against Transbank's status API before telling the buyer anything."
+  }
+}

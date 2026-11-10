@@ -1,0 +1,238 @@
+{
+  "$schema": "../../../schemas/use_cases.schema.json",
+  "use_cases": {
+    "marketplace": {
+      "description": "The user runs a platform where multiple third-party sellers collect payments through it (Stripe Connect / Adyen for Platforms / Mangopay use case).",
+      "trigger_heuristics": [
+        "table:vendors",
+        "table:sellers",
+        "table:merchants",
+        "model:Vendor",
+        "model:Seller",
+        "model:Merchant",
+        "route:/seller/*",
+        "route:/vendors/*",
+        "package:@stripe/connect"
+      ],
+      "confidence_threshold": 0.7,
+      "ask_if_below_threshold": "Do multiple independent sellers collect payments through your platform? / ¿Cobran múltiples vendedores independientes a través de tu plataforma?",
+      "required_provider_features": [
+        "supports.marketplace_payouts"
+      ],
+      "recommended_providers_ranked": [
+        "stripe"
+      ],
+      "template_path": "marketplace/",
+      "context_note": "Phase 1 supports Stripe Connect only. Adyen for Platforms and Mangopay ship in Phase 2/3."
+    },
+    "mobile_digital_goods": {
+      "description": "A mobile app (iOS / Android) selling digital goods or subscriptions. Apple/Google require their IAP system for digital content (post-Epic v. Apple 2025 there is a US carveout for external links, but with an entitlement requirement).",
+      "trigger_heuristics": [
+        "package:react-native",
+        "package:expo",
+        "file:Info.plist",
+        "file:AndroidManifest.xml",
+        "config:flutter.yaml",
+        "dependency:@react-native-firebase/app"
+      ],
+      "confidence_threshold": 0.9,
+      "context_note": "Apple and Google require their own in-app purchase system for digital content sold inside a native app. A merchant of record does not help here — from the store's point of view it is still an external card payment, and the build gets rejected the same way. The workable answer is StoreKit or Play Billing, usually wrapped by an entitlement layer so one integration serves both stores. Post Epic v. Apple (2025) US apps may link out to external payment under an entitlement, but that is an exception to apply deliberately, not a default.",
+      "recommended_providers_ranked": [
+        "revenuecat"
+      ],
+      "ask_if_below_threshold": "Is your app a mobile native app selling digital content? / ¿Es una app móvil nativa vendiendo contenido digital?",
+      "blocked_providers": [
+        "adyen",
+        "airwallex",
+        "bold",
+        "conekta",
+        "culqi",
+        "lemonsqueezy",
+        "mercadopago",
+        "mollie",
+        "paddle",
+        "paystack",
+        "polar",
+        "razorpay",
+        "square",
+        "stripe",
+        "wompi"
+      ],
+      "blocked_reason": "Apple and Google require their own in-app purchase system for digital content sold inside a native app. A card processor here gets the build rejected, so it is a wrong answer rather than a costlier one. Post Epic v. Apple (2025) US apps may link out to external payment with an entitlement, but that is an exception to apply deliberately, not a default.",
+      "compliance_artifacts": [
+        "App Store external-purchase entitlement (US only)",
+        "Restore-purchases flow",
+        "Server-side receipt validation"
+      ],
+      "required_role": "entitlement_layer"
+    },
+    "save_card_subscription": {
+      "description": "The app keeps a card on file for recurring billing or one-click purchases (SetupIntent on Stripe, vault tokens on Braintree, etc.).",
+      "trigger_heuristics": [
+        "model:Subscription",
+        "model:Plan",
+        "table:plans",
+        "table:subscriptions",
+        "route:/billing/*"
+      ],
+      "confidence_threshold": 0.6,
+      "ask_if_below_threshold": "Do you need to save the customer's card to charge again later? / ¿Necesitas guardar la tarjeta para cobrar de nuevo en el futuro?",
+      "required_provider_features": [
+        "supports.save_card",
+        "supports.subscriptions"
+      ],
+      "recommended_providers_ranked": [
+        "stripe",
+        "mercadopago",
+        "lemonsqueezy"
+      ]
+    },
+    "creator_donations": {
+      "description": "Creators / individuals collecting tips or donations without operating a full e-commerce. Hosted-checkout providers usually fit better than processor integrations.",
+      "trigger_heuristics": [
+        "file:Patreon",
+        "route:/tip/*",
+        "route:/donate/*"
+      ],
+      "confidence_threshold": 0.5,
+      "ask_if_below_threshold": "Is this a creator/donation profile rather than a product checkout? / ¿Es un perfil de creator o donaciones, no un checkout de producto?",
+      "recommended_providers_ranked": [
+        "lemonsqueezy",
+        "stripe"
+      ],
+      "context_note": "Ko-fi / BuyMeACoffee / Polar specialized donation providers ship in Phase 3. For a registered nonprofit rather than an individual creator, see nonprofit_donations — the difference is the tax receipt."
+    },
+    "metered_ai_usage": {
+      "description": "Usage-based billing for an AI or API product: charge per token, per call or per unit rather than a flat subscription. Increasingly what an application actually needs, and structurally different from both one-off and seat-based billing.",
+      "trigger_heuristics": [
+        "table:usage_events",
+        "table:credits",
+        "table:meters",
+        "model:UsageEvent",
+        "model:Credit",
+        "route:/usage/*",
+        "package:openai",
+        "package:@anthropic-ai/sdk",
+        "package:langchain",
+        "env:OPENAI_API_KEY",
+        "env:ANTHROPIC_API_KEY"
+      ],
+      "confidence_threshold": 0.3,
+      "ask_if_below_threshold": "Do you charge by usage — tokens, calls, units — rather than a flat monthly price? / ¿Cobras por uso (tokens, llamadas, unidades) en vez de un precio fijo mensual?",
+      "context_note": "A metering layer sits ON TOP of a payment provider; it does not replace one. The pair is what the integration needs. The hard part is idempotent event ingestion: a double-counted usage event is a double charge, and it is invisible until a customer checks the maths.",
+      "compliance_artifacts": [
+        "Usage event idempotency keys",
+        "Reconciliation between metered usage and invoiced usage"
+      ],
+      "required_layer": "billing_layer"
+    },
+    "high_risk_vertical": {
+      "description": "A vertical that mainstream aggregators contractually ban: firearms, CBD and nutraceuticals, adult content, gambling, kratom, debt collection, some telehealth. The account gets frozen mid-trading, usually after the first good month.",
+      "trigger_heuristics": [
+        "table:strains",
+        "table:firearms",
+        "model:Dispensary",
+        "route:/vape/*",
+        "route:/casino/*",
+        "package:age-verification"
+      ],
+      "confidence_threshold": 0.4,
+      "ask_if_below_threshold": "Is what you sell in a category most payment aggregators prohibit — firearms, CBD or nutra, adult, gambling? / ¿Vendes algo que la mayoría de agregadores prohíbe: armas, CBD, contenido adulto, apuestas?",
+      "blocked_providers": [
+        "stripe",
+        "square",
+        "paddle",
+        "polar",
+        "lemonsqueezy",
+        "mercadopago"
+      ],
+      "blocked_reason": "These are aggregators: you trade under their master merchant account, and their terms prohibit these categories. Approval is not the test — the account is frozen later, with funds held. The architecture that works is a gateway plus your own merchant account from a high-risk acquirer.",
+      "recommended_providers_ranked": [
+        "authorize_net"
+      ],
+      "context_note": "The distinction is architectural, not commercial. A gateway (Authorize.Net and similar) is separate from the merchant account, so the underwriting happens up front with an acquirer who knowingly accepts the vertical."
+    },
+    "card_present": {
+      "description": "Payments taken in person on a terminal, not in a browser. A different liability regime: EMV shifts fraud liability to the issuer, and the certification and hardware requirements are unrelated to card-not-present.",
+      "trigger_heuristics": [
+        "table:terminals",
+        "table:registers",
+        "model:Terminal",
+        "model:PosSession",
+        "route:/pos/*",
+        "package:@stripe/terminal-js"
+      ],
+      "confidence_threshold": 0.5,
+      "ask_if_below_threshold": "Do you take payments in person on a terminal? / ¿Cobras en persona con una terminal?",
+      "context_note": "Card-present needs certified hardware and a provider that supports it. Most of the catalog does not — check supports.card_present rather than assuming."
+    },
+    "agentic_seller": {
+      "description": "The buyer is an AI agent rather than a person: a shared payment token is presented on behalf of a human who set limits in advance.",
+      "trigger_heuristics": [
+        "route:/agent/*",
+        "route:/.well-known/agent*",
+        "env:ACP_MERCHANT_ID",
+        "package:@modelcontextprotocol/sdk",
+        "file:agent-manifest.json"
+      ],
+      "confidence_threshold": 0.5,
+      "ask_if_below_threshold": "Will AI agents buy from you on a human’s behalf? / ¿Van a comprarte agentes de IA en nombre de una persona?",
+      "context_note": "A shared payment token is a scoped, single-use credential. Charging over its limit is a decline and a trust breach; persisting it is a credential leak. The agentic-token-scope validator enforces the amount, expiry and currency checks.",
+      "compliance_artifacts": [
+        "Agent identity and mandate log",
+        "Per-token spend audit trail"
+      ]
+    },
+    "b2b_invoice_net_terms": {
+      "description": "Invoicing a business on net terms rather than charging a card at checkout. The payment happens days or weeks after the sale.",
+      "trigger_heuristics": [
+        "table:invoices",
+        "table:purchase_orders",
+        "model:Invoice",
+        "model:PurchaseOrder",
+        "route:/invoices/*",
+        "route:/billing/invoice*"
+      ],
+      "confidence_threshold": 0.5,
+      "ask_if_below_threshold": "Do you invoice business customers on payment terms instead of charging at checkout? / ¿Facturas a empresas con plazos de pago en vez de cobrar en el checkout?",
+      "context_note": "The rails are bank transfer and direct debit, not cards, and the accounting is accrual: revenue is recognised at invoice, cash arrives later. Dunning here is a collections process, not a card retry schedule.",
+      "compliance_artifacts": [
+        "Invoice numbering sequence",
+        "Aged receivables reconciliation"
+      ]
+    },
+    "cross_border_payouts": {
+      "description": "Paying out to recipients in other countries — a marketplace paying sellers, a platform paying creators, a company paying contractors.",
+      "trigger_heuristics": [
+        "table:payouts",
+        "table:sellers",
+        "table:contractors",
+        "model:Payout",
+        "route:/payouts/*"
+      ],
+      "confidence_threshold": 0.5,
+      "ask_if_below_threshold": "Do you pay money OUT to people in other countries, not just collect it? / ¿Envías dinero a personas en otros países, no solo cobras?",
+      "required_provider_features": [
+        "supports.marketplace_payouts"
+      ],
+      "context_note": "Paying out is a different licence from collecting, and FX and settlement currency start to matter. This is the case where an aggregator usually beats N local providers."
+    },
+    "nonprofit_donations": {
+      "description": "Donations rather than a product sale: variable amounts, recurring giving, and a tax receipt the donor expects.",
+      "trigger_heuristics": [
+        "table:donations",
+        "table:donors",
+        "model:Donation",
+        "route:/donate/*",
+        "route:/give/*"
+      ],
+      "confidence_threshold": 0.5,
+      "ask_if_below_threshold": "Are these donations rather than product sales? / ¿Son donaciones y no venta de productos?",
+      "context_note": "Several providers offer nonprofit pricing on proof of status. The donor-facing requirement is usually the tax receipt, which is a separate artifact from the payment confirmation.",
+      "compliance_artifacts": [
+        "Tax-deductible receipt",
+        "Recurring giving cancellation notice"
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "id": "bold",
+  "name": "Bold.co",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 1,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "CO"
+  ],
+  "method_coverage_regions": [
+    "CO"
+  ],
+  "currencies": [
+    "COP"
+  ],
+  "methods": [
+    "card",
+    "pse",
+    "nequi",
+    "daviplata",
+    "bre_b"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED. Header `x-bold-signature`. Algorithm HMAC-SHA256, output hex. IMPORTANT: the signed message is the BASE64 encoding of the request body, not the raw body — a generator that hashes the raw body will fail every time. NO timestamp is covered, so replay mitigation must be event-id dedup only. Events: SALE_APPROVED, SALE_REJECTED, VOID_APPROVED, VOID_REJECTED. Sandbox quirk: the signature is computed with an EMPTY key.",
+    "expected_filenames": [
+      "webhook",
+      "bold-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developers.bold.co/webhook",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "BOLD_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Paired identity key and secret key, per environment (production/testing), retrieved from the merchant panel. No documented prefix — leave regex null. Note the webhook selects a signing key by payment method, so a merchant may hold several."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "BOLD_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "BOLD_API_KEY",
+    "webhook_secret": "BOLD_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Bold publishes marketing rates that vary by method and by promotional period; none verified against docs. Do not populate."
+  },
+  "docs_url": "https://developers.bold.co/webhook",
+  "score_modifiers": {},
+  "notes": [
+    "The fastest-growing Colombian acquirer and the main self-serve alternative to Wompi (Bancolombia-owned). Gives PagoKit a second CO option that is not tied to one bank, with a clean, fully documented HMAC scheme.",
+    "SDKs: No official server SDK verified. Official WooCommerce/WordPress plugins and a JS payment button exist. REST-only.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Direct competitor to the already-shipped wompi. Add as the non-Bancolombia option; both should carry bre_b once it is exposed via their APIs.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "flow_cl",
+  "name": "Flow.cl",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 2,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "CL"
+  ],
+  "method_coverage_regions": [
+    "CL"
+  ],
+  "currencies": [
+    "CLP"
+  ],
+  "methods": [
+    "card",
+    "redcompra",
+    "transferencia_cl",
+    "servipag"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "ping_then_poll",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "SORTED-PARAM HMAC, applied to BOTH directions. Every request and confirmation carries an `s` parameter: sort all params alphabetically by name, concatenate as name+value with no separators (e.g. `amount5000apiKeyXXXXcurrencyCLP`), then HMAC-SHA256 with your secretKey. NO timestamp is covered. Additionally the urlConfirmation POST delivers only a `token` — you MUST call payment/getStatus to obtain the real result. This is a ping-then-poll flow, not a trustworthy payload.",
+    "expected_filenames": [
+      "webhook",
+      "flow_cl-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developers.flow.cl/en/docs/intro",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "FLOW_CL_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "apiKey (sent in params) + secretKey (never sent, used only to compute `s`). No prefix pattern documented. Sandbox at sandbox.flow.cl with separate credentials."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "FLOW_CL_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "FLOW_CL_API_KEY",
+    "webhook_secret": "FLOW_CL_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN for 2026. Do not populate."
+  },
+  "docs_url": "https://developers.flow.cl/en/docs/intro",
+  "score_modifiers": {},
+  "notes": [
+    "The self-serve Chilean alternative to Transbank's direct contract — a developer can sign up and ship in a day, which Transbank onboarding does not allow. Aggregates Webpay, Servipag and bank transfer behind one API.",
+    "SDKs: Official code examples for PHP, Node and Python are published in the docs; community packages exist. Not a full first-party SDK story.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Complements transbank — Flow is faster to onboard, Transbank is cheaper at volume and is what Flow ultimately routes card traffic through.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

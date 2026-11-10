@@ -1,0 +1,107 @@
+{
+  "id": "paddle",
+  "name": "Paddle (Paddle Billing)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 1,
+  "integration_level": "advise",
+  "role": "mor",
+  "merchant_domicile_regions": [
+    "EU",
+    "UK",
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "EU",
+    "UK",
+    "GLOBAL"
+  ],
+  "currencies": [
+    "GBP"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "ideal",
+    "bancontact"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": true,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Header `Paddle-Signature` with value `ts=<unix_seconds>;h1=<hex>`. HMAC-SHA256 over the string `<ts>:<raw_request_body>` (colon separator), keyed with the notification-destination secret. TIMESTAMP IS SIGNED — official SDK helpers enforce a 5-second tolerance by default; docs note 5–30 seconds is appropriate. Header may carry multiple `h1` values during secret rotation. Body must not be re-serialized. Verified.",
+    "expected_filenames": [
+      "webhook",
+      "paddle-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.paddle.com",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "PADDLE_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Webhook/notification secret prefix `pdl_ntfset_` VERIFIED (example in docs: pdl_ntfset_01gkpjp8bkm3tm53kdgkx6sms7_...). API key prefixes `pdl_live_apikey_` / `pdl_sdbx_apikey_` are reported but NOT verified this pass — mark UNKNOWN in provi"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "PADDLE_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "PADDLE_API_KEY",
+    "webhook_secret": "PADDLE_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — not verified this pass. The commonly cited figure is 5% + $0.50 per transaction, but Paddle's published rate card was not confirmed in this research pass; do not ship a number until re-verified."
+  },
+  "docs_url": "https://developer.paddle.com",
+  "score_modifiers": {},
+  "notes": [
+    "The merchant-of-record default for EU/UK B2B SaaS. It removes EU VAT OSS registration, per-country VAT rates, reverse-charge/VIES B2B validation and invoicing from generated code entirely — that is a large block of code PagoKit otherwise has to emit and keep correct. Lemon Squeezy (shipped) is an MoR too but is positioned at small digital-goods sellers; Paddle is what EU SaaS with B2B invoicing actually uses.",
+    "SDKs: Official SDKs: node (@paddle/paddle-node-sdk), python (paddle-python-sdk), php (paddlehq/paddle-php-sdk), plus a JS checkout SDK (@paddle/paddle-js). Each has a webhook verifier that enforces the timestamp tolerance — use it rather than hand-rolling.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps lemonsqueezy (both MoR). Differentiator: B2B invoicing, VAT-number validation, and EU SaaS subscription tooling.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ],
+  "mor": {
+    "is_mor": true,
+    "mode": "always"
+  }
+}

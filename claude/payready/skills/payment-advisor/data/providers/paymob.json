@@ -1,0 +1,120 @@
+{
+  "id": "paymob",
+  "name": "Paymob",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 6,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "EG",
+    "AE",
+    "SA",
+    "OM",
+    "PK"
+  ],
+  "method_coverage_regions": [
+    "EG",
+    "AE",
+    "SA",
+    "OM",
+    "PK"
+  ],
+  "currencies": [
+    "AED",
+    "EGP",
+    "OMR",
+    "PKR",
+    "SAR"
+  ],
+  "methods": [
+    "card",
+    "meeza",
+    "eg_mobile_wallet",
+    "instapay",
+    "fawry_cash",
+    "valu",
+    "apple_pay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "PARTIALLY VERIFIED — and structurally unusual. Paymob computes HMAC-SHA512 keyed with the dashboard HMAC secret over an ordered concatenation of specific transaction fields (the field list and order differ per callback type), NOT over the raw body. It is delivered as an `hmac` value alongside the callback — query string on the browser 'response' callback, body field on the server-to-server 'processed' callback — NOT in a header. No timestamp. CRITICAL: the exact field order could not be confirmed from primary docs this session (developers.paymob.com HMAC pages returned 404). Treat the field or",
+    "expected_filenames": [
+      "webhook",
+      "paymob-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developers.paymob.com/hub/egypt",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "PAYMOB_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN as regexes. Paymob issues four distinct credentials — API Key (long JWT-like string), Public Key, Secret Key, and a separate HMAC secret — plus numeric Integration IDs and Iframe IDs. The four-credential model breaks any schema assu"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "PAYMOB_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "PAYMOB_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "PAYMOB_API_KEY",
+    "webhook_secret": "PAYMOB_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "Local entity and documentation required."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Paymob quotes per-market and per-method (Meeza, wallet, Fawry and card all price differently in Egypt) and does not publish a single public rate card. Leave null."
+  },
+  "docs_url": "https://developers.paymob.com/hub/egypt",
+  "score_modifiers": {},
+  "notes": [
+    "The default PSP for Egypt and the only realistic single integration covering Meeza cards, Egyptian mobile wallets, Fawry cash reference codes and InstaPay together. Egypt is card-thin and cash/wallet-heavy; a card-only Egyptian checkout converts badly.",
+    "SDKs: No first-party server SDKs. Community: `paymob` (PyPI), `nafezly/payments` (Composer, multi-gateway incl. Paymob/Fawry/Kashier). Emit direct REST.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Kashier and Fawry in Egypt. Paymob is the broader single integration; Fawry direct is only worth it if cash agents are the primary channel.",
+    "Onboarding: application_review. Local entity and documentation required."
+  ]
+}

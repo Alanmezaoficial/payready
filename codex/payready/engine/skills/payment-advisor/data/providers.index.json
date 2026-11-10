@@ -1,0 +1,2402 @@
+{
+  "_generated": "GENERATED FILE - do not edit by hand. Source of truth: skills/payment-advisor/data/providers/<id>.json. Run `npm run build:catalog`.",
+  "_comment": "Slim catalog index. The advisor loads THIS, filters and ranks, then reads providers/<id>.json only for the finalists.",
+  "count": 42,
+  "by_level": {
+    "build": [
+      "lemonsqueezy",
+      "mercadopago",
+      "stripe",
+      "wompi"
+    ],
+    "generic": [],
+    "advise": [
+      "adyen",
+      "airwallex",
+      "antom",
+      "asaas",
+      "authorize_net",
+      "bold",
+      "conekta",
+      "culqi",
+      "dlocal_go",
+      "epayco",
+      "fintoc",
+      "flow_cl",
+      "flutterwave",
+      "gocardless",
+      "hyperswitch",
+      "kushki",
+      "lago",
+      "midtrans",
+      "mobbex",
+      "mollie",
+      "mpesa_daraja",
+      "paddle",
+      "pagarme",
+      "paymob",
+      "paymongo",
+      "paystack",
+      "placetopay",
+      "polar",
+      "razorpay",
+      "recurrente",
+      "redsys",
+      "revenuecat",
+      "revolut_merchant",
+      "square",
+      "tap_payments",
+      "transbank",
+      "xendit",
+      "yoco"
+    ]
+  },
+  "providers": [
+    {
+      "id": "adyen",
+      "name": "Adyen",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "acquirer",
+      "wave": 4,
+      "merchant_domicile_regions": [
+        "EU",
+        "UK",
+        "NL",
+        "BE",
+        "DE",
+        "FR",
+        "ES",
+        "IT",
+        "PT",
+        "PL",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "CH",
+        "AT",
+        "IE",
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "EU",
+        "UK",
+        "NL",
+        "BE",
+        "DE",
+        "FR",
+        "ES",
+        "IT",
+        "PT",
+        "PL",
+        "SE",
+        "NO",
+        "DK",
+        "FI",
+        "CH",
+        "AT",
+        "IE",
+        "GLOBAL"
+      ],
+      "currencies": [
+        "CHF",
+        "DKK",
+        "EUR",
+        "GBP",
+        "NOK",
+        "PLN",
+        "SEK"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "paypal",
+        "ideal",
+        "bancontact",
+        "sepa_debit",
+        "klarna",
+        "blik",
+        "p24",
+        "eps",
+        "multibanco",
+        "mbway",
+        "twint",
+        "swish",
+        "vipps_mobilepay",
+        "wero",
+        "satispay",
+        "bizum",
+        "pay_by_bank",
+        "riverty",
+        "billie"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "sales_gated",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.adyen.com"
+    },
+    {
+      "id": "airwallex",
+      "name": "Airwallex",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "acquirer",
+      "wave": 5,
+      "merchant_domicile_regions": [
+        "HK",
+        "SG",
+        "AU",
+        "NZ",
+        "JP",
+        "CN",
+        "MY",
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "HK",
+        "SG",
+        "AU",
+        "NZ",
+        "JP",
+        "CN",
+        "MY",
+        "GLOBAL"
+      ],
+      "currencies": [
+        "AUD",
+        "CNY",
+        "HKD",
+        "JPY",
+        "MYR",
+        "NZD",
+        "SGD"
+      ],
+      "methods": [
+        "card",
+        "fps",
+        "payme",
+        "alipay_hk",
+        "octopus",
+        "paynow",
+        "payto",
+        "becs_debit",
+        "alipay",
+        "wechat_pay",
+        "apple_pay",
+        "google_pay",
+        "klarna",
+        "afterpay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://www.airwallex.com/docs"
+    },
+    {
+      "id": "antom",
+      "name": "Antom (Ant International — Alipay+ / Alipay / WeChat Pay acquiring)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "aggregator",
+      "wave": 5,
+      "merchant_domicile_regions": [
+        "CN",
+        "HK",
+        "SG",
+        "MY",
+        "TH",
+        "ID",
+        "PH",
+        "VN",
+        "KR",
+        "JP",
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "CN",
+        "HK",
+        "SG",
+        "MY",
+        "TH",
+        "ID",
+        "PH",
+        "VN",
+        "KR",
+        "JP",
+        "GLOBAL"
+      ],
+      "currencies": [
+        "CNY",
+        "HKD",
+        "IDR",
+        "JPY",
+        "KRW",
+        "MYR",
+        "PHP",
+        "SGD",
+        "THB",
+        "VND"
+      ],
+      "methods": [
+        "alipay",
+        "alipay_plus",
+        "wechat_pay",
+        "unionpay",
+        "card",
+        "gcash",
+        "dana",
+        "truemoney",
+        "tng_ewallet",
+        "kakao_pay",
+        "gopay",
+        "shopeepay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "sales_gated",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.antom.com/"
+    },
+    {
+      "id": "asaas",
+      "name": "Asaas",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 1,
+      "merchant_domicile_regions": [
+        "BR"
+      ],
+      "method_coverage_regions": [
+        "BR"
+      ],
+      "currencies": [
+        "BRL"
+      ],
+      "methods": [
+        "pix",
+        "pix_automatico",
+        "boleto",
+        "card"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.asaas.com/docs/sobre-os-webhooks"
+    },
+    {
+      "id": "authorize_net",
+      "name": "Authorize.Net (Visa Acceptance)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 7,
+      "merchant_domicile_regions": [
+        "US",
+        "CA",
+        "UK",
+        "AU",
+        "EU"
+      ],
+      "method_coverage_regions": [
+        "US",
+        "CA",
+        "UK",
+        "AU",
+        "EU"
+      ],
+      "currencies": [
+        "AUD",
+        "CAD",
+        "GBP",
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "ach_debit",
+        "apple_pay",
+        "google_pay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.authorize.net/api/reference/features/webhooks.html"
+    },
+    {
+      "id": "bold",
+      "name": "Bold.co",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 1,
+      "merchant_domicile_regions": [
+        "CO"
+      ],
+      "method_coverage_regions": [
+        "CO"
+      ],
+      "currencies": [
+        "COP"
+      ],
+      "methods": [
+        "card",
+        "pse",
+        "nequi",
+        "daviplata",
+        "bre_b"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developers.bold.co/webhook"
+    },
+    {
+      "id": "conekta",
+      "name": "Conekta",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 1,
+      "merchant_domicile_regions": [
+        "MX"
+      ],
+      "method_coverage_regions": [
+        "MX"
+      ],
+      "currencies": [
+        "MXN"
+      ],
+      "methods": [
+        "card",
+        "oxxo",
+        "spei",
+        "google_pay",
+        "codi"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developers.conekta.com/docs/autenticaci%C3%B3n-webhooks"
+    },
+    {
+      "id": "culqi",
+      "name": "Culqi",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 2,
+      "merchant_domicile_regions": [
+        "PE"
+      ],
+      "method_coverage_regions": [
+        "PE"
+      ],
+      "currencies": [
+        "PEN"
+      ],
+      "methods": [
+        "card",
+        "yape",
+        "pagoefectivo",
+        "cuotealo"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "none",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "sales_gated",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.culqi.com/es/documentacion/pagos-online/llaves"
+    },
+    {
+      "id": "dlocal_go",
+      "name": "dLocal Go",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "aggregator",
+      "wave": 2,
+      "merchant_domicile_regions": [
+        "AR",
+        "BR",
+        "CL",
+        "CO",
+        "MX",
+        "PE",
+        "UY"
+      ],
+      "method_coverage_regions": [
+        "AR",
+        "BR",
+        "CL",
+        "CO",
+        "MX",
+        "PE",
+        "UY"
+      ],
+      "currencies": [
+        "ARS",
+        "BRL",
+        "CLP",
+        "COP",
+        "MXN",
+        "PEN",
+        "UYU"
+      ],
+      "methods": [
+        "card",
+        "pix",
+        "spei",
+        "pse",
+        "boleto",
+        "oxxo",
+        "yape",
+        "plin",
+        "sinpe_movil",
+        "nequi",
+        "efecty",
+        "rapipago",
+        "pago_facil",
+        "servipag",
+        "pagoefectivo",
+        "qr_simple_bo",
+        "yappy"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.dlocal.com/"
+    },
+    {
+      "id": "epayco",
+      "name": "ePayco",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 3,
+      "merchant_domicile_regions": [
+        "CO"
+      ],
+      "method_coverage_regions": [
+        "CO"
+      ],
+      "currencies": [
+        "COP"
+      ],
+      "methods": [
+        "card",
+        "pse",
+        "nequi",
+        "daviplata",
+        "efecty",
+        "baloto",
+        "su_red"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.epayco.com/docs/url-de-confirmacion"
+    },
+    {
+      "id": "fintoc",
+      "name": "Fintoc",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "banking_rails",
+      "wave": 3,
+      "merchant_domicile_regions": [
+        "CL",
+        "MX"
+      ],
+      "method_coverage_regions": [
+        "CL",
+        "MX"
+      ],
+      "currencies": [
+        "CLP",
+        "MXN"
+      ],
+      "methods": [
+        "transferencia_cl",
+        "spei",
+        "pac_chile"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.fintoc.com/docs/webhooks-validating"
+    },
+    {
+      "id": "flow_cl",
+      "name": "Flow.cl",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 2,
+      "merchant_domicile_regions": [
+        "CL"
+      ],
+      "method_coverage_regions": [
+        "CL"
+      ],
+      "currencies": [
+        "CLP"
+      ],
+      "methods": [
+        "card",
+        "redcompra",
+        "transferencia_cl",
+        "servipag"
+      ],
+      "notification_model": "ping_then_poll",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developers.flow.cl/en/docs/intro"
+    },
+    {
+      "id": "flutterwave",
+      "name": "Flutterwave",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 6,
+      "merchant_domicile_regions": [
+        "NG",
+        "GH",
+        "KE",
+        "UG",
+        "TZ",
+        "RW",
+        "ZM",
+        "ZA",
+        "CI",
+        "SN",
+        "CM",
+        "MW",
+        "EG",
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "NG",
+        "GH",
+        "KE",
+        "UG",
+        "TZ",
+        "RW",
+        "ZM",
+        "ZA",
+        "CI",
+        "SN",
+        "CM",
+        "MW",
+        "EG",
+        "GLOBAL"
+      ],
+      "currencies": [
+        "EGP",
+        "GHS",
+        "KES",
+        "NGN",
+        "RWF",
+        "TZS",
+        "UGX",
+        "XAF",
+        "XOF",
+        "ZAR",
+        "ZMW"
+      ],
+      "methods": [
+        "card",
+        "verve",
+        "ng_bank_transfer",
+        "ng_ussd",
+        "mpesa",
+        "mtn_momo",
+        "airtel_money",
+        "eft_za",
+        "apple_pay",
+        "google_pay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.flutterwave.com/docs"
+    },
+    {
+      "id": "gocardless",
+      "name": "GoCardless",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "banking_rails",
+      "wave": 4,
+      "merchant_domicile_regions": [
+        "UK",
+        "EU",
+        "IE",
+        "DE",
+        "FR",
+        "ES",
+        "IT",
+        "NL",
+        "BE",
+        "SE",
+        "DK",
+        "AT",
+        "PT",
+        "PL",
+        "AU",
+        "NZ",
+        "CA",
+        "US"
+      ],
+      "method_coverage_regions": [
+        "UK",
+        "EU",
+        "IE",
+        "DE",
+        "FR",
+        "ES",
+        "IT",
+        "NL",
+        "BE",
+        "SE",
+        "DK",
+        "AT",
+        "PT",
+        "PL",
+        "AU",
+        "NZ",
+        "CA",
+        "US"
+      ],
+      "currencies": [
+        "AUD",
+        "CAD",
+        "DKK",
+        "EUR",
+        "GBP",
+        "NZD",
+        "PLN",
+        "SEK",
+        "USD"
+      ],
+      "methods": [
+        "sepa_debit",
+        "bacs_debit",
+        "ach_debit",
+        "pay_by_bank"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.gocardless.com"
+    },
+    {
+      "id": "hyperswitch",
+      "name": "Hyperswitch (Juspay)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "orchestrator",
+      "wave": 7,
+      "merchant_domicile_regions": [
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "GLOBAL"
+      ],
+      "currencies": [
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "paypal",
+        "upi",
+        "pix",
+        "klarna",
+        "sepa_debit",
+        "ach_debit"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "none",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.hyperswitch.io/integration-guide/webhooks"
+    },
+    {
+      "id": "kushki",
+      "name": "Kushki",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "aggregator",
+      "wave": 1,
+      "merchant_domicile_regions": [
+        "EC",
+        "CO",
+        "PE",
+        "CL",
+        "MX",
+        "BR"
+      ],
+      "method_coverage_regions": [
+        "EC",
+        "CO",
+        "PE",
+        "CL",
+        "MX",
+        "BR"
+      ],
+      "currencies": [
+        "BRL",
+        "CLP",
+        "COP",
+        "MXN",
+        "PEN",
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "pse",
+        "spei",
+        "pix",
+        "transferencia_cl",
+        "nequi",
+        "yape"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.kushki.com/cl/en/notifications/overview/"
+    },
+    {
+      "id": "lago",
+      "name": "Lago",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "billing_layer",
+      "wave": 7,
+      "merchant_domicile_regions": [
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "GLOBAL"
+      ],
+      "currencies": [
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "sepa_debit",
+        "ach_debit"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://www.getlago.com/docs/api-reference/webhooks/format---signature"
+    },
+    {
+      "id": "lemonsqueezy",
+      "name": "Lemon Squeezy",
+      "status": "active",
+      "integration_level": "build",
+      "role": "mor",
+      "wave": 0,
+      "merchant_domicile_regions": [
+        "US",
+        "CA",
+        "UK",
+        "EU",
+        "AU",
+        "NZ",
+        "JP",
+        "MX",
+        "BR",
+        "CO",
+        "AR",
+        "CL",
+        "PE",
+        "ZA",
+        "NG",
+        "KE",
+        "IN",
+        "SG",
+        "HK"
+      ],
+      "method_coverage_regions": [
+        "GLOBAL"
+      ],
+      "currencies": [
+        "USD",
+        "EUR",
+        "GBP",
+        "CAD",
+        "AUD",
+        "JPY",
+        "MXN",
+        "BRL",
+        "COP",
+        "ARS",
+        "CLP",
+        "PEN",
+        "ZAR",
+        "NGN",
+        "KES",
+        "INR",
+        "SGD",
+        "HKD"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "paypal",
+        "klarna",
+        "afterpay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "hmac_raw_body",
+      "webhook_confidence": "high",
+      "onboarding_model": "application_review",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": true,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {
+        "card_domestic_pct": 5,
+        "card_domestic_fixed_usd": 0.5
+      },
+      "score_modifiers": {
+        "digital_goods_cross_border": 4,
+        "wants_no_fiscal_overhead": 4,
+        "latam_individual_seller": 2,
+        "us_saas": 1,
+        "needs_cash_payment_only": -5,
+        "marketplace_multi_seller": -4
+      },
+      "last_verified_at": "2026-05-20",
+      "docs_url": "https://docs.lemonsqueezy.com"
+    },
+    {
+      "id": "mercadopago",
+      "name": "Mercado Pago",
+      "status": "active",
+      "integration_level": "build",
+      "role": "psp",
+      "wave": 0,
+      "merchant_domicile_regions": [
+        "AR",
+        "BR",
+        "CL",
+        "CO",
+        "MX",
+        "PE",
+        "UY"
+      ],
+      "method_coverage_regions": [
+        "AR",
+        "BR",
+        "CL",
+        "CO",
+        "MX",
+        "PE",
+        "UY"
+      ],
+      "currencies": [
+        "ARS",
+        "BRL",
+        "CLP",
+        "COP",
+        "MXN",
+        "PEN",
+        "UYU"
+      ],
+      "methods": [
+        "card",
+        "pix",
+        "boleto",
+        "oxxo",
+        "spei",
+        "pse",
+        "efecty",
+        "pago_facil",
+        "rapipago",
+        "servipag",
+        "pagoefectivo",
+        "mercadopago_wallet"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "hmac_field_concat",
+      "webhook_confidence": "high",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {
+        "card_domestic_pct": 3.49
+      },
+      "score_modifiers": {
+        "latam_individual_seller": 3,
+        "needs_cash_payment_only": 2,
+        "us_saas": -3,
+        "marketplace_multi_seller": 1,
+        "digital_goods_cross_border": -1
+      },
+      "last_verified_at": "2026-05-20",
+      "docs_url": "https://www.mercadopago.com/developers/en"
+    },
+    {
+      "id": "midtrans",
+      "name": "Midtrans (GoTo Financial)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 5,
+      "merchant_domicile_regions": [
+        "ID"
+      ],
+      "method_coverage_regions": [
+        "ID"
+      ],
+      "currencies": [
+        "IDR"
+      ],
+      "methods": [
+        "card",
+        "qris",
+        "virtual_account_id",
+        "gopay",
+        "shopeepay",
+        "dana",
+        "alfamart_indomaret",
+        "kredivo",
+        "akulaku"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.midtrans.com/"
+    },
+    {
+      "id": "mobbex",
+      "name": "Mobbex",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 3,
+      "merchant_domicile_regions": [
+        "AR"
+      ],
+      "method_coverage_regions": [
+        "AR"
+      ],
+      "currencies": [
+        "ARS"
+      ],
+      "methods": [
+        "card",
+        "modo",
+        "transferencias_30",
+        "rapipago",
+        "pago_facil"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "none",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://mobbex.dev/webhooks"
+    },
+    {
+      "id": "mollie",
+      "name": "Mollie",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 4,
+      "merchant_domicile_regions": [
+        "NL",
+        "BE",
+        "DE",
+        "FR",
+        "AT",
+        "ES",
+        "IT",
+        "PT",
+        "PL",
+        "IE",
+        "UK",
+        "DK",
+        "SE",
+        "NO",
+        "FI",
+        "CH",
+        "LU",
+        "EU"
+      ],
+      "method_coverage_regions": [
+        "NL",
+        "BE",
+        "DE",
+        "FR",
+        "AT",
+        "ES",
+        "IT",
+        "PT",
+        "PL",
+        "IE",
+        "UK",
+        "DK",
+        "SE",
+        "NO",
+        "FI",
+        "CH",
+        "LU",
+        "EU"
+      ],
+      "currencies": [
+        "CHF",
+        "DKK",
+        "EUR",
+        "GBP",
+        "NOK",
+        "PLN",
+        "SEK"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "paypal",
+        "ideal",
+        "bancontact",
+        "sepa_debit",
+        "klarna",
+        "blik",
+        "p24",
+        "eps",
+        "multibanco",
+        "satispay",
+        "bizum",
+        "swish",
+        "vipps_mobilepay",
+        "paysafecard",
+        "billie",
+        "riverty"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "none",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.mollie.com"
+    },
+    {
+      "id": "mpesa_daraja",
+      "name": "Safaricom M-Pesa (Daraja API)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 6,
+      "merchant_domicile_regions": [
+        "KE"
+      ],
+      "method_coverage_regions": [
+        "KE"
+      ],
+      "currencies": [
+        "KES"
+      ],
+      "methods": [
+        "mpesa"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.safaricom.co.ke/"
+    },
+    {
+      "id": "paddle",
+      "name": "Paddle (Paddle Billing)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "mor",
+      "wave": 1,
+      "merchant_domicile_regions": [
+        "EU",
+        "UK",
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "EU",
+        "UK",
+        "GLOBAL"
+      ],
+      "currencies": [
+        "GBP"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "paypal",
+        "ideal",
+        "bancontact"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": true,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.paddle.com"
+    },
+    {
+      "id": "pagarme",
+      "name": "Pagar.me",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 2,
+      "merchant_domicile_regions": [
+        "BR"
+      ],
+      "method_coverage_regions": [
+        "BR"
+      ],
+      "currencies": [
+        "BRL"
+      ],
+      "methods": [
+        "card",
+        "pix",
+        "boleto",
+        "pix_parcelado"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.pagar.me/reference/vis%C3%A3o-geral-sobre-webhooks"
+    },
+    {
+      "id": "paymob",
+      "name": "Paymob",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 6,
+      "merchant_domicile_regions": [
+        "EG",
+        "AE",
+        "SA",
+        "OM",
+        "PK"
+      ],
+      "method_coverage_regions": [
+        "EG",
+        "AE",
+        "SA",
+        "OM",
+        "PK"
+      ],
+      "currencies": [
+        "AED",
+        "EGP",
+        "OMR",
+        "PKR",
+        "SAR"
+      ],
+      "methods": [
+        "card",
+        "meeza",
+        "eg_mobile_wallet",
+        "instapay",
+        "fawry_cash",
+        "valu",
+        "apple_pay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "none",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developers.paymob.com/hub/egypt"
+    },
+    {
+      "id": "paymongo",
+      "name": "PayMongo",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 5,
+      "merchant_domicile_regions": [
+        "PH"
+      ],
+      "method_coverage_regions": [
+        "PH"
+      ],
+      "currencies": [
+        "PHP"
+      ],
+      "methods": [
+        "card",
+        "gcash",
+        "maya",
+        "grabpay",
+        "qr_ph",
+        "instapay",
+        "billease",
+        "shopee_paylater",
+        "google_pay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.paymongo.com/"
+    },
+    {
+      "id": "paystack",
+      "name": "Paystack",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 6,
+      "merchant_domicile_regions": [
+        "NG",
+        "GH",
+        "ZA",
+        "KE",
+        "CI"
+      ],
+      "method_coverage_regions": [
+        "NG",
+        "GH",
+        "ZA",
+        "KE",
+        "CI"
+      ],
+      "currencies": [
+        "GHS",
+        "KES",
+        "NGN",
+        "XOF",
+        "ZAR"
+      ],
+      "methods": [
+        "card",
+        "verve",
+        "ng_bank_transfer",
+        "ng_ussd",
+        "nqr",
+        "mpesa",
+        "mtn_momo",
+        "apple_pay",
+        "eft_za"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://paystack.com/docs"
+    },
+    {
+      "id": "placetopay",
+      "name": "Placetopay (Evertec)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 3,
+      "merchant_domicile_regions": [
+        "CO",
+        "EC",
+        "CL",
+        "PE",
+        "CR",
+        "PA",
+        "GT",
+        "HN",
+        "DO"
+      ],
+      "method_coverage_regions": [
+        "CO",
+        "EC",
+        "CL",
+        "PE",
+        "CR",
+        "PA",
+        "GT",
+        "HN",
+        "DO"
+      ],
+      "currencies": [
+        "CLP",
+        "COP",
+        "CRC",
+        "DOP",
+        "GTQ",
+        "HNL",
+        "PEN",
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "pse",
+        "bre_b",
+        "sinpe_movil",
+        "nequi"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "unverified",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.placetopay.dev/en/gateway/authentication"
+    },
+    {
+      "id": "polar",
+      "name": "Polar",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "mor",
+      "wave": 1,
+      "merchant_domicile_regions": [
+        "GLOBAL",
+        "US",
+        "EU",
+        "UK"
+      ],
+      "method_coverage_regions": [
+        "GLOBAL",
+        "US",
+        "EU",
+        "UK"
+      ],
+      "currencies": [
+        "GBP",
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "link"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": true,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://polar.sh/docs/integrate/webhooks/delivery"
+    },
+    {
+      "id": "razorpay",
+      "name": "Razorpay",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 5,
+      "merchant_domicile_regions": [
+        "IN",
+        "MY"
+      ],
+      "method_coverage_regions": [
+        "IN",
+        "MY"
+      ],
+      "currencies": [
+        "INR",
+        "MYR"
+      ],
+      "methods": [
+        "card",
+        "upi",
+        "upi_autopay",
+        "netbanking_in",
+        "emi_in",
+        "wallet_in",
+        "paypal"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://razorpay.com/docs"
+    },
+    {
+      "id": "recurrente",
+      "name": "Recurrente",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 3,
+      "merchant_domicile_regions": [
+        "GT",
+        "SV",
+        "HN",
+        "CR",
+        "NI",
+        "PA"
+      ],
+      "method_coverage_regions": [
+        "GT",
+        "SV",
+        "HN",
+        "CR",
+        "NI",
+        "PA"
+      ],
+      "currencies": [
+        "CRC",
+        "GTQ",
+        "HNL",
+        "NIO",
+        "USD"
+      ],
+      "methods": [
+        "card"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.recurrente.com/"
+    },
+    {
+      "id": "redsys",
+      "name": "Redsys (TPV Virtual)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "acquirer",
+      "wave": 4,
+      "merchant_domicile_regions": [
+        "ES"
+      ],
+      "method_coverage_regions": [
+        "ES"
+      ],
+      "currencies": [
+        "EUR"
+      ],
+      "methods": [
+        "card",
+        "bizum",
+        "apple_pay",
+        "google_pay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "partner_certification",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://pagosonline.redsys.es/desarrolladores-inicio/"
+    },
+    {
+      "id": "revenuecat",
+      "name": "RevenueCat",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "entitlement_layer",
+      "wave": 7,
+      "merchant_domicile_regions": [
+        "GLOBAL"
+      ],
+      "method_coverage_regions": [
+        "GLOBAL"
+      ],
+      "currencies": [
+        "USD"
+      ],
+      "methods": [
+        "apple_iap",
+        "google_play_billing",
+        "card"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": false,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://www.revenuecat.com/docs/integrations/webhooks"
+    },
+    {
+      "id": "revolut_merchant",
+      "name": "Revolut Merchant (Revolut Business)",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 4,
+      "merchant_domicile_regions": [
+        "UK",
+        "EU",
+        "IE",
+        "FR",
+        "DE",
+        "ES",
+        "IT",
+        "NL",
+        "PL",
+        "LT",
+        "US"
+      ],
+      "method_coverage_regions": [
+        "UK",
+        "EU",
+        "IE",
+        "FR",
+        "DE",
+        "ES",
+        "IT",
+        "NL",
+        "PL",
+        "LT",
+        "US"
+      ],
+      "currencies": [
+        "EUR",
+        "GBP",
+        "PLN",
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "revolut_pay",
+        "pay_by_bank"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.revolut.com/docs/merchant"
+    },
+    {
+      "id": "square",
+      "name": "Square",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "acquirer",
+      "wave": 7,
+      "merchant_domicile_regions": [
+        "US",
+        "CA",
+        "UK",
+        "AU",
+        "JP",
+        "IE",
+        "FR",
+        "ES"
+      ],
+      "method_coverage_regions": [
+        "US",
+        "CA",
+        "UK",
+        "AU",
+        "JP",
+        "IE",
+        "FR",
+        "ES"
+      ],
+      "currencies": [
+        "AUD",
+        "CAD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "USD"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "cash_app_pay",
+        "afterpay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.squareup.com/docs/webhooks/step3validate"
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "status": "active",
+      "integration_level": "build",
+      "role": "psp",
+      "wave": 0,
+      "merchant_domicile_regions": [
+        "US",
+        "CA",
+        "UK",
+        "EU",
+        "MX",
+        "BR",
+        "SG",
+        "AU",
+        "NZ",
+        "HK",
+        "JP",
+        "PR"
+      ],
+      "method_coverage_regions": [
+        "US",
+        "CA",
+        "UK",
+        "EU",
+        "MX",
+        "BR",
+        "SG",
+        "AU",
+        "NZ",
+        "HK",
+        "JP",
+        "IN",
+        "PR"
+      ],
+      "currencies": [
+        "USD",
+        "EUR",
+        "GBP",
+        "CAD",
+        "AUD",
+        "MXN",
+        "BRL",
+        "SGD",
+        "JPY",
+        "HKD",
+        "NZD",
+        "INR"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay",
+        "sepa_debit",
+        "ach_debit",
+        "klarna",
+        "afterpay",
+        "oxxo",
+        "boleto",
+        "pix",
+        "bizum",
+        "usdc",
+        "link"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "hmac_timestamp_body",
+      "webhook_confidence": "high",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {
+        "card_domestic_pct": 2.9,
+        "card_domestic_fixed_usd": 0.3
+      },
+      "score_modifiers": {
+        "us_saas": 3,
+        "eu_subscription": 2,
+        "digital_goods_cross_border": -1,
+        "wants_no_fiscal_overhead": -2,
+        "marketplace_multi_seller": 2,
+        "ios_digital_goods": -5,
+        "latam_individual_seller": -2,
+        "needs_cash_payment_only": -3
+      },
+      "last_verified_at": "2026-05-20",
+      "docs_url": "https://stripe.com/docs"
+    },
+    {
+      "id": "tap_payments",
+      "name": "Tap Payments",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 6,
+      "merchant_domicile_regions": [
+        "SA",
+        "AE",
+        "KW",
+        "BH",
+        "QA",
+        "OM",
+        "EG",
+        "LB",
+        "JO"
+      ],
+      "method_coverage_regions": [
+        "SA",
+        "AE",
+        "KW",
+        "BH",
+        "QA",
+        "OM",
+        "EG",
+        "LB",
+        "JO"
+      ],
+      "currencies": [
+        "AED",
+        "BHD",
+        "EGP",
+        "JOD",
+        "KWD",
+        "OMR",
+        "QAR",
+        "SAR"
+      ],
+      "methods": [
+        "card",
+        "mada",
+        "knet",
+        "benefit",
+        "omannet",
+        "apple_pay",
+        "google_pay",
+        "tabby_bnpl"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": true,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developers.tap.company/docs/get-started"
+    },
+    {
+      "id": "transbank",
+      "name": "Transbank Webpay Plus",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "acquirer",
+      "wave": 2,
+      "merchant_domicile_regions": [
+        "CL"
+      ],
+      "method_coverage_regions": [
+        "CL"
+      ],
+      "currencies": [
+        "CLP"
+      ],
+      "methods": [
+        "card",
+        "redcompra"
+      ],
+      "notification_model": "return_url_commit",
+      "verification_family": "none",
+      "webhook_confidence": "medium",
+      "onboarding_model": "application_review",
+      "individual_allowed": false,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://www.transbankdevelopers.cl/documentacion/webpay"
+    },
+    {
+      "id": "wompi",
+      "name": "Wompi",
+      "status": "active",
+      "integration_level": "build",
+      "role": "acquirer",
+      "wave": 0,
+      "merchant_domicile_regions": [
+        "CO"
+      ],
+      "method_coverage_regions": [
+        "CO"
+      ],
+      "currencies": [
+        "COP"
+      ],
+      "methods": [
+        "card",
+        "pse",
+        "nequi",
+        "bancolombia_button",
+        "bancolombia_transfer",
+        "efecty",
+        "baloto",
+        "su_red"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "body_embedded_sig",
+      "webhook_confidence": "high",
+      "onboarding_model": "application_review",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {
+        "card_domestic_pct": 2.65
+      },
+      "score_modifiers": {
+        "latam_individual_seller": 1,
+        "needs_cash_payment_only": 2,
+        "marketplace_multi_seller": -3,
+        "us_saas": -5,
+        "eu_subscription": -5
+      },
+      "last_verified_at": "2026-05-20",
+      "docs_url": "https://docs.wompi.co"
+    },
+    {
+      "id": "xendit",
+      "name": "Xendit",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 5,
+      "merchant_domicile_regions": [
+        "ID",
+        "PH",
+        "VN",
+        "TH",
+        "MY"
+      ],
+      "method_coverage_regions": [
+        "ID",
+        "PH",
+        "VN",
+        "TH",
+        "MY"
+      ],
+      "currencies": [
+        "IDR",
+        "MYR",
+        "PHP",
+        "THB",
+        "VND"
+      ],
+      "methods": [
+        "card",
+        "qris",
+        "virtual_account_id",
+        "gopay",
+        "ovo",
+        "dana",
+        "shopeepay",
+        "gcash",
+        "maya",
+        "qr_ph",
+        "grabpay",
+        "alfamart_indomaret",
+        "kredivo",
+        "billease"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "none",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": true,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://docs.xendit.co/"
+    },
+    {
+      "id": "yoco",
+      "name": "Yoco",
+      "status": "active",
+      "integration_level": "advise",
+      "role": "psp",
+      "wave": 6,
+      "merchant_domicile_regions": [
+        "ZA"
+      ],
+      "method_coverage_regions": [
+        "ZA"
+      ],
+      "currencies": [
+        "ZAR"
+      ],
+      "methods": [
+        "card",
+        "apple_pay",
+        "google_pay"
+      ],
+      "notification_model": "webhook",
+      "verification_family": "unverified",
+      "webhook_confidence": "medium",
+      "onboarding_model": "self_serve",
+      "individual_allowed": true,
+      "supports": {
+        "one_time": true,
+        "subscriptions": false,
+        "marketplace_payouts": false,
+        "merchant_of_record": false,
+        "save_card": true,
+        "card_present": false
+      },
+      "fees": {},
+      "score_modifiers": {},
+      "last_verified_at": "2026-08-31",
+      "docs_url": "https://developer.yoco.com/online/"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "id": "paymongo",
+  "name": "PayMongo",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 5,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "PH"
+  ],
+  "method_coverage_regions": [
+    "PH"
+  ],
+  "currencies": [
+    "PHP"
+  ],
+  "methods": [
+    "card",
+    "gcash",
+    "maya",
+    "grabpay",
+    "qr_ph",
+    "instapay",
+    "billease",
+    "shopee_paylater",
+    "google_pay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Paymongo-Signature header, HMAC-SHA256 over the raw body, timing-safe compare, verified before any JSON parsing. The header is a comma-separated key=value list: t=<unix timestamp>, then te=<signature> for TEST-mode events and li=<signature> for LIVE-mode events — you must pick the component matching the mode of the key you hold. PARTIALLY VERIFIED: the header name, algorithm, raw-body requirement and the te/li mode split are confirmed; the exact concatenation used as the HMAC message and any recommended tolerance window are NOT published — treat the signed-string construction as needing a live",
+    "expected_filenames": [
+      "webhook",
+      "paymongo-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.paymongo.com/",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "PAYMONGO_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Basic auth with the secret key as username, empty password. Prefixes sk_ (secret, server-only) and pk_ (public, client-side) are CONFIRMED; the test/live infix (sk_test_ / sk_live_) is strongly implied by the SDK example sk_test_BQokikJOvBi"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "PAYMONGO_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "PAYMONGO_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "PAYMONGO_API_KEY",
+    "webhook_secret": "PAYMONGO_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "Cards 3.125% + PHP 13.39 per transaction, exclusive of VAT. Storefront add-on PHP 349/month. Medium confidence — from a 2026 comparison page, not a fetched PayMongo rate card. Local e-wallet (GCash/Maya) rates differ and are UNKNOWN."
+  },
+  "docs_url": "https://docs.paymongo.com/",
+  "score_modifiers": {},
+  "notes": [
+    "The Philippines is a self-serve-signup market with no shipped coverage, and PayMongo is the only PH gateway with a Stripe-shaped developer experience (sk_/pk_ keys, PaymentIntents, hosted Checkout Sessions, real sandbox). It is also the practical route to GCash, which has no open direct merchant API.",
+    "SDKs: node: paymongo (community-maintained under the paymongo GitHub org); php: paymongo/paymongo-php; python: paymongo-python (PyPI, third-party). SDK quality is materially below Stripe/Razorpay — prefer raw HTTPS + explicit types in generated code.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Xendit and HitPay in PH. PayMongo is the PH-only specialist with the best DX; Xendit wins if the merchant also sells in Indonesia.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

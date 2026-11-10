@@ -1,0 +1,1245 @@
+{
+  "$schema": "../../../schemas/regions.schema.json",
+  "regions": {
+    "AE": {
+      "primary_providers": [
+        "paymob",
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "AED",
+      "languages": [
+        "en"
+      ],
+      "comment": "The one MENA market Stripe actually serves (live since 2021), though with reduced feature coverage versus the US/EU. Checkout.com holds the first global-platform UAE acquiring licence. Local AED settlement is the differentiator; BNPL is licensed by the UAE Central Bank and widely expected at checkou"
+    },
+    "AR": {
+      "primary_providers": [
+        "mercadopago",
+        "dlocal_go",
+        "mobbex"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "ARS",
+      "languages": [
+        "es"
+      ],
+      "instant_rail": "transferencias_30",
+      "installments_expected": true
+    },
+    "AT": {
+      "primary_providers": [
+        "adyen",
+        "gocardless",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "de"
+      ],
+      "comment": "EPS bank redirect and paysafecard both have real share alongside cards and Klarna invoice. Otherwise behaves like DE."
+    },
+    "AU": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "gocardless",
+        "airwallex",
+        "authorize_net",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "AUD",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "payto"
+    },
+    "BE": {
+      "primary_providers": [
+        "adyen",
+        "gocardless",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "nl"
+      ],
+      "comment": "Bancontact is mandatory in practice. Payconiq brand retires during 2026 (becomes Bancontact Pay); Wero e-commerce launches in BE in 2026. Bilingual nl/fr checkout — the region record needs a secondary language, which the current single `language` field cannot express."
+    },
+    "BH": {
+      "primary_providers": [
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "BHD",
+      "languages": [
+        "ar"
+      ],
+      "comment": "BENEFIT / BenefitPay is the domestic scheme. THREE-DECIMAL CURRENCY."
+    },
+    "BO": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "BOB",
+      "comment": "Bolivia: limited local coverage Phase 1-2. Fallback MoR.",
+      "languages": [
+        "es"
+      ]
+    },
+    "BR": {
+      "primary_providers": [
+        "mercadopago",
+        "stripe",
+        "asaas",
+        "kushki",
+        "pagarme",
+        "dlocal_go"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "BRL",
+      "languages": [
+        "pt"
+      ],
+      "instant_rail": "pix",
+      "installments_expected": true,
+      "tax": {
+        "einvoice": {
+          "mandate": "nfe",
+          "applies_to": "goods and services"
+        }
+      }
+    },
+    "CA": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "gocardless",
+        "authorize_net",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "CAD",
+      "languages": [
+        "en",
+        "fr"
+      ]
+    },
+    "CH": {
+      "primary_providers": [
+        "adyen",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "CHF",
+      "languages": [
+        "de"
+      ],
+      "comment": "NOT EU/EEA and NOT SEPA-euro: no EU VAT OSS (Swiss VAT registration instead), CHF settlement, and SEPA direct debit is not the domestic debit rail. TWINT is the dominant wallet and is only reachable through a Swiss PSP (Datatrans, Saferpay/Worldline, PostFinance). Multilingual de/fr/it."
+    },
+    "CI": {
+      "primary_providers": [
+        "flutterwave",
+        "paystack"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "XOF",
+      "languages": [
+        "fr"
+      ],
+      "comment": "Francophone West Africa gateway market. XOF is a fixed-peg CFA franc shared across 8 UEMOA countries — one currency integration unlocks the bloc. Orange Money, MTN MoMo and Wave all hold share. French-language checkout required."
+    },
+    "CL": {
+      "primary_providers": [
+        "mercadopago",
+        "kushki",
+        "flow_cl",
+        "transbank",
+        "dlocal_go",
+        "fintoc",
+        "placetopay"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "CLP",
+      "languages": [
+        "es"
+      ],
+      "installments_expected": true,
+      "tax": {
+        "einvoice": {
+          "mandate": "dte",
+          "applies_to": "all sales"
+        }
+      },
+      "comment": "Transbank (Webpay Plus) is the de-facto card-acquiring monopoly and ships in Wave 2. Mercado Pago covers wallet and some card volume today."
+    },
+    "CM": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "XAF",
+      "languages": [
+        "fr"
+      ],
+      "comment": "MTN MoMo and Orange Money. XAF is the Central African CFA franc — pegged like XOF but a SEPARATE currency; treating them as interchangeable is a real bug."
+    },
+    "CN": {
+      "primary_providers": [
+        "airwallex",
+        "antom"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "CNY",
+      "languages": [
+        "zh"
+      ],
+      "comment": "Alipay and WeChat Pay are the market; cards are marginal. Direct WeChat Pay or Alipay merchant accounts need a mainland entity, so for everyone else the correct answer is a cross-border acquirer (Antom, Airwallex, 2C2P, Adyen). WeChat Pay v3 uses asymmetric RSA signing AND an AES-256-GCM encrypted w"
+    },
+    "CO": {
+      "primary_providers": [
+        "wompi",
+        "mercadopago",
+        "bold",
+        "kushki",
+        "dlocal_go",
+        "placetopay",
+        "epayco"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "COP",
+      "languages": [
+        "es"
+      ],
+      "instant_rail": "pse",
+      "installments_expected": true,
+      "tax": {
+        "einvoice": {
+          "mandate": "dian",
+          "applies_to": "all sales"
+        }
+      }
+    },
+    "CR": {
+      "primary_providers": [
+        "placetopay",
+        "recurrente"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "CRC",
+      "comment": "Costa Rica: no local provider Phase 1-2. Fallback MoR.",
+      "languages": [
+        "es"
+      ],
+      "instant_rail": "sinpe_movil"
+    },
+    "CU": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "CUP",
+      "unsupported": true,
+      "reason": "sanctions:OFAC",
+      "comment": "Cuba: OFAC SDN. US persons restricted.",
+      "languages": [
+        "es"
+      ]
+    },
+    "DE": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "de"
+      ],
+      "instant_rail": "sepa_inst"
+    },
+    "DK": {
+      "primary_providers": [
+        "adyen",
+        "gocardless",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "DKK",
+      "languages": [
+        "da"
+      ],
+      "comment": "MobilePay is the wallet; Dankort is the domestic card scheme and is usually co-badged. Non-euro (DKK). Nets/Nexi is the incumbent acquirer. GoCardless supports Betalingsservice for Danish direct debit."
+    },
+    "DO": {
+      "primary_providers": [
+        "placetopay"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "DOP",
+      "comment": "Dominican Republic: AZUL/CardNet out of scope. Fallback MoR.",
+      "languages": [
+        "es"
+      ]
+    },
+    "EC": {
+      "primary_providers": [
+        "kushki",
+        "placetopay"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "USD",
+      "comment": "Ecuador: Kushki/PayPhone/Datafast deferred to Phase 3 (Global core). Fallback MoR.",
+      "languages": [
+        "es"
+      ],
+      "tax": {
+        "einvoice": {
+          "mandate": "sri",
+          "applies_to": "all sales"
+        }
+      }
+    },
+    "EG": {
+      "primary_providers": [
+        "flutterwave",
+        "paymob",
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EGP",
+      "languages": [
+        "ar"
+      ],
+      "comment": "Cash and wallet heavy. Needs four rails together: Meeza cards, telco mobile wallets, Fawry cash reference codes (250k+ agents) and InstaPay (instant, ~0.1% fee, 16m+ users). Installments (valU) matter for mid/high ticket. RTL Arabic checkout is the default expectation, not a nicety."
+    },
+    "ES": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "adyen",
+        "gocardless",
+        "mollie",
+        "redsys",
+        "revolut_merchant",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "es"
+      ],
+      "instant_rail": "bizum"
+    },
+    "FI": {
+      "primary_providers": [
+        "adyen",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "fi"
+      ],
+      "comment": "Bank e-payment buttons plus MobilePay and Klarna. Paytrail is the common local aggregator and is also a Klarna acquirer path. Euro, so IPR/VoP applies to payouts."
+    },
+    "FR": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "fr"
+      ],
+      "instant_rail": "sepa_inst"
+    },
+    "GH": {
+      "primary_providers": [
+        "flutterwave",
+        "paystack"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "GHS",
+      "languages": [
+        "en"
+      ],
+      "comment": "Mobile-money-first: MTN MoMo dominates, with AirtelTigo and Telecel secondary. Card penetration is low enough that a card-only checkout barely functions."
+    },
+    "GT": {
+      "primary_providers": [
+        "placetopay",
+        "recurrente"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "GTQ",
+      "comment": "Guatemala: fallback MoR Phase 1-2.",
+      "languages": [
+        "es"
+      ]
+    },
+    "HK": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "airwallex",
+        "antom"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "HKD",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "fps"
+    },
+    "HN": {
+      "primary_providers": [
+        "placetopay",
+        "recurrente"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "HNL",
+      "comment": "Honduras: fallback MoR.",
+      "languages": [
+        "es"
+      ]
+    },
+    "ID": {
+      "primary_providers": [
+        "antom",
+        "midtrans",
+        "xendit"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "IDR",
+      "languages": [
+        "id"
+      ],
+      "comment": "Cards are a minority rail. Checkout preference order: QRIS QR, bank Virtual Account, wallets (GoPay/OVO/DANA/ShopeePay), then cards. VA and convenience-store payments are asynchronous with roughly 24h expiry, so the data model needs a long-lived pending state. Bank Indonesia's SNAP open-API standard"
+    },
+    "IE": {
+      "primary_providers": [
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "en"
+      ],
+      "comment": "Euro and EU (so EU VAT OSS applies) but English-language and card-led like the UK — a common modelling mistake is to bundle IE with the UK for tax or with the UK for currency. Neither is right."
+    },
+    "IN": {
+      "primary_providers": [
+        "razorpay"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "INR",
+      "comment": "Razorpay ships in Wave 5. Until then India has no primary provider and falls back to a cross-border MoR.",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "upi",
+      "requires_local_acquirer": true,
+      "local_acquirer_reason": "Domestic INR collection requires a locally licensed PA. Stripe India is invite-only since May 2024 and oriented to international acceptance."
+    },
+    "IR": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "IRR",
+      "unsupported": true,
+      "reason": "sanctions:OFAC",
+      "comment": "Iran: OFAC SDN.",
+      "languages": [
+        "fa"
+      ]
+    },
+    "IT": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "it"
+      ],
+      "instant_rail": "sepa_inst",
+      "tax": {
+        "einvoice": {
+          "mandate": "sdi",
+          "applies_to": "domestic B2B and B2C"
+        }
+      }
+    },
+    "JO": {
+      "primary_providers": [
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "JOD",
+      "languages": [
+        "ar"
+      ],
+      "comment": "eFAWATEERcom is the national bill-payment rail. THREE-DECIMAL CURRENCY (JOD). Served through Levant-capable GCC gateways; no dedicated integration warranted."
+    },
+    "JP": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "airwallex",
+        "antom",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "JPY",
+      "languages": [
+        "ja"
+      ]
+    },
+    "KE": {
+      "primary_providers": [
+        "flutterwave",
+        "paystack",
+        "mpesa_daraja"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "KES",
+      "languages": [
+        "en",
+        "sw"
+      ],
+      "instant_rail": "mpesa",
+      "comment": "Kenya: M-Pesa dominates. Paystack and the M-Pesa Daraja API ship in Wave 6."
+    },
+    "KP": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "KPW",
+      "unsupported": true,
+      "reason": "sanctions:OFAC",
+      "comment": "North Korea: OFAC SDN.",
+      "languages": [
+        "ko"
+      ]
+    },
+    "KR": {
+      "primary_providers": [
+        "antom"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "KRW",
+      "languages": [
+        "ko"
+      ],
+      "comment": "Structurally closed: domestic cards require local acquiring and a Korean entity, so a foreign Stripe or Adyen account generally cannot accept them. Merchants typically contract several PGs and front them with an aggregator (PortOne). Recurring uses a 'billing key' issued once and charged server-side"
+    },
+    "KW": {
+      "primary_providers": [
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "KWD",
+      "languages": [
+        "ar"
+      ],
+      "comment": "KNET is the default consumer method and is usually a FIXED fee per transaction, not a percentage. THREE-DECIMAL CURRENCY — amount formatting must use 3 decimals before any signature hash (Tap's hashstring will fail otherwise)."
+    },
+    "LB": {
+      "primary_providers": [
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "languages": [
+        "en"
+      ],
+      "comment": "Added with the Wave 6 catalog import. No local provider integrated yet."
+    },
+    "LT": {
+      "primary_providers": [
+        "revolut_merchant"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "languages": [
+        "en"
+      ],
+      "comment": "Added with the Wave 4 catalog import. No local provider integrated yet."
+    },
+    "LU": {
+      "primary_providers": [
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "languages": [
+        "en"
+      ],
+      "comment": "Added with the Wave 4 catalog import. No local provider integrated yet."
+    },
+    "MM": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "MMK",
+      "unsupported": true,
+      "reason": "sanctions:multilateral",
+      "comment": "Myanmar: limited US/EU sanctions post-2021.",
+      "languages": [
+        "my"
+      ]
+    },
+    "MW": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "languages": [
+        "en"
+      ],
+      "comment": "Added with the Wave 6 catalog import. No local provider integrated yet."
+    },
+    "MX": {
+      "primary_providers": [
+        "mercadopago",
+        "stripe",
+        "conekta",
+        "kushki",
+        "dlocal_go",
+        "fintoc"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "MXN",
+      "languages": [
+        "es"
+      ],
+      "instant_rail": "spei",
+      "installments_expected": true,
+      "tax": {
+        "einvoice": {
+          "mandate": "cfdi",
+          "applies_to": "B2B and B2C sales",
+          "note": "CFDI 4.0. Issuing the fiscal document is a legal obligation attached to the sale."
+        }
+      }
+    },
+    "MY": {
+      "primary_providers": [
+        "airwallex",
+        "antom",
+        "razorpay",
+        "xendit"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "MYR",
+      "languages": [
+        "ms"
+      ],
+      "comment": "FPX bank-redirect outranks cards for domestic e-commerce and is priced as a flat fee rather than a percentage, so economics invert on high-ticket orders. DuitNow QR is the interoperable QR and is cross-border linked to PromptPay, QRIS and PayNow. Note the Razer Merchant Services to Fiuu rebrand (1 M"
+    },
+    "NG": {
+      "primary_providers": [
+        "lemonsqueezy",
+        "flutterwave",
+        "paystack"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "NGN",
+      "comment": "Paystack / Flutterwave ship in Phase 2.",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "nibss_instant"
+    },
+    "NI": {
+      "primary_providers": [
+        "recurrente"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "NIO",
+      "comment": "Nicaragua: fallback MoR.",
+      "languages": [
+        "es"
+      ]
+    },
+    "NL": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "comment": "Mollie / iDEAL ship in Phase 2.",
+      "languages": [
+        "nl"
+      ],
+      "instant_rail": "sepa_inst"
+    },
+    "NO": {
+      "primary_providers": [
+        "adyen",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "NOK",
+      "languages": [
+        "no"
+      ],
+      "comment": "Vipps is effectively universal; a Norwegian checkout without it is broken. Non-euro (NOK) and NON-EU (EEA member) — EU VAT OSS does not apply, Norwegian VOEC registration does, which changes generated tax code, not just the currency."
+    },
+    "NZ": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "gocardless",
+        "airwallex"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "NZD",
+      "languages": [
+        "en"
+      ]
+    },
+    "OM": {
+      "primary_providers": [
+        "paymob",
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "OMR",
+      "languages": [
+        "ar"
+      ],
+      "comment": "OmanNet is the domestic scheme. THREE-DECIMAL CURRENCY. Thawani is the first non-bank CBO-licensed PSP but its developer docs could not be verified — prefer Tap or Checkout.com for generated integrations."
+    },
+    "PA": {
+      "primary_providers": [
+        "placetopay",
+        "recurrente"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "USD",
+      "comment": "Panamá: Yappy/ACH Pay out of scope Phase 1-2. Fallback MoR.",
+      "languages": [
+        "es"
+      ]
+    },
+    "PE": {
+      "primary_providers": [
+        "mercadopago",
+        "kushki",
+        "culqi",
+        "dlocal_go",
+        "placetopay"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "PEN",
+      "comment": "Niubiz, Culqi, Izipay ship in Phase 2.",
+      "languages": [
+        "es"
+      ],
+      "instant_rail": "yape",
+      "installments_expected": true,
+      "tax": {
+        "einvoice": {
+          "mandate": "sunat",
+          "applies_to": "all sales"
+        }
+      }
+    },
+    "PH": {
+      "primary_providers": [
+        "antom",
+        "paymongo",
+        "xendit"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "PHP",
+      "languages": [
+        "en"
+      ],
+      "comment": "GCash first, then Maya, QR Ph and cards. GCash has no open direct merchant API (partner-gated portal), so always route it through a PSP. InstaPay is instant but capped; PESONet is the batch fallback above the cap. English-language market with self-serve PSP signup, one of the easiest APAC markets to"
+    },
+    "PK": {
+      "primary_providers": [
+        "paymob"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "PKR",
+      "languages": [
+        "ur"
+      ],
+      "comment": "Easypaisa and JazzCash mobile wallets plus Raast, the state instant rail. Aggregator-only coverage; no local provider in this cluster."
+    },
+    "PL": {
+      "primary_providers": [
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "PLN",
+      "languages": [
+        "pl"
+      ],
+      "comment": "BLIK is the default checkout method and P24 bank redirect the runner-up; cards are a minority. Non-euro (PLN) so SEPA instant/VoP rules apply differently. P24 signs with SHA-384, not SHA-256."
+    },
+    "PR": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "USD",
+      "comment": "Puerto Rico: operates under US entities.",
+      "languages": [
+        "es",
+        "en"
+      ]
+    },
+    "PT": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "adyen",
+        "gocardless",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "EUR",
+      "languages": [
+        "pt"
+      ],
+      "instant_rail": "mbway"
+    },
+    "PY": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "PYG",
+      "comment": "Paraguay: Bancard/Pagopar out of scope. Fallback MoR.",
+      "languages": [
+        "es"
+      ]
+    },
+    "QA": {
+      "primary_providers": [
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "QAR",
+      "languages": [
+        "ar"
+      ],
+      "comment": "NAPS/Himyan is the domestic debit scheme; international cards have solid coverage. Smaller market — served adequately by GCC-wide gateways, no local-only integration warranted."
+    },
+    "RU": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "RUB",
+      "unsupported": true,
+      "reason": "sanctions:multilateral",
+      "comment": "Russia: EU/US/UK sanctions. No active provider operates.",
+      "languages": [
+        "ru"
+      ]
+    },
+    "RW": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "RWF",
+      "languages": [
+        "en"
+      ],
+      "comment": "MTN MoMo dominant. Small market, best served through an aggregator rather than a direct telco integration."
+    },
+    "SA": {
+      "primary_providers": [
+        "paymob",
+        "tap_payments"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "SAR",
+      "languages": [
+        "ar"
+      ],
+      "comment": "HARD BLOCKER: Stripe has no Saudi entity and does not support mada, which carries ~93% of KSA card volume — no currently-shipped PagoKit provider can serve this market. Requires a SAMA-licensed acquirer with local SAR settlement. BNPL (Tabby/Tamara) is close to table stakes. PayTabs is the escape ha"
+    },
+    "SE": {
+      "primary_providers": [
+        "adyen",
+        "gocardless",
+        "mollie"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "SEK",
+      "languages": [
+        "sv"
+      ],
+      "comment": "Swish plus Klarna invoice cover most of checkout. Non-euro (SEK). Swish requires a bank-issued mTLS client certificate, which does not fit an API-key credential model. GoCardless supports Autogiro for Swedish direct debit."
+    },
+    "SG": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "airwallex",
+        "antom"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "SGD",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "paynow"
+    },
+    "SN": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "XOF",
+      "languages": [
+        "fr"
+      ],
+      "comment": "Wave has taken very large share with near-zero-fee transfers, alongside Orange Money. Shares XOF with Côte d'Ivoire. French-language."
+    },
+    "SV": {
+      "primary_providers": [
+        "recurrente"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "USD",
+      "comment": "El Salvador: fallback MoR. N1co (BTC) out of scope.",
+      "languages": [
+        "es"
+      ]
+    },
+    "SY": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "SYP",
+      "unsupported": true,
+      "reason": "sanctions:OFAC",
+      "comment": "Syria: OFAC SDN.",
+      "languages": [
+        "ar"
+      ]
+    },
+    "TH": {
+      "primary_providers": [
+        "antom",
+        "xendit"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "THB",
+      "languages": [
+        "th"
+      ],
+      "comment": "PromptPay QR dominates, is effectively free for consumers, is irreversible, and is confirmed asynchronously, so never fulfil on QR generation. Card acceptance requires a Thai entity for domestic rates. TrueMoney is the main wallet."
+    },
+    "TZ": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "TZS",
+      "languages": [
+        "sw"
+      ],
+      "comment": "Genuinely multi-wallet: Vodacom M-Pesa, Tigo Pesa, Airtel Money and Halopesa all hold real share, and Tanzania has wallet interoperability. Single-wallet integrations underperform badly here."
+    },
+    "UG": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "UGX",
+      "languages": [
+        "en"
+      ],
+      "comment": "MTN MoMo and Airtel Money split the market roughly evenly — you need both, not one."
+    },
+    "UK": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "paddle",
+        "polar",
+        "adyen",
+        "gocardless",
+        "mollie",
+        "revolut_merchant",
+        "authorize_net",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "GBP",
+      "languages": [
+        "en"
+      ],
+      "region_key_alias": "GB",
+      "instant_rail": "faster_payments"
+    },
+    "US": {
+      "primary_providers": [
+        "stripe",
+        "lemonsqueezy",
+        "polar",
+        "gocardless",
+        "revolut_merchant",
+        "authorize_net",
+        "square"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "USD",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "rtp",
+      "tax": {
+        "regime": "sales_tax",
+        "home_rule_jurisdictions": true,
+        "engine_required": true
+      }
+    },
+    "UY": {
+      "primary_providers": [
+        "mercadopago",
+        "dlocal_go"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "UYU",
+      "languages": [
+        "es"
+      ],
+      "installments_expected": true
+    },
+    "VE": {
+      "primary_providers": [],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "USD",
+      "comment": "Venezuela: limited local coverage; crypto and USD informal channels dominate.",
+      "languages": [
+        "es"
+      ]
+    },
+    "VN": {
+      "primary_providers": [
+        "antom",
+        "xendit"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "VND",
+      "languages": [
+        "vi"
+      ],
+      "comment": "The critical trap: most Vietnamese hold NAPAS domestic ATM cards that are NOT enabled for international e-commerce, so a Visa/Mastercard-only checkout silently fails for a large share of buyers. Offer VietQR/NAPAS 247, MoMo and ZaloPay first. VND is a zero-decimal currency, so do not multiply by 100"
+    },
+    "ZA": {
+      "primary_providers": [
+        "lemonsqueezy",
+        "flutterwave",
+        "paystack",
+        "yoco"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "ZAR",
+      "languages": [
+        "en"
+      ],
+      "instant_rail": "payshap"
+    },
+    "ZM": {
+      "primary_providers": [
+        "flutterwave"
+      ],
+      "fallback_cross_border_mor": [
+        "lemonsqueezy"
+      ],
+      "default_currency": "ZMW",
+      "languages": [
+        "en"
+      ],
+      "comment": "Airtel Money leads here, which inverts the usual MTN-first assumption. Good example of why 'mobile money' cannot be modelled as one generic method."
+    }
+  },
+  "_comment": "Country -> providers, rails and tax obligations. `primary_providers` may be empty: that means PagoKit has no local answer here yet and will say so, rather than recommending a provider the user cannot onboard to."
+}

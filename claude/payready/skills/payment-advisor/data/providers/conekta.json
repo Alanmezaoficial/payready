@@ -1,0 +1,105 @@
+{
+  "id": "conekta",
+  "name": "Conekta",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 1,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "MX"
+  ],
+  "method_coverage_regions": [
+    "MX"
+  ],
+  "currencies": [
+    "MXN"
+  ],
+  "methods": [
+    "card",
+    "oxxo",
+    "spei",
+    "google_pay",
+    "codi"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Header `Digest` (documented uppercase as 'DIGEST'). Algorithm is RSA signature over SHA-256 of the raw UTF-8 body, base64-encoded — ASYMMETRIC, verified with a Conekta-issued PUBLIC key, not an HMAC shared secret. NO timestamp is covered, so a timestamp-window defence is impossible; replay mitigation must be event-id dedup only. Merchant creates an RSA keypair once via POST /webhook_keys.",
+    "expected_filenames": [
+      "webhook",
+      "conekta-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developers.conekta.com/docs/autenticaci%C3%B3n-webhooks",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "CONEKTA_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Bearer token with `key_` prefix — `Authorization: Bearer key_XXXX`. Separate public (frontend tokenization) and private (backend) keys per sandbox/production mode. Note: the webhook public key is a SEPARATE RSA PEM, not the API key."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "CONEKTA_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "CONEKTA_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "CONEKTA_API_KEY",
+    "webhook_secret": "CONEKTA_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. No current public rate card verified in 2026. Do not populate."
+  },
+  "docs_url": "https://developers.conekta.com/docs/autenticaci%C3%B3n-webhooks",
+  "score_modifiers": {},
+  "notes": [
+    "The default Mexican-owned gateway for MXN settlement with a domestic entity. Stripe MX exists but Conekta is the local incumbent for OXXO + SPEI cash/transfer flows and is frequently the only option for merchants who cannot satisfy Stripe MX onboarding.",
+    "SDKs: Official libraries published by Conekta for Node, Python, PHP, Ruby, Java and C# (OpenAPI-generated, v6 line). Confirm exact package names at publish time.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps stripe (MX) and openpay. Choose conekta when the merchant needs a Mexican entity, OXXO-first checkout, or SPEI CLABE issuance.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

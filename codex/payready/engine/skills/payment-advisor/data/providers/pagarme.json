@@ -1,0 +1,104 @@
+{
+  "id": "pagarme",
+  "name": "Pagar.me",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 2,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "BR"
+  ],
+  "method_coverage_regions": [
+    "BR"
+  ],
+  "currencies": [
+    "BRL"
+  ],
+  "methods": [
+    "card",
+    "pix",
+    "boleto",
+    "pix_parcelado"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "NO HMAC SIGNATURE. Pagar.me v5 authenticates webhooks with HTTP Basic Auth using credentials you configure on the webhook endpoint; the API itself uses Basic Auth with the secret key as username and an empty password. Search results claiming `X-Hub-Signature` / `X-Hub-Signature-256` refer to the LEGACY v4 postback API and must NOT be applied to v5 — this is a live hallucination trap. Treat v5 as basic_auth + event-id dedup, and re-fetch the order/charge before acting.",
+    "expected_filenames": [
+      "webhook",
+      "pagarme-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.pagar.me/reference/vis%C3%A3o-geral-sobre-webhooks",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "PAGARME_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Secret key `sk_(test_)?...` used as Basic Auth username with an empty password. Public key `pk_...` for tokenization. Confirm exact charset before writing a regex — MEDIUM confidence on the pattern, HIGH on the Basic Auth mechanism."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "PAGARME_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "PAGARME_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "PAGARME_API_KEY",
+    "webhook_secret": "PAGARME_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN for 2026. Do not populate."
+  },
+  "docs_url": "https://docs.pagar.me/reference/vis%C3%A3o-geral-sobre-webhooks",
+  "score_modifiers": {},
+  "notes": [
+    "Stone-owned, one of the two default Brazilian gateways for developer-built checkouts, with first-class Pix and native installments (parcelamento) — which Stripe BR does not match. Brazil currently has only mercadopago and stripe in providers.json.",
+    "SDKs: Official pagarme-core-api packages exist for PHP, Node, Python, Ruby and .NET, but the repos are OpenAPI-generated and inconsistently maintained. Prefer a thin REST client.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps mercadopago and stripe in BR. Pagar.me wins on installments and marketplace split; Asaas wins on Pix Automático and low-touch billing.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

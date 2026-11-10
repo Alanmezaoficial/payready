@@ -1,0 +1,356 @@
+{
+  "id": "stripe",
+  "name": "Stripe",
+  "last_verified_at": "2026-05-20",
+  "verified_by": "human",
+  "status": "active",
+  "phase": 1,
+  "wave": 0,
+  "integration_level": "build",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "US",
+    "CA",
+    "UK",
+    "EU",
+    "MX",
+    "BR",
+    "SG",
+    "AU",
+    "NZ",
+    "HK",
+    "JP",
+    "PR"
+  ],
+  "method_coverage_regions": [
+    "US",
+    "CA",
+    "UK",
+    "EU",
+    "MX",
+    "BR",
+    "SG",
+    "AU",
+    "NZ",
+    "HK",
+    "JP",
+    "IN",
+    "PR"
+  ],
+  "regions": [
+    "US",
+    "CA",
+    "UK",
+    "EU",
+    "MX",
+    "BR",
+    "SG",
+    "AU",
+    "NZ",
+    "HK",
+    "JP",
+    "IN"
+  ],
+  "currencies": [
+    "USD",
+    "EUR",
+    "GBP",
+    "CAD",
+    "AUD",
+    "MXN",
+    "BRL",
+    "SGD",
+    "JPY",
+    "HKD",
+    "NZD",
+    "INR"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "sepa_debit",
+    "ach_debit",
+    "klarna",
+    "afterpay",
+    "oxxo",
+    "boleto",
+    "pix",
+    "bizum",
+    "usdc",
+    "link"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "tokenization_owner": "shared",
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": true,
+    "stablecoin_settlement": true,
+    "cash_voucher": {
+      "MX": "oxxo",
+      "BR": "boleto"
+    },
+    "installments": {
+      "BR": true,
+      "MX": true
+    },
+    "qr": {
+      "BR": "pix",
+      "ES": "bizum"
+    }
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "signature_header": "Stripe-Signature",
+    "algorithm": "HMAC-SHA256-with-timestamp",
+    "signature_includes_timestamp": true,
+    "recommended_tolerance_seconds": 300,
+    "replay_mitigation_strategy": "timestamp-window",
+    "required_events_minimum": [
+      "payment_intent.succeeded",
+      "payment_intent.payment_failed",
+      "charge.refunded",
+      "charge.dispute.created",
+      "invoice.payment_failed",
+      "customer.subscription.deleted",
+      "customer.subscription.updated"
+    ],
+    "expected_filenames": [
+      "webhook",
+      "events",
+      "stripe-webhook"
+    ],
+    "ip_allowlist_available": true,
+    "verification_family": "hmac_timestamp_body",
+    "signature_location": "header",
+    "hash_algo": "sha256",
+    "secret_encoding": "raw",
+    "digest_encoding": "hex",
+    "signed_payload_template": "{timestamp}.{raw_body}",
+    "signature_covers_body": true,
+    "payload_authoritative": true,
+    "timestamp_source": "signature_kv",
+    "event_id_pointer": "/id",
+    "event_type_pointer": "/type",
+    "secret_env": "STRIPE_WEBHOOK_SECRET",
+    "ack_deadline_seconds": 20,
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20",
+      "source_url": "https://stripe.com/docs",
+      "note": "Migrated from the v1 catalog; scheme cross-checked against skills/webhook-verifier/signatures.md."
+    },
+    "header_format": {
+      "kind": "kv",
+      "signature_key": "v1",
+      "timestamp_key": "t",
+      "separator": ",",
+      "assign": "="
+    }
+  },
+  "checkout_spec": {
+    "pattern": "hosted_redirect",
+    "amount_unit": "minor",
+    "idempotency": {
+      "supported": true,
+      "in": "sdk_option",
+      "name": "idempotencyKey"
+    },
+    "response_redirect_pointer": "/url",
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20"
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "STRIPE_SECRET_KEY",
+      "pattern": "^sk_(test|live)_[A-Za-z0-9]{20,}$",
+      "live_pattern": "^sk_live_[A-Za-z0-9]{20,}$",
+      "test_prefix": "sk_test_",
+      "live_prefix": "sk_live_",
+      "scope": "server",
+      "shown_once": true
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "STRIPE_PUBLISHABLE_KEY",
+      "pattern": "^pk_(test|live)_[A-Za-z0-9]{20,}$",
+      "live_pattern": "^pk_live_[A-Za-z0-9]{20,}$",
+      "test_prefix": "pk_test_",
+      "live_prefix": "pk_live_",
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "STRIPE_WEBHOOK_SECRET",
+      "pattern": "^whsec_[A-Za-z0-9]{20,}$",
+      "scope": "server",
+      "shown_once": true,
+      "note": "Different from STRIPE_SECRET_KEY. Verifying with the API key is a silent failure."
+    }
+  ],
+  "secret_key_pattern": "^sk_(test|live)_[A-Za-z0-9]{20,}$",
+  "publishable_key_pattern": "^pk_(test|live)_[A-Za-z0-9]{20,}$",
+  "env_vars": {
+    "secret": "STRIPE_SECRET_KEY",
+    "publishable": "STRIPE_PUBLISHABLE_KEY",
+    "webhook_secret": "STRIPE_WEBHOOK_SECRET"
+  },
+  "detection": {
+    "sdk_import_patterns": [
+      "stripe",
+      "@stripe/"
+    ],
+    "verifier_names": [
+      "stripe.webhooks.constructEvent",
+      "stripe.Webhook.construct_event",
+      "constructEvent"
+    ],
+    "sdk_call_patterns": [
+      "stripe.paymentIntents.create",
+      "stripe.checkout.sessions.create",
+      "stripe.refunds.create",
+      "stripe.billingPortal.sessions.create"
+    ],
+    "live_key_patterns": [
+      "sk_live_",
+      "pk_live_",
+      "rk_live_",
+      "whsec_"
+    ]
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "time_to_keys_days": "0-1",
+    "individual_allowed": true,
+    "note": "Keys are issued instantly in test mode; live activation takes 1-7 days."
+  },
+  "settlement": {
+    "holds_funds": true,
+    "payout_delay_days": "2-7"
+  },
+  "pci": {
+    "scope": "SAQ_A",
+    "pan_touches_server": false,
+    "hosted_fields": true,
+    "requires_script_inventory": true,
+    "loader_exempt_from_sri": [
+      "js.stripe.com"
+    ]
+  },
+  "recurring": {
+    "rails": [
+      "card",
+      "sepa_debit",
+      "ach_debit"
+    ],
+    "mandate_lifecycle": true,
+    "network_txn_id_required": true
+  },
+  "mor": {
+    "is_mor": false,
+    "mode": "never"
+  },
+  "tax_handling": {
+    "stripe_tax_available": true,
+    "automated_collection": true,
+    "vat_eu": true,
+    "sales_tax_us": true
+  },
+  "fees": {
+    "card_domestic_pct": 2.9,
+    "card_domestic_fixed_usd": 0.3,
+    "card_international_pct": 3.9,
+    "eea_card_pct": 1.4,
+    "eea_card_fixed_eur": 0.25,
+    "usdc_pct": 1.5,
+    "notes": "Fees vary by country. EEA cards 1.4% + €0.25, UK 1.5% + 20p, US/Canada 2.9% + $0.30."
+  },
+  "kyc": {
+    "individual_allowed": true,
+    "business_required_countries": [
+      "BR"
+    ],
+    "time_to_activate_days": "1-7"
+  },
+  "developer_experience": {
+    "sdk_quality": 5,
+    "docs_quality": 5,
+    "sandbox": true,
+    "test_keys_prefix": "sk_test_",
+    "live_keys_prefix": "sk_live_"
+  },
+  "sdks": {
+    "node": {
+      "pkg": "stripe",
+      "version_pinned": true
+    },
+    "python": {
+      "pkg": "stripe",
+      "version_pinned": true
+    },
+    "php": {
+      "pkg": "stripe/stripe-php"
+    },
+    "ruby": {
+      "pkg": "stripe"
+    },
+    "go": {
+      "pkg": "github.com/stripe/stripe-go"
+    },
+    "java": {
+      "pkg": "com.stripe:stripe-java"
+    }
+  },
+  "api_version": "2025-04-30.basil",
+  "api_versioning": {
+    "header": "Stripe-Version",
+    "current": "2025-04-30.basil",
+    "pin_required": true
+  },
+  "recommended_api_flow": "payment_intents",
+  "deprecated_flows": [
+    "charges.create"
+  ],
+  "frontend_options": [
+    "hosted",
+    "embedded",
+    "elements"
+  ],
+  "anti_patterns": [
+    "Do not use stripe.charges.create — it is the legacy Charges API. Use payment_intents instead so 3DS/SCA works.",
+    "Do not call request.json() before signature verification — Stripe needs the raw body."
+  ],
+  "test_cards": {
+    "success": "4242 4242 4242 4242",
+    "decline": "4000 0000 0000 0002",
+    "insufficient_funds": "4000 0000 0000 9995",
+    "three_d_secure": "4000 0025 0000 3155"
+  },
+  "docs_url": "https://stripe.com/docs",
+  "score_modifiers": {
+    "us_saas": 3,
+    "eu_subscription": 2,
+    "digital_goods_cross_border": -1,
+    "wants_no_fiscal_overhead": -2,
+    "marketplace_multi_seller": 2,
+    "ios_digital_goods": -5,
+    "latam_individual_seller": -2,
+    "needs_cash_payment_only": -3
+  },
+  "notes": [
+    "Stripe acquired Lemon Squeezy in July 2024 and launched Stripe Managed Payments (preview) in April 2026 as the MoR successor.",
+    "India: removed from merchant_domicile_regions. Stripe India has been invite-only since May 2024 and is oriented to international acceptance, not domestic INR collection. IN stays in method_coverage_regions because Indian buyers can still pay a foreign Stripe merchant."
+  ]
+}

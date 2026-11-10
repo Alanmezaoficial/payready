@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hainrixz/agente-pagokit/schemas/regions.schema.json",
+  "title": "PagoKit Regions (schema v2)",
+  "description": "Schema for skills/payment-advisor/data/regions.json. Country -> providers, rails and tax obligations.",
+  "type": "object",
+  "required": ["regions"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "_comment": {"type": "string"},
+    "regions": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[A-Z]{2}$"},
+      "additionalProperties": {
+        "type": "object",
+        "required": ["primary_providers", "fallback_cross_border_mor"],
+        "properties": {
+          "primary_providers": {"type": "array", "items": {"type": "string"}},
+          "fallback_cross_border_mor": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "default_currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+          "language": {"type": "string", "description": "DEPRECATED legacy alias. Use languages[]."},
+          "languages": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "region_key_alias": {"type": "string", "description": "ISO-3166 alpha-2 when the key differs, e.g. UK -> GB."},
+          "requires_local_acquirer": {"type": "boolean"},
+          "local_acquirer_reason": {"type": "string"},
+          "instant_rail": {"type": "string", "description": "The dominant instant rail. Lets the advisor recommend the rail before the provider."},
+          "installments_expected": {"type": "boolean"},
+          "tax": {
+            "type": "object",
+            "properties": {
+              "regime": {"type": "string"},
+              "registration_threshold": {"type": "string"},
+              "engine_required": {"type": "boolean"},
+              "home_rule_jurisdictions": {"type": "boolean"},
+              "einvoice": {
+                "type": "object",
+                "properties": {
+                  "mandate": {"enum": ["cfdi", "nfe", "zatca", "peppol", "ksef", "sdi", "dian", "sunat", "sri", "dte", "none"]},
+                  "mandatory_from": {"type": "string"},
+                  "applies_to": {"type": "string"},
+                  "note": {"type": "string"}
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "comment": {"type": "string"},
+          "unsupported": {"type": "boolean"},
+          "reason": {"enum": ["sanctions:OFAC", "sanctions:multilateral", "limited_coverage", "other"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

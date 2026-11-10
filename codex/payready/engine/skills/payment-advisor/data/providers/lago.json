@@ -1,0 +1,96 @@
+{
+  "id": "lago",
+  "name": "Lago",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 7,
+  "integration_level": "advise",
+  "role": "billing_layer",
+  "merchant_domicile_regions": [
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "GLOBAL"
+  ],
+  "currencies": [
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "sepa_debit",
+    "ach_debit"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED, and it is the only asymmetric-by-default scheme in the cluster. Headers `X-Lago-Signature` and `X-Lago-Signature-Algorithm`. Two algorithms selectable at endpoint creation: JWT (the default, RS256, verified against a public key fetched once from Lago's webhooks API and cached — issuer `https://api.getlago.com` for cloud) or HMAC. Because RS256 verification needs a fetched-and-persisted public key, the generated code needs a key-cache step that no other provider in PagoKit requires. Self-hosted instances generate their own JWT RSA keys on first deployment, so the issuer and key source",
+    "expected_filenames": [
+      "webhook",
+      "lago-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://www.getlago.com/docs/api-reference/webhooks/format---signature",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "LAGO_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN — not verified."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "LAGO_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "LAGO_API_KEY",
+    "webhook_secret": "LAGO_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "Open source core is free (self-hosted). Cloud pricing UNKNOWN — not verified."
+  },
+  "docs_url": "https://www.getlago.com/docs/api-reference/webhooks/format---signature",
+  "score_modifiers": {},
+  "notes": [
+    "Open-source, self-hostable metered billing — the only option here where usage data (which for an AI company is customer prompt volume) never leaves the developer's infrastructure. That is a hard requirement for regulated and EU-privacy-sensitive customers, and PagoKit has no self-hostable option in any category.",
+    "SDKs: Official Node `lago-javascript-client`, Python `lago-python-client`, PHP `getlago/lago-php-client`, plus Ruby/Go/Java. Docker/Helm for self-hosting.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps orb and metronome. Only self-hostable member.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

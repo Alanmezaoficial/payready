@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hainrixz/agente-pagokit/schemas/methods.schema.json",
+  "title": "PagoKit Payment Methods (schema v2)",
+  "description": "Schema for skills/payment-advisor/data/methods.json. A method is a rail a buyer can pay with - not a provider.",
+  "type": "object",
+  "required": ["methods"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "_comment": {"type": "string"},
+    "methods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "category", "regions"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+          "label": {"type": "string"},
+          "category": {
+            "enum": ["card", "wallet", "bank_transfer", "cash_voucher", "qr", "crypto", "bnpl",
+                     "direct_debit", "mobile_money", "card_present", "open_banking", "benefits", "other"]
+          },
+          "regions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "settlement_speed": {"enum": ["instant", "same_day", "next_day", "weekly", "multi_day"]},
+          "irreversible": {"type": "boolean", "description": "DEPRECATED legacy alias. Use reversibility."},
+          "reversibility": {
+            "enum": ["chargeback", "refund_only", "irreversible_no_refund", "mandate_indemnity"],
+            "description": "chargeback = card-style dispute rights; refund_only = merchant can refund but buyer cannot dispute; irreversible_no_refund = A2A rails where 'refund the charge' does not exist; mandate_indemnity = Bacs/PAD-style claw-back weeks after success."
+          },
+          "reversal_window_days": {"type": "integer", "minimum": 0},
+          "expiry_seconds": {"type": "integer", "minimum": 0, "description": "BLIK 120s, MB WAY ~240s, OXXO/boleto days. Without it the state machine has no timeout state."},
+          "async_pending": {"type": "boolean"},
+          "pending_status_lies": {"type": "boolean", "description": "Provider reports a success-shaped status while the money has NOT arrived (e.g. KOMOJU konbini returns authorized meaning UNPAID). Fulfilling on it ships free goods."},
+          "requires_gateway": {"type": "boolean"},
+          "reachable_via": {"type": "array", "items": {"type": "string"}},
+          "network_of": {"type": "string", "description": "This method is reached through a network contract, e.g. alipay_plus."},
+          "resolves_to": {"type": "array", "items": {"type": "string"}},
+          "sunset_at": {"type": "string", "format": "date"},
+          "succeeded_by": {"type": "string"},
+          "renamed_from": {"type": "string"},
+          "deny_list": {"type": "boolean", "description": "The generator must refuse to emit this rail."},
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

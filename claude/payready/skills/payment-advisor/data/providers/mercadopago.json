@@ -1,0 +1,297 @@
+{
+  "id": "mercadopago",
+  "name": "Mercado Pago",
+  "last_verified_at": "2026-05-20",
+  "verified_by": "human",
+  "status": "active",
+  "phase": 1,
+  "wave": 0,
+  "integration_level": "build",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "AR",
+    "BR",
+    "CL",
+    "CO",
+    "MX",
+    "PE",
+    "UY"
+  ],
+  "method_coverage_regions": [
+    "AR",
+    "BR",
+    "CL",
+    "CO",
+    "MX",
+    "PE",
+    "UY"
+  ],
+  "regions": [
+    "AR",
+    "BR",
+    "CL",
+    "CO",
+    "MX",
+    "PE",
+    "UY"
+  ],
+  "currencies": [
+    "ARS",
+    "BRL",
+    "CLP",
+    "COP",
+    "MXN",
+    "PEN",
+    "UYU"
+  ],
+  "methods": [
+    "card",
+    "pix",
+    "boleto",
+    "oxxo",
+    "spei",
+    "pse",
+    "efecty",
+    "pago_facil",
+    "rapipago",
+    "servipag",
+    "pagoefectivo",
+    "mercadopago_wallet"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "tokenization_owner": "shared",
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false,
+    "stablecoin_settlement": false,
+    "cash_voucher": {
+      "MX": "oxxo",
+      "BR": "boleto",
+      "AR": "pago_facil",
+      "PE": "pagoefectivo"
+    },
+    "installments": {
+      "BR": true,
+      "MX": true,
+      "AR": true
+    },
+    "qr": {
+      "BR": "pix"
+    }
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "signature_header": "x-signature",
+    "algorithm": "HMAC-SHA256-with-id-and-timestamp",
+    "signature_includes_timestamp": true,
+    "recommended_tolerance_seconds": 300,
+    "replay_mitigation_strategy": "both",
+    "required_events_minimum": [
+      "payment.created",
+      "payment.updated"
+    ],
+    "expected_filenames": [
+      "webhook",
+      "notifications",
+      "ipn",
+      "mercadopago-webhook"
+    ],
+    "ip_allowlist_available": false,
+    "verification_family": "hmac_field_concat",
+    "signature_location": "header",
+    "hash_algo": "sha256",
+    "secret_encoding": "raw",
+    "digest_encoding": "hex",
+    "signed_payload_template": "id:{body:/data/id};request-id:{header:x-request-id};ts:{timestamp};",
+    "signature_covers_body": false,
+    "payload_authoritative": false,
+    "refetch_endpoint": "GET https://api.mercadopago.com/v1/payments/{data.id}",
+    "timestamp_source": "signature_kv",
+    "event_id_pointer": "/id",
+    "event_type_pointer": "/type",
+    "secret_env": "MP_WEBHOOK_SECRET",
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20",
+      "source_url": "https://www.mercadopago.com/developers/en",
+      "note": "Migrated from the v1 catalog; scheme cross-checked against skills/webhook-verifier/signatures.md."
+    },
+    "header_format": {
+      "kind": "kv",
+      "signature_key": "v1",
+      "timestamp_key": "ts",
+      "separator": ",",
+      "assign": "="
+    }
+  },
+  "checkout_spec": {
+    "pattern": "hosted_redirect",
+    "create_endpoint": "POST https://api.mercadopago.com/checkout/preferences",
+    "auth": {
+      "in": "header",
+      "name": "Authorization",
+      "scheme": "Bearer {secret}"
+    },
+    "amount_unit": "major",
+    "idempotency": {
+      "supported": true,
+      "in": "header",
+      "name": "X-Idempotency-Key"
+    },
+    "response_redirect_pointer": "/init_point",
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20"
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "MP_ACCESS_TOKEN",
+      "pattern": "^(APP_USR|TEST)-[A-Za-z0-9]{16,}-[0-9]{6,}-[a-z0-9]{16,}-[0-9]+$",
+      "live_pattern": "^APP_USR-[A-Za-z0-9]{16,}-",
+      "test_prefix": "TEST-",
+      "live_prefix": "APP_USR-",
+      "scope": "server"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "MP_PUBLIC_KEY",
+      "pattern": "^(APP_USR|TEST)-[a-z0-9-]{30,}$",
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "MP_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server",
+      "note": "Shown when configuring the notification URL in the dashboard."
+    }
+  ],
+  "secret_key_pattern": "^(APP_USR|TEST)-[A-Za-z0-9]{16,}-[0-9]{6,}-[a-z0-9]{16,}-[0-9]+$",
+  "publishable_key_pattern": "^(APP_USR|TEST)-[a-z0-9-]{30,}$",
+  "env_vars": {
+    "secret": "MP_ACCESS_TOKEN",
+    "publishable": "MP_PUBLIC_KEY",
+    "webhook_secret": "MP_WEBHOOK_SECRET"
+  },
+  "detection": {
+    "sdk_import_patterns": [
+      "mercadopago"
+    ],
+    "verifier_names": [
+      "verifyMpSignature",
+      "verifyMercadoPagoSignature"
+    ],
+    "sdk_call_patterns": [
+      "mpPayment.create",
+      "mpPreference.create",
+      "new Preference(",
+      "new Payment("
+    ],
+    "live_key_patterns": [
+      "APP_USR-"
+    ]
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "time_to_keys_days": "0-1",
+    "individual_allowed": true
+  },
+  "settlement": {
+    "holds_funds": true,
+    "payout_delay_days": "0-14"
+  },
+  "pci": {
+    "scope": "SAQ_A",
+    "pan_touches_server": false,
+    "hosted_fields": true,
+    "requires_script_inventory": true,
+    "loader_exempt_from_sri": [
+      "sdk.mercadopago.com"
+    ]
+  },
+  "recurring": {
+    "rails": [
+      "card"
+    ],
+    "mandate_lifecycle": false,
+    "network_txn_id_required": false
+  },
+  "mor": {
+    "is_mor": false,
+    "mode": "never"
+  },
+  "tax_handling": {
+    "automated_collection": false,
+    "notes": "User is responsible for local invoicing (CFDI MX, NF-e BR, etc.)."
+  },
+  "fees": {
+    "card_domestic_pct": 3.49,
+    "notes": "Fees vary by country and product (Checkout Pro vs Custom). MX ~3.49% + IVA, AR ~6.79% release T+0. Cash vouchers and Pix may have different rates."
+  },
+  "kyc": {
+    "individual_allowed": true,
+    "time_to_activate_days": "0-1"
+  },
+  "developer_experience": {
+    "sdk_quality": 4,
+    "docs_quality": 4,
+    "sandbox": true,
+    "test_keys_prefix": "TEST-",
+    "live_keys_prefix": "APP_USR-"
+  },
+  "sdks": {
+    "node": {
+      "pkg": "mercadopago"
+    },
+    "python": {
+      "pkg": "mercadopago"
+    },
+    "php": {
+      "pkg": "mercadopago/dx-php"
+    },
+    "ruby": {
+      "pkg": "mercadopago-sdk"
+    },
+    "java": {
+      "pkg": "com.mercadopago:sdk-java"
+    },
+    "go": {
+      "pkg": "github.com/mercadopago/sdk-go"
+    }
+  },
+  "api_version": "v1",
+  "recommended_api_flow": "preferences_checkout_pro",
+  "frontend_options": [
+    "hosted",
+    "embedded",
+    "bricks"
+  ],
+  "anti_patterns": [
+    "Do not omit the X-Idempotency-Key header on POST /payments — duplicate charges are common without it.",
+    "Sandbox availability varies by country; always verify the test environment for your target country."
+  ],
+  "test_cards": {
+    "success": "5031 7557 3453 0604",
+    "decline": "5031 4332 1540 6351",
+    "three_d_secure": "5031 7557 3453 0604"
+  },
+  "docs_url": "https://www.mercadopago.com/developers/en",
+  "score_modifiers": {
+    "latam_individual_seller": 3,
+    "needs_cash_payment_only": 2,
+    "us_saas": -3,
+    "marketplace_multi_seller": 1,
+    "digital_goods_cross_border": -1
+  }
+}

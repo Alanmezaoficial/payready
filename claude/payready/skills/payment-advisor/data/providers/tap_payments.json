@@ -1,0 +1,132 @@
+{
+  "id": "tap_payments",
+  "name": "Tap Payments",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 6,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "SA",
+    "AE",
+    "KW",
+    "BH",
+    "QA",
+    "OM",
+    "EG",
+    "LB",
+    "JO"
+  ],
+  "method_coverage_regions": [
+    "SA",
+    "AE",
+    "KW",
+    "BH",
+    "QA",
+    "OM",
+    "EG",
+    "LB",
+    "JO"
+  ],
+  "currencies": [
+    "AED",
+    "BHD",
+    "EGP",
+    "JOD",
+    "KWD",
+    "OMR",
+    "QAR",
+    "SAR"
+  ],
+  "methods": [
+    "card",
+    "mada",
+    "knet",
+    "benefit",
+    "omannet",
+    "apple_pay",
+    "google_pay",
+    "tabby_bnpl"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED, and unusual enough that a generator will get it wrong by default. Header `hashstring`; HMAC-SHA256 keyed with the merchant SECRET API KEY — but computed over a hand-built ordered concatenation, NOT the raw body: `\"x_id\" + id + \"x_amount\" + amount + \"x_currency\" + currency + \"x_gateway_reference\" + gateway_reference + \"x_payment_reference\" + payment_reference + \"x_status\" + status + \"x_created\" + created`. For invoice events substitute `x_updated` for the two reference fields. No timestamp, so dedup on `id`. CRITICAL: `amount` must be formatted to the ISO-4217 exponent for the currenc",
+    "expected_filenames": [
+      "webhook",
+      "tap_payments-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developers.tap.company/docs/get-started",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "TAP_PAYMENTS_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "PARTIALLY VERIFIED. Secret keys `sk_test_...` / `sk_live_...`, publishable `pk_test_...` / `pk_live_...`. Exact charset/length UNKNOWN. Same prefixes as Stripe/Paystack — disambiguate by host."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "TAP_PAYMENTS_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "TAP_PAYMENTS_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "TAP_PAYMENTS_API_KEY",
+    "webhook_secret": "TAP_PAYMENTS_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "Local entity required in the GCC market you sell from."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Tap prices per-country and per-scheme; mada and KNET carry domestic-scheme rates well below international card rates. No reliable single public number. Leave null."
+  },
+  "docs_url": "https://developers.tap.company/docs/get-started",
+  "score_modifiers": {},
+  "notes": [
+    "One integration covering every GCC domestic debit scheme — mada (SA), KNET (KW), Benefit (BH), OmanNet (OM) — which international card processing simply cannot reach. Stripe covers none of these, and in Kuwait KNET is effectively mandatory for local conversion.",
+    "SDKs: First-party mobile SDKs (iOS/Android/Flutter/React Native) and a goSell web SDK; no first-party Node/Python/PHP server SDK. Community `ahmedlaggoun/tap` (Composer). Emit direct REST server-side.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Checkout.com, PayTabs, HyperPay and MyFatoorah across GCC. Tap has the best public docs of the group and is the right default GCC pick.",
+    "Onboarding: application_review. Local entity required in the GCC market you sell from."
+  ]
+}

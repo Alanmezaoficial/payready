@@ -1,0 +1,122 @@
+{
+  "id": "kushki",
+  "name": "Kushki",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 1,
+  "integration_level": "advise",
+  "role": "aggregator",
+  "merchant_domicile_regions": [
+    "EC",
+    "CO",
+    "PE",
+    "CL",
+    "MX",
+    "BR"
+  ],
+  "method_coverage_regions": [
+    "EC",
+    "CO",
+    "PE",
+    "CL",
+    "MX",
+    "BR"
+  ],
+  "currencies": [
+    "BRL",
+    "CLP",
+    "COP",
+    "MXN",
+    "PEN",
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "pse",
+    "spei",
+    "pix",
+    "transferencia_cl",
+    "nequi",
+    "yape"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED. Headers: `X-Kushki-Key` (merchant id), `X-Kushki-Signature`, `X-Kushki-SimpleSignature`, `X-Kushki-Id`. Algorithm HMAC-SHA256 using the webhook signature ID as key. `X-Kushki-Signature` signs `{raw_body}.{unix_timestamp}`; `X-Kushki-SimpleSignature` signs only `{unix_timestamp}`. The timestamp is `X-Kushki-Id` in UNIX seconds — so a timestamp-window replay defence IS possible. Recommend 300s tolerance plus event-id dedup.",
+    "expected_filenames": [
+      "webhook",
+      "kushki-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.kushki.com/cl/en/notifications/overview/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "KUSHKI_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Split credentials: Public-Merchant-Id (browser tokenization) and Private-Merchant-Id (server-side charge). Alphanumeric, no documented prefix. The webhook signing key is a THIRD distinct credential from Desarrolladores > Webhooks. Does not "
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "KUSHKI_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "KUSHKI_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "KUSHKI_API_KEY",
+    "webhook_secret": "KUSHKI_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Kushki prices per country and per merchant; no public rate card verified. Do not populate."
+  },
+  "docs_url": "https://docs.kushki.com/cl/en/notifications/overview/",
+  "score_modifiers": {},
+  "notes": [
+    "The only credible regional acquirer for Ecuador, which regions.json currently leaves with zero providers, and it extends across five more markets on one API. Also has one of the cleanest webhook signature schemes in the region, so it is cheap to generate correctly.",
+    "SDKs: Frontend JS SDK (kushki-js) plus mobile SDKs are official. Server-side is REST-first; no widely-maintained official Node/Python/PHP server package verified. Generate a thin HTTP client.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Fills the EC gap entirely. Overlaps placetopay across the Andean markets; Kushki has the better-documented webhook scheme.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

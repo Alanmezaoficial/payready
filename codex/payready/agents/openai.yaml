@@ -1,0 +1,4 @@
+interface:
+  display_name: "PayReady"
+  short_description: "Integra y revisa pagos en tus aplicaciones"
+  default_prompt: "Usa $payready para analizar mi proyecto y recomendar una pasarela de pago."

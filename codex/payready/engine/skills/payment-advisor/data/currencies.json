@@ -1,0 +1,561 @@
+{
+  "$schema": "../../../schemas/currencies.schema.json",
+  "_comment": "ISO 4217 minor units. A reflexive amount*100 overcharges 100x in zero-decimal currencies and 10x in three-decimal ones - and in KW/BH/OM it also breaks providers that hash the amount at its ISO exponent, so the developer debugs the signature instead of the exponent. Source of truth for the minor-units validator (Rule 13).",
+  "currencies": [
+    {
+      "code": "AED",
+      "name": "UAE Dirham",
+      "exponent": 2
+    },
+    {
+      "code": "AMD",
+      "name": "Armenian Dram",
+      "exponent": 2
+    },
+    {
+      "code": "AOA",
+      "name": "Angolan Kwanza",
+      "exponent": 2
+    },
+    {
+      "code": "ARS",
+      "name": "Argentine Peso",
+      "exponent": 2
+    },
+    {
+      "code": "AUD",
+      "name": "Australian Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "AZN",
+      "name": "Azerbaijani Manat",
+      "exponent": 2
+    },
+    {
+      "code": "BDT",
+      "name": "Bangladeshi Taka",
+      "exponent": 2
+    },
+    {
+      "code": "BGN",
+      "name": "Bulgarian Lev",
+      "exponent": 2
+    },
+    {
+      "code": "BHD",
+      "name": "Bahraini Dinar",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "BIF",
+      "name": "Burundian Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "BND",
+      "name": "Brunei Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "BOB",
+      "name": "Bolivian Boliviano",
+      "exponent": 2
+    },
+    {
+      "code": "BRL",
+      "name": "Brazilian Real",
+      "exponent": 2
+    },
+    {
+      "code": "BWP",
+      "name": "Botswana Pula",
+      "exponent": 2
+    },
+    {
+      "code": "BZD",
+      "name": "Belize Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "CAD",
+      "name": "Canadian Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "CHF",
+      "name": "Swiss Franc",
+      "exponent": 2
+    },
+    {
+      "code": "CLP",
+      "name": "Chilean Peso",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "CNY",
+      "name": "Chinese Yuan",
+      "exponent": 2
+    },
+    {
+      "code": "COP",
+      "name": "Colombian Peso",
+      "exponent": 2
+    },
+    {
+      "code": "CRC",
+      "name": "Costa Rican Colon",
+      "exponent": 2
+    },
+    {
+      "code": "CUP",
+      "name": "Cuban Peso",
+      "exponent": 2
+    },
+    {
+      "code": "CZK",
+      "name": "Czech Koruna",
+      "exponent": 2
+    },
+    {
+      "code": "DJF",
+      "name": "Djiboutian Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "DKK",
+      "name": "Danish Krone",
+      "exponent": 2
+    },
+    {
+      "code": "DOP",
+      "name": "Dominican Peso",
+      "exponent": 2
+    },
+    {
+      "code": "DZD",
+      "name": "Algerian Dinar",
+      "exponent": 2
+    },
+    {
+      "code": "EGP",
+      "name": "Egyptian Pound",
+      "exponent": 2
+    },
+    {
+      "code": "ETB",
+      "name": "Ethiopian Birr",
+      "exponent": 2
+    },
+    {
+      "code": "EUR",
+      "name": "Euro",
+      "exponent": 2
+    },
+    {
+      "code": "GBP",
+      "name": "Pound Sterling",
+      "exponent": 2
+    },
+    {
+      "code": "GEL",
+      "name": "Georgian Lari",
+      "exponent": 2
+    },
+    {
+      "code": "GHS",
+      "name": "Ghanaian Cedi",
+      "exponent": 2
+    },
+    {
+      "code": "GNF",
+      "name": "Guinean Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "GTQ",
+      "name": "Guatemalan Quetzal",
+      "exponent": 2
+    },
+    {
+      "code": "HKD",
+      "name": "Hong Kong Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "HNL",
+      "name": "Honduran Lempira",
+      "exponent": 2
+    },
+    {
+      "code": "HTG",
+      "name": "Haitian Gourde",
+      "exponent": 2
+    },
+    {
+      "code": "HUF",
+      "name": "Hungarian Forint",
+      "exponent": 2
+    },
+    {
+      "code": "IDR",
+      "name": "Indonesian Rupiah",
+      "exponent": 2
+    },
+    {
+      "code": "ILS",
+      "name": "Israeli New Shekel",
+      "exponent": 2
+    },
+    {
+      "code": "INR",
+      "name": "Indian Rupee",
+      "exponent": 2
+    },
+    {
+      "code": "IQD",
+      "name": "Iraqi Dinar",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "IRR",
+      "name": "Iranian Rial",
+      "exponent": 2
+    },
+    {
+      "code": "ISK",
+      "name": "Icelandic Krona",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "JMD",
+      "name": "Jamaican Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "JOD",
+      "name": "Jordanian Dinar",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "JPY",
+      "name": "Japanese Yen",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "KES",
+      "name": "Kenyan Shilling",
+      "exponent": 2
+    },
+    {
+      "code": "KHR",
+      "name": "Cambodian Riel",
+      "exponent": 2
+    },
+    {
+      "code": "KMF",
+      "name": "Comorian Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "KPW",
+      "name": "North Korean Won",
+      "exponent": 2
+    },
+    {
+      "code": "KRW",
+      "name": "South Korean Won",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "KWD",
+      "name": "Kuwaiti Dinar",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "KZT",
+      "name": "Kazakhstani Tenge",
+      "exponent": 2
+    },
+    {
+      "code": "LBP",
+      "name": "Lebanese Pound",
+      "exponent": 2
+    },
+    {
+      "code": "LKR",
+      "name": "Sri Lankan Rupee",
+      "exponent": 2
+    },
+    {
+      "code": "LYD",
+      "name": "Libyan Dinar",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "MAD",
+      "name": "Moroccan Dirham",
+      "exponent": 2
+    },
+    {
+      "code": "MGA",
+      "name": "Malagasy Ariary",
+      "exponent": 1,
+      "note": "Subunit of 5 (ISO 4217 exponent 1). Most PSPs treat it as zero-decimal - confirm per provider."
+    },
+    {
+      "code": "MMK",
+      "name": "Myanmar Kyat",
+      "exponent": 2
+    },
+    {
+      "code": "MRU",
+      "name": "Mauritanian Ouguiya",
+      "exponent": 1,
+      "note": "Subunit of 5 (ISO 4217 exponent 1). Most PSPs treat it as zero-decimal - confirm per provider."
+    },
+    {
+      "code": "MUR",
+      "name": "Mauritian Rupee",
+      "exponent": 2
+    },
+    {
+      "code": "MXN",
+      "name": "Mexican Peso",
+      "exponent": 2
+    },
+    {
+      "code": "MYR",
+      "name": "Malaysian Ringgit",
+      "exponent": 2
+    },
+    {
+      "code": "MZN",
+      "name": "Mozambican Metical",
+      "exponent": 2
+    },
+    {
+      "code": "NGN",
+      "name": "Nigerian Naira",
+      "exponent": 2
+    },
+    {
+      "code": "NIO",
+      "name": "Nicaraguan Cordoba",
+      "exponent": 2
+    },
+    {
+      "code": "NOK",
+      "name": "Norwegian Krone",
+      "exponent": 2
+    },
+    {
+      "code": "NPR",
+      "name": "Nepalese Rupee",
+      "exponent": 2
+    },
+    {
+      "code": "NZD",
+      "name": "New Zealand Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "OMR",
+      "name": "Omani Rial",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "PAB",
+      "name": "Panamanian Balboa",
+      "exponent": 2
+    },
+    {
+      "code": "PEN",
+      "name": "Peruvian Sol",
+      "exponent": 2
+    },
+    {
+      "code": "PHP",
+      "name": "Philippine Peso",
+      "exponent": 2
+    },
+    {
+      "code": "PKR",
+      "name": "Pakistani Rupee",
+      "exponent": 2
+    },
+    {
+      "code": "PLN",
+      "name": "Polish Zloty",
+      "exponent": 2
+    },
+    {
+      "code": "PYG",
+      "name": "Paraguayan Guarani",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "QAR",
+      "name": "Qatari Riyal",
+      "exponent": 2
+    },
+    {
+      "code": "RON",
+      "name": "Romanian Leu",
+      "exponent": 2
+    },
+    {
+      "code": "RSD",
+      "name": "Serbian Dinar",
+      "exponent": 2
+    },
+    {
+      "code": "RUB",
+      "name": "Russian Ruble",
+      "exponent": 2
+    },
+    {
+      "code": "RWF",
+      "name": "Rwandan Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "SAR",
+      "name": "Saudi Riyal",
+      "exponent": 2
+    },
+    {
+      "code": "SEK",
+      "name": "Swedish Krona",
+      "exponent": 2
+    },
+    {
+      "code": "SGD",
+      "name": "Singapore Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "SYP",
+      "name": "Syrian Pound",
+      "exponent": 2
+    },
+    {
+      "code": "THB",
+      "name": "Thai Baht",
+      "exponent": 2
+    },
+    {
+      "code": "TND",
+      "name": "Tunisian Dinar",
+      "exponent": 3,
+      "three_decimal": true
+    },
+    {
+      "code": "TRY",
+      "name": "Turkish Lira",
+      "exponent": 2
+    },
+    {
+      "code": "TTD",
+      "name": "Trinidad and Tobago Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "TWD",
+      "name": "New Taiwan Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "TZS",
+      "name": "Tanzanian Shilling",
+      "exponent": 2
+    },
+    {
+      "code": "UAH",
+      "name": "Ukrainian Hryvnia",
+      "exponent": 2
+    },
+    {
+      "code": "UGX",
+      "name": "Ugandan Shilling",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "USD",
+      "name": "US Dollar",
+      "exponent": 2
+    },
+    {
+      "code": "UYU",
+      "name": "Uruguayan Peso",
+      "exponent": 2
+    },
+    {
+      "code": "UZS",
+      "name": "Uzbekistani Som",
+      "exponent": 2
+    },
+    {
+      "code": "VES",
+      "name": "Venezuelan Bolivar",
+      "exponent": 2
+    },
+    {
+      "code": "VND",
+      "name": "Vietnamese Dong",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "VUV",
+      "name": "Vanuatu Vatu",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "XAF",
+      "name": "Central African CFA Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "XOF",
+      "name": "West African CFA Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "XPF",
+      "name": "CFP Franc",
+      "exponent": 0,
+      "zero_decimal": true
+    },
+    {
+      "code": "ZAR",
+      "name": "South African Rand",
+      "exponent": 2
+    },
+    {
+      "code": "ZMW",
+      "name": "Zambian Kwacha",
+      "exponent": 2
+    }
+  ]
+}

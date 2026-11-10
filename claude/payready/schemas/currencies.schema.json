@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hainrixz/agente-pagokit/schemas/currencies.schema.json",
+  "title": "PagoKit Currencies",
+  "description": "ISO 4217 minor units. A property of money, not of a provider - which is why it cannot live in providers.json.",
+  "type": "object",
+  "required": ["currencies"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "_comment": {"type": "string"},
+    "currencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["code", "exponent"],
+        "properties": {
+          "code": {"type": "string", "pattern": "^[A-Z]{3}$"},
+          "name": {"type": "string"},
+          "exponent": {"type": "integer", "minimum": 0, "maximum": 4},
+          "zero_decimal": {"type": "boolean"},
+          "three_decimal": {"type": "boolean"},
+          "note": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

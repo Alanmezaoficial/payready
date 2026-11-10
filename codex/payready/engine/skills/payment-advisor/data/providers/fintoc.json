@@ -1,0 +1,99 @@
+{
+  "id": "fintoc",
+  "name": "Fintoc",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 3,
+  "integration_level": "advise",
+  "role": "banking_rails",
+  "merchant_domicile_regions": [
+    "CL",
+    "MX"
+  ],
+  "method_coverage_regions": [
+    "CL",
+    "MX"
+  ],
+  "currencies": [
+    "CLP",
+    "MXN"
+  ],
+  "methods": [
+    "transferencia_cl",
+    "spei",
+    "pac_chile"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED, Stripe-shaped. Header `Fintoc-Signature`, format `t={unix_ts},v1={hex}`. Algorithm HMAC-SHA256 over `{timestamp}.{raw_body}` using the endpoint secret (shown once at registration). Docs explicitly recommend a FIVE MINUTE tolerance window. Use timestamp-window + event-id dedup. Raw, unparsed body is required.",
+    "expected_filenames": [
+      "webhook",
+      "fintoc-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.fintoc.com/docs/webhooks-validating",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "FINTOC_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Secret API key used as a bearer/Authorization value. Webhook endpoint secret is a SEPARATE credential shown only once at registration. No verified prefix regex — leave null."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "FINTOC_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "FINTOC_API_KEY",
+    "webhook_secret": "FINTOC_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. A2A pricing is per-merchant; no public rate verified. The strategic point is that A2A undercuts card interchange, but do not assert a number."
+  },
+  "docs_url": "https://docs.fintoc.com/docs/webhooks-validating",
+  "score_modifiers": {},
+  "notes": [
+    "Account-to-account payment initiation for Chile and Mexico — the cheapest rail in both markets, bypassing card interchange entirely. Covers all SPEI institutions in MX and 21 sender banks in CL, plus PAC direct debit for Chilean subscriptions. Nothing in providers.json does A2A in either country.",
+    "SDKs: Official first-party libraries: `fintoc` on npm (fintoc-com/fintoc-node) and `fintoc` on PyPI (fintoc-com/fintoc-python), both with built-in webhook signature verification helpers. Good coverage; no official PHP.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Complements transbank (cards) in CL and conekta/stripe in MX. Overlaps khipu in CL — Fintoc has the better-documented signature scheme and MX coverage.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

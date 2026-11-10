@@ -1,0 +1,103 @@
+{
+  "id": "revenuecat",
+  "name": "RevenueCat",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 7,
+  "integration_level": "advise",
+  "role": "entitlement_layer",
+  "merchant_domicile_regions": [
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "GLOBAL"
+  ],
+  "currencies": [
+    "USD"
+  ],
+  "methods": [
+    "apple_iap",
+    "google_play_billing",
+    "card"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED (two mechanisms, both supported): (1) a dashboard-configured static `Authorization` header, which is a shared bearer secret, not a signature; and (2) header `X-RevenueCat-Webhook-Signature` formatted `t=<unix_timestamp>,v1=<hmac_sha256_hex>`, HMAC-SHA256 over `<timestamp>.<raw json body>` using the integration signing secret. Timestamp IS signed → timestamp-window replay defense is possible. Confidence note: community threads suggest the signature header was in flux; PagoKit should generate BOTH checks and treat the Authorization header as the floor.",
+    "expected_filenames": [
+      "webhook",
+      "revenuecat-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://www.revenuecat.com/docs/integrations/webhooks",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "REVENUECAT_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN. Verified only that REST API v2 uses `Authorization: Bearer <key>` per RFC 7235. Public SDK key prefixes (`appl_`, `goog_`) and secret `sk_` were NOT confirmed in the fetched docs."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "REVENUECAT_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "REVENUECAT_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "REVENUECAT_API_KEY",
+    "webhook_secret": "REVENUECAT_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — reported as free below a monthly-tracked-revenue threshold then ~1% of tracked revenue, but this was sourced from comparison articles, not revenuecat.com/pricing. Verify before writing."
+  },
+  "docs_url": "https://www.revenuecat.com/docs/integrations/webhooks",
+  "score_modifiers": {},
+  "notes": [
+    "PagoKit has zero mobile coverage. If the target app ships on the App Store and sells digital content, Stripe is not merely suboptimal — it is against App Store rules in most jurisdictions, and a generated Stripe integration will get the app rejected. RevenueCat is the de-facto entitlement/receipt-validation layer across StoreKit 2 and Play Billing, and it normalizes both into one webhook.",
+    "SDKs: Official SDKs for iOS/Swift, Android/Kotlin, Flutter, React Native, Unity, Capacitor, KMP, plus REST API v2 (Bearer auth). Server side is REST, not a per-language server SDK.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps adapty and superwall. Does not overlap any shipped provider — it is a category PagoKit does not cover at all.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

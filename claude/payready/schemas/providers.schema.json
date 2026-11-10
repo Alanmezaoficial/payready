@@ -1,0 +1,1054 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hainrixz/agente-pagokit/schemas/providers.schema.json",
+  "title": "PagoKit Providers (schema v2)",
+  "description": "Schema for skills/payment-advisor/data/providers/*.json. Each entry describes a payment provider: who can onboard, where it acquires, how it notifies, how its webhook signature is built, and what evidence backs those claims.",
+  "type": "object",
+  "required": [
+    "providers"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "providers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/provider"
+      }
+    },
+    "_generated": {
+      "type": "string"
+    },
+    "_comment": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "description": "Provenance for a factual claim. CI enforces that verified_by=llm-generated can never carry confidence=high.",
+      "required": [
+        "confidence",
+        "verified_by"
+      ],
+      "properties": {
+        "source_url": {
+          "type": "string"
+        },
+        "verified_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "unverified"
+          ]
+        },
+        "verified_by": {
+          "enum": [
+            "human",
+            "llm-generated"
+          ]
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provider": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "last_verified_at",
+        "verified_by",
+        "status",
+        "phase",
+        "integration_level",
+        "role",
+        "notification_model",
+        "merchant_domicile_regions",
+        "method_coverage_regions",
+        "currencies",
+        "methods",
+        "supports",
+        "kyc",
+        "onboarding",
+        "credentials",
+        "developer_experience",
+        "webhook",
+        "docs_url"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_verified_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "verified_by": {
+          "enum": [
+            "human",
+            "llm-generated"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "legacy",
+            "preview",
+            "deprecated",
+            "deprioritized"
+          ]
+        },
+        "phase": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9
+        },
+        "wave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "integration_level": {
+          "enum": [
+            "build",
+            "generic",
+            "advise"
+          ],
+          "description": "build = hand-written fragments exist; generic = composed from the family recipe; advise = data only, PagoKit will NOT write code."
+        },
+        "role": {
+          "enum": [
+            "acquirer",
+            "psp",
+            "aggregator",
+            "mor",
+            "orchestrator",
+            "tax_engine",
+            "entitlement_layer",
+            "billing_layer",
+            "banking_rails",
+            "qualification_layer"
+          ]
+        },
+        "layers_over": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alternatives_to": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acquired_by": {
+          "type": "string"
+        },
+        "successor": {
+          "type": "string"
+        },
+        "deprioritized_reason": {
+          "type": "string"
+        },
+        "merchant_domicile_regions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2
+          },
+          "minItems": 0,
+          "description": "Where a MERCHANT can open an account. Empty means: nowhere self-serve."
+        },
+        "method_coverage_regions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2
+          },
+          "minItems": 1,
+          "description": "Where BUYERS can pay. Superset of merchant_domicile_regions for cross-border acquirers."
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2
+          },
+          "description": "DEPRECATED legacy alias. Kept so v1 consumers keep working."
+        },
+        "currencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "minItems": 1
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "supports": {
+          "type": "object",
+          "required": [
+            "subscriptions",
+            "one_time",
+            "marketplace_payouts",
+            "merchant_of_record"
+          ],
+          "properties": {
+            "subscriptions": {
+              "type": "boolean"
+            },
+            "one_time": {
+              "type": "boolean"
+            },
+            "marketplace_payouts": {
+              "type": "boolean"
+            },
+            "merchant_of_record": {
+              "type": "boolean"
+            },
+            "tokenization_owner": {
+              "enum": [
+                "provider",
+                "merchant",
+                "shared"
+              ]
+            },
+            "save_card": {
+              "type": "boolean"
+            },
+            "iap_compatible": {
+              "type": "boolean"
+            },
+            "agentic_toolkit": {
+              "type": "boolean"
+            },
+            "stablecoin_settlement": {
+              "type": "boolean"
+            },
+            "card_present": {
+              "type": "boolean"
+            },
+            "cash_voucher": {
+              "type": [
+                "boolean",
+                "object"
+              ]
+            },
+            "installments": {
+              "type": [
+                "boolean",
+                "object"
+              ]
+            },
+            "qr": {
+              "type": [
+                "boolean",
+                "object"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "notification_model": {
+          "enum": [
+            "webhook",
+            "return_url_commit",
+            "ping_then_poll",
+            "poll_only",
+            "none"
+          ],
+          "description": "How the merchant learns a payment settled. NOT every provider uses webhooks - Transbank auto-reverses an uncommitted transaction."
+        },
+        "commit_required": {
+          "type": "object",
+          "properties": {
+            "endpoint": {
+              "type": "string"
+            },
+            "sdk_method": {
+              "type": "string"
+            },
+            "deadline_seconds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "on_timeout": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "webhook": {
+          "type": "object",
+          "required": [
+            "verification_family",
+            "expected_filenames",
+            "required_events_minimum",
+            "evidence"
+          ],
+          "properties": {
+            "verification_family": {
+              "enum": [
+                "hmac_raw_body",
+                "hmac_timestamp_body",
+                "hmac_body_transform",
+                "hmac_field_concat",
+                "standard_webhooks",
+                "asymmetric_rsa",
+                "asymmetric_jws",
+                "body_embedded_sig",
+                "shared_secret_header",
+                "signed_headers",
+                "mtls_or_ip",
+                "none_refetch",
+                "sdk_verifier",
+                "unverified",
+                "none"
+              ],
+              "description": "How the callback is authenticated. `unverified` means the provider documents a scheme that has NOT yet been transcribed into the typed fields below - distinct from `none`, which means no mechanism exists. The generator must not emit a verifier for either."
+            },
+            "signature_header": {
+              "type": "string"
+            },
+            "signature_location": {
+              "enum": [
+                "header",
+                "body_field",
+                "query_param",
+                "form_field",
+                "none"
+              ]
+            },
+            "signature_pointer": {
+              "type": "string",
+              "description": "JSON pointer or field name when signature_location is not header."
+            },
+            "algorithm": {
+              "type": "string",
+              "description": "Human-readable summary. Machines read verification_family + hash_algo + encodings."
+            },
+            "hash_algo": {
+              "enum": [
+                "sha256",
+                "sha512",
+                "sha384",
+                "sha1",
+                "md5",
+                "rsa-sha1",
+                "rsa-sha256",
+                "es512",
+                "es256",
+                "rs256",
+                "none"
+              ]
+            },
+            "secret_encoding": {
+              "enum": [
+                "raw",
+                "base64_decode",
+                "base64_encode",
+                "hex_decode",
+                "pem",
+                "none"
+              ]
+            },
+            "digest_encoding": {
+              "enum": [
+                "hex",
+                "hex_upper",
+                "base64",
+                "base64url",
+                "none"
+              ]
+            },
+            "signed_payload_template": {
+              "type": "string",
+              "description": "Ordered template. Placeholders: {raw_body} {timestamp} {secret} {header:NAME} {body:/json/pointer} {body_props} {api_key} {notification_url}"
+            },
+            "signature_covers_body": {
+              "type": "boolean",
+              "description": "False means a verified payload is still forgeable - handler MUST re-fetch."
+            },
+            "payload_authoritative": {
+              "type": "boolean",
+              "description": "False forces a mandatory re-fetch before acting."
+            },
+            "refetch_endpoint": {
+              "type": "string"
+            },
+            "signature_includes_timestamp": {
+              "type": "boolean"
+            },
+            "timestamp_source": {
+              "enum": [
+                "signature_kv",
+                "header",
+                "body_field",
+                "none"
+              ]
+            },
+            "timestamp_pointer": {
+              "type": "string"
+            },
+            "recommended_tolerance_seconds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "replay_mitigation_strategy": {
+              "enum": [
+                "timestamp-window",
+                "event-id-dedup",
+                "both",
+                "none"
+              ]
+            },
+            "event_id_pointer": {
+              "type": "string"
+            },
+            "event_type_pointer": {
+              "type": "string"
+            },
+            "ack_deadline_seconds": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "ack_body_literal": {
+              "type": "string",
+              "description": "Some providers require an exact ack body, e.g. Adyen's [accepted]."
+            },
+            "weak_crypto": {
+              "type": "boolean"
+            },
+            "weak_crypto_reason": {
+              "type": "string"
+            },
+            "secret_env": {
+              "type": "string"
+            },
+            "required_events_minimum": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expected_filenames": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "ip_allowlist_available": {
+              "type": "boolean"
+            },
+            "ip_allowlist": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "evidence": {
+              "$ref": "#/$defs/evidence"
+            },
+            "header_format": {
+              "type": "object",
+              "description": "How the signature is packed into its header. `kv` covers Stripe (t=,v1=) and Mercado Pago (ts=,v1=); `prefixed` covers GitHub-style sha256=<hex>; `raw` is the bare value.",
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "raw",
+                    "kv",
+                    "prefixed"
+                  ]
+                },
+                "signature_key": {
+                  "type": "string"
+                },
+                "timestamp_key": {
+                  "type": "string"
+                },
+                "separator": {
+                  "type": "string"
+                },
+                "assign": {
+                  "type": "string"
+                },
+                "prefix": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "checkout_spec": {
+          "type": "object",
+          "properties": {
+            "pattern": {
+              "enum": [
+                "hosted_redirect",
+                "hosted_overlay",
+                "intent_client_secret",
+                "widget_token",
+                "direct_charge",
+                "return_url_commit"
+              ]
+            },
+            "create_endpoint": {
+              "type": "string"
+            },
+            "auth": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "amount_unit": {
+              "enum": [
+                "minor",
+                "major",
+                "string_major"
+              ]
+            },
+            "idempotency": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "response_redirect_pointer": {
+              "type": "string"
+            },
+            "fields": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "evidence": {
+              "$ref": "#/$defs/evidence"
+            }
+          },
+          "additionalProperties": false
+        },
+        "credentials": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Replaces secret_key_pattern / publishable_key_pattern. ~60% of providers need more than two credentials.",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "env_var"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "api_key",
+                  "publishable_key",
+                  "oauth_client",
+                  "oauth_secret",
+                  "shared_secret",
+                  "webhook_secret",
+                  "rsa_keypair",
+                  "ec_signing_key",
+                  "mtls_cert",
+                  "merchant_code",
+                  "signing_salt",
+                  "terminal_id",
+                  "derived_key"
+                ]
+              },
+              "env_var": {
+                "type": "string"
+              },
+              "pattern": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "live_pattern": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "test_prefix": {
+                "type": "string"
+              },
+              "live_prefix": {
+                "type": "string"
+              },
+              "scope": {
+                "enum": [
+                  "server",
+                  "client",
+                  "both"
+                ]
+              },
+              "rotates": {
+                "type": "boolean"
+              },
+              "shown_once": {
+                "type": "boolean"
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "secret_key_pattern": {
+          "type": "string",
+          "description": "DEPRECATED legacy alias, superseded by credentials[]."
+        },
+        "publishable_key_pattern": {
+          "type": "string",
+          "description": "DEPRECATED legacy alias."
+        },
+        "detection": {
+          "type": "object",
+          "description": "Makes the hook validators data-driven instead of hardcoding provider names.",
+          "properties": {
+            "sdk_import_patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "verifier_names": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sdk_call_patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "live_key_patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "onboarding": {
+          "type": "object",
+          "required": [
+            "model"
+          ],
+          "properties": {
+            "model": {
+              "enum": [
+                "self_serve",
+                "application_review",
+                "sales_gated",
+                "partner_certification"
+              ]
+            },
+            "time_to_keys_days": {
+              "type": "string"
+            },
+            "entity_required_countries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "individual_allowed": {
+              "type": "boolean"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "settlement": {
+          "type": "object",
+          "properties": {
+            "settlement_currencies": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              }
+            },
+            "presentment_currencies": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              }
+            },
+            "fx_markup_pct": {
+              "type": "number"
+            },
+            "payout_delay_days": {
+              "type": "string"
+            },
+            "holds_funds": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "pci": {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "enum": [
+                "SAQ_A",
+                "SAQ_A_EP",
+                "SAQ_D",
+                "not_applicable"
+              ]
+            },
+            "pan_touches_server": {
+              "type": "boolean"
+            },
+            "hosted_fields": {
+              "type": "boolean"
+            },
+            "requires_script_inventory": {
+              "type": "boolean"
+            },
+            "loader_exempt_from_sri": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "recurring": {
+          "type": "object",
+          "properties": {
+            "rails": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "mandate_lifecycle": {
+              "type": "boolean"
+            },
+            "network_txn_id_required": {
+              "type": "boolean"
+            },
+            "pre_debit_notice_hours": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "afa_threshold": {
+              "type": "string"
+            },
+            "consumer_revocable": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "mor": {
+          "type": "object",
+          "properties": {
+            "is_mor": {
+              "type": "boolean"
+            },
+            "mode": {
+              "enum": [
+                "always",
+                "optional_mode",
+                "never"
+              ]
+            },
+            "handles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "disables_capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "agentic": {
+          "type": "object",
+          "properties": {
+            "acp_seller": {
+              "type": "boolean"
+            },
+            "x402": {
+              "type": "boolean"
+            },
+            "spt_supported": {
+              "type": "boolean"
+            },
+            "mcp_server_url": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "iap": {
+          "type": "object",
+          "properties": {
+            "is_iap_layer": {
+              "type": "boolean"
+            },
+            "stores": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "mor_is_store": {
+              "type": "boolean"
+            },
+            "settlement_lag_days": {
+              "type": "string"
+            },
+            "take_rate_pct_range": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "metered": {
+          "type": "object",
+          "properties": {
+            "event_ingestion": {
+              "type": "boolean"
+            },
+            "meters": {
+              "type": "boolean"
+            },
+            "credit_balances": {
+              "type": "boolean"
+            },
+            "requires_psp": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "env_vars": {
+          "type": "object",
+          "description": "Canonical env var names. Lets /pagokit:doctor audit any provider instead of hardcoding four.",
+          "properties": {
+            "secret": {
+              "type": "string"
+            },
+            "publishable": {
+              "type": "string"
+            },
+            "webhook_secret": {
+              "type": "string"
+            },
+            "extra": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "tax_handling": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "fees": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "kyc": {
+          "type": "object",
+          "required": [
+            "individual_allowed"
+          ],
+          "properties": {
+            "individual_allowed": {
+              "type": "boolean"
+            },
+            "business_required_countries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "individual_constraints": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "time_to_activate_days": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "developer_experience": {
+          "type": "object",
+          "required": [
+            "sdk_quality",
+            "docs_quality",
+            "sandbox"
+          ],
+          "properties": {
+            "sdk_quality": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "docs_quality": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "sandbox": {
+              "type": "boolean"
+            },
+            "test_keys_prefix": {
+              "type": "string"
+            },
+            "live_keys_prefix": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "sdks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "pkg": {
+                "type": "string"
+              },
+              "version_pinned": {
+                "type": "boolean"
+              },
+              "first_party": {
+                "type": "boolean"
+              },
+              "has_webhook_verifier": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "api_version": {
+          "type": "string"
+        },
+        "api_versioning": {
+          "type": "object",
+          "properties": {
+            "header": {
+              "type": "string"
+            },
+            "current": {
+              "type": "string"
+            },
+            "pin_required": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "recommended_api_flow": {
+          "type": "string"
+        },
+        "deprecated_flows": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "frontend_options": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "hosted",
+              "embedded",
+              "widget",
+              "drop-in",
+              "redirect",
+              "elements",
+              "bricks",
+              "sdk_native",
+              "none"
+            ]
+          },
+          "minItems": 1
+        },
+        "anti_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "test_cards": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "docs_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "score_modifiers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

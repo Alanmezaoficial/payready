@@ -1,0 +1,253 @@
+{
+  "id": "wompi",
+  "name": "Wompi",
+  "last_verified_at": "2026-05-20",
+  "verified_by": "human",
+  "status": "active",
+  "phase": 1,
+  "wave": 0,
+  "integration_level": "build",
+  "role": "acquirer",
+  "merchant_domicile_regions": [
+    "CO"
+  ],
+  "method_coverage_regions": [
+    "CO"
+  ],
+  "regions": [
+    "CO"
+  ],
+  "currencies": [
+    "COP"
+  ],
+  "methods": [
+    "card",
+    "pse",
+    "nequi",
+    "bancolombia_button",
+    "bancolombia_transfer",
+    "efecty",
+    "baloto",
+    "su_red"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "tokenization_owner": "provider",
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false,
+    "stablecoin_settlement": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "signature_header": "Event-Signature",
+    "algorithm": "SHA-256-checksum",
+    "signature_includes_timestamp": true,
+    "recommended_tolerance_seconds": 600,
+    "replay_mitigation_strategy": "both",
+    "required_events_minimum": [
+      "transaction.updated"
+    ],
+    "expected_filenames": [
+      "webhook",
+      "events",
+      "callback",
+      "wompi-webhook"
+    ],
+    "ip_allowlist_available": false,
+    "verification_family": "body_embedded_sig",
+    "signature_location": "body_field",
+    "signature_pointer": "/signature/checksum",
+    "hash_algo": "sha256",
+    "secret_encoding": "raw",
+    "digest_encoding": "hex",
+    "signed_payload_template": "{body_props}{timestamp}{secret}",
+    "signature_covers_body": false,
+    "payload_authoritative": false,
+    "timestamp_source": "body_field",
+    "timestamp_pointer": "/timestamp",
+    "event_id_pointer": "/data/transaction/id",
+    "event_type_pointer": "/event",
+    "secret_env": "WOMPI_EVENTS_SECRET",
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20",
+      "source_url": "https://docs.wompi.co",
+      "note": "Scheme cross-checked against skills/webhook-verifier/signatures.md. Only the properties listed in signature.properties are covered by the checksum, so the handler must re-fetch the transaction before acting on any other field."
+    },
+    "refetch_endpoint": "GET https://production.wompi.co/v1/transactions/{data.transaction.id}"
+  },
+  "checkout_spec": {
+    "pattern": "widget_token",
+    "amount_unit": "minor",
+    "idempotency": {
+      "supported": false
+    },
+    "evidence": {
+      "confidence": "high",
+      "verified_by": "human",
+      "verified_at": "2026-05-20"
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "WOMPI_PRIVATE_KEY",
+      "pattern": "^prv_(test|prod)_[A-Za-z0-9]{20,}$",
+      "live_pattern": "^prv_prod_[A-Za-z0-9]{20,}$",
+      "test_prefix": "prv_test_",
+      "live_prefix": "prv_prod_",
+      "scope": "server"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "WOMPI_PUBLIC_KEY",
+      "pattern": "^pub_(test|prod)_[A-Za-z0-9]{20,}$",
+      "test_prefix": "pub_test_",
+      "live_prefix": "pub_prod_",
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "WOMPI_EVENTS_SECRET",
+      "pattern": null,
+      "scope": "server",
+      "note": "The EVENTS secret, not the integrity secret used for client-side signing."
+    },
+    {
+      "id": "integrity",
+      "kind": "signing_salt",
+      "env_var": "WOMPI_INTEGRITY_SECRET",
+      "pattern": null,
+      "scope": "server",
+      "note": "Used to sign the widget reference client-side. Distinct from the events secret."
+    }
+  ],
+  "secret_key_pattern": "^prv_(test|prod)_[A-Za-z0-9]{20,}$",
+  "publishable_key_pattern": "^pub_(test|prod)_[A-Za-z0-9]{20,}$",
+  "env_vars": {
+    "secret": "WOMPI_PRIVATE_KEY",
+    "publishable": "WOMPI_PUBLIC_KEY",
+    "webhook_secret": "WOMPI_EVENTS_SECRET",
+    "extra": [
+      "WOMPI_INTEGRITY_SECRET"
+    ]
+  },
+  "detection": {
+    "sdk_import_patterns": [
+      "@wompi/",
+      "wompi"
+    ],
+    "verifier_names": [
+      "verifyWompiEvent",
+      "verifyWompiChecksum",
+      "Wompi.verifyEventChecksum"
+    ],
+    "sdk_call_patterns": [
+      "WidgetCheckout"
+    ],
+    "live_key_patterns": [
+      "prv_prod_",
+      "pub_prod_"
+    ]
+  },
+  "onboarding": {
+    "model": "application_review",
+    "time_to_keys_days": "1-3",
+    "individual_allowed": true,
+    "note": "Personas naturales need a Bancolombia account with 30+ days of activity to settle."
+  },
+  "settlement": {
+    "settlement_currencies": [
+      "COP"
+    ],
+    "presentment_currencies": [
+      "COP"
+    ],
+    "holds_funds": true,
+    "payout_delay_days": "1"
+  },
+  "pci": {
+    "scope": "SAQ_A",
+    "pan_touches_server": false,
+    "hosted_fields": true,
+    "requires_script_inventory": true,
+    "loader_exempt_from_sri": [
+      "checkout.wompi.co"
+    ]
+  },
+  "recurring": {
+    "rails": [],
+    "mandate_lifecycle": false,
+    "network_txn_id_required": false
+  },
+  "mor": {
+    "is_mor": false,
+    "mode": "never"
+  },
+  "tax_handling": {
+    "automated_collection": false,
+    "notes": "Merchant handles Colombian IVA and DIAN reporting."
+  },
+  "fees": {
+    "card_domestic_pct": 2.65,
+    "card_domestic_fixed_cop": 900,
+    "notes": "Card 2.65% + 900 COP + IVA. PSE 1.65% + 1500 COP. Nequi ~2.99%. Settlement T+1 to Bancolombia."
+  },
+  "kyc": {
+    "individual_allowed": true,
+    "individual_constraints": {
+      "requires_bancolombia_account_with_30_day_history": true
+    },
+    "time_to_activate_days": "1-3"
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 4,
+    "sandbox": true,
+    "test_keys_prefix": "prv_test_",
+    "live_keys_prefix": "prv_prod_"
+  },
+  "sdks": {
+    "node": {
+      "pkg": "@wompi/wompi"
+    },
+    "php": {
+      "pkg": "wompi/wompi-php"
+    }
+  },
+  "api_version": "v1",
+  "recommended_api_flow": "transactions_v1",
+  "frontend_options": [
+    "widget",
+    "redirect"
+  ],
+  "anti_patterns": [
+    "Do not implement a card tokenization endpoint on your backend — Wompi tokenizes client-side via the Widget.",
+    "Never expose the private key (prv_) to the browser. Only the public key (pub_) is safe client-side.",
+    "Do not trust payload fields outside event.signature.properties - they are not covered by the checksum. Re-fetch the transaction before acting."
+  ],
+  "test_cards": {
+    "success": "4242 4242 4242 4242",
+    "decline": "4111 1111 1111 1112"
+  },
+  "docs_url": "https://docs.wompi.co",
+  "score_modifiers": {
+    "latam_individual_seller": 1,
+    "needs_cash_payment_only": 2,
+    "marketplace_multi_seller": -3,
+    "us_saas": -5,
+    "eu_subscription": -5
+  },
+  "notes": [
+    "Operated by Bancolombia. Personas naturales need a Bancolombia account with 30+ days of activity to settle funds.",
+    "No native subscription support — recurring billing requires implementing your own scheduler with saved cards."
+  ]
+}

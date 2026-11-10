@@ -1,0 +1,146 @@
+{
+  "id": "flutterwave",
+  "name": "Flutterwave",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 6,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "NG",
+    "GH",
+    "KE",
+    "UG",
+    "TZ",
+    "RW",
+    "ZM",
+    "ZA",
+    "CI",
+    "SN",
+    "CM",
+    "MW",
+    "EG",
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "NG",
+    "GH",
+    "KE",
+    "UG",
+    "TZ",
+    "RW",
+    "ZM",
+    "ZA",
+    "CI",
+    "SN",
+    "CM",
+    "MW",
+    "EG",
+    "GLOBAL"
+  ],
+  "currencies": [
+    "EGP",
+    "GHS",
+    "KES",
+    "NGN",
+    "RWF",
+    "TZS",
+    "UGX",
+    "XAF",
+    "XOF",
+    "ZAR",
+    "ZMW"
+  ],
+  "methods": [
+    "card",
+    "verve",
+    "ng_bank_transfer",
+    "ng_ussd",
+    "mpesa",
+    "mtn_momo",
+    "airtel_money",
+    "eft_za",
+    "apple_pay",
+    "google_pay"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "PARTIALLY VERIFIED, and version-dependent — this is a trap. v3: header `verif-hash` containing the merchant's dashboard secret hash IN PLAINTEXT. That is a shared-secret echo, NOT a signature: it does not bind the payload, so a leaked hash forges any event. v4: header `flutterwave-signature`, HMAC-SHA256 of the raw body keyed with the dashboard secret hash, hex. No timestamp in either version (the v4 payload carries a separate `timestamp` field that is NOT covered by the signature). Generator must branch on API version and must flag the v3 path as an anti-pattern.",
+    "expected_filenames": [
+      "webhook",
+      "flutterwave-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.flutterwave.com/docs",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "FLUTTERWAVE_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "PARTIALLY VERIFIED. v3 keys are `FLWSECK_TEST-...`/`FLWSECK-...` (secret), `FLWPUBK_TEST-...`/`FLWPUBK-...` (public), plus an encryption key — exact suffix charset UNKNOWN. v4 replaces static keys with OAuth2 client_credentials against http"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "FLUTTERWAVE_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "FLUTTERWAVE_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "FLUTTERWAVE_API_KEY",
+    "webhook_secret": "FLUTTERWAVE_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN with confidence. Commonly cited as 1.4% local / 3.8% international in Nigeria, but Flutterwave publishes per-country schedules that diverge and are frequently renegotiated. Do not hardcode a number; store per-country or leave null."
+  },
+  "docs_url": "https://developer.flutterwave.com/docs",
+  "score_modifiers": {},
+  "notes": [
+    "Single integration reaching ~30 African markets and, critically, the mobile-money wallets (M-Pesa, MTN MoMo, Airtel) without negotiating separately with each telco. For any merchant selling into more than two African countries this is the highest-leverage single provider in the cluster.",
+    "SDKs: First-party: `flutterwave-node-v3` (npm), `rave_python` (PyPI), `flutterwavedev/flutterwave-v3` (Composer). All are v3-era; v4 has no mature first-party server SDK as of mid-2026, so v4 codegen should be direct REST + OAuth token cache.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Paystack in NG/GH/KE/ZA/CI; overlaps Onafriq and the direct telco APIs for mobile money — and beats both on integration cost.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

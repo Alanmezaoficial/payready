@@ -1,0 +1,103 @@
+{
+  "id": "razorpay",
+  "name": "Razorpay",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 5,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "IN",
+    "MY"
+  ],
+  "method_coverage_regions": [
+    "IN",
+    "MY"
+  ],
+  "currencies": [
+    "INR",
+    "MYR"
+  ],
+  "methods": [
+    "card",
+    "upi",
+    "upi_autopay",
+    "netbanking_in",
+    "emi_in",
+    "wallet_in",
+    "paypal"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "X-Razorpay-Signature; HMAC-SHA256 hex over the RAW request body keyed with the webhook secret (a dashboard-chosen value, NOT the API key secret). Signature does NOT cover a timestamp, so there is no tolerance window to enforce. Razorpay's documented replay strategy is event-id dedup via the x-razorpay-event-id header (unique per event). VERIFIED from razorpay.com/docs/webhooks/validate-test/.",
+    "expected_filenames": [
+      "webhook",
+      "razorpay-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://razorpay.com/docs",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "RAZORPAY_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Auth is HTTP Basic with key_id:key_secret. The rzp_test_ / rzp_live_ prefix is universally observed in the wild but I could NOT confirm it on any official docs page I fetched (the auth and API-keys pages use placeholders only). Treat the re"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "RAZORPAY_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "RAZORPAY_API_KEY",
+    "webhook_secret": "RAZORPAY_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "2% + 18% GST on most domestic methods (cards, UPI, netbanking, wallets), no setup fee, no AMC; charged only on successful transactions. International cards priced higher (quoted, not published). VERIFIED from Razorpay's own 2026 pricing pages."
+  },
+  "docs_url": "https://razorpay.com/docs",
+  "score_modifiers": {},
+  "notes": [
+    "India is the single largest gap in the shipped set: Stripe is invite-only and international-only in India, so no shipped provider can take a domestic INR payment. Razorpay is the default answer for Indian devs and is the only one in this cluster with first-class Subscriptions + UPI AutoPay + card e-mandate APIs under one SDK.",
+    "SDKs: node: razorpay (official, ships validateWebhookSignature(body, signature, secret)); python: razorpay; php: razorpay/razorpay; also official Java/.NET/Ruby.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps nothing shipped. Razorpay's Malaysian arm is Curlec (acquired 2022) — a separate MYR entity, not the same API surface; treat MY support as partial.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "_comment": "The file-plan graph. Slots are resolved in order; each names the fragments that compose it and the condition under which it is emitted. integration-builder reads this instead of carrying the plan in prose.",
+  "name": "default",
+  "description": "Standard vertical integration: checkout, notification handling, persistence, self-service and audit trail.",
+  "order_rationale": "Order is load-bearing because of validator dependencies: .gitignore must cover .env before any env file is written (Rule 2), and the webhook handler must exist before the checkout route so the raw-body and signature checks see a complete file.",
+  "slots": [
+    {
+      "id": "gitignore",
+      "path": ".gitignore",
+      "operation": "create_or_extend",
+      "purpose": "Ensure .env is ignored before any env file exists (Rule 2)",
+      "fragments": []
+    },
+    {
+      "id": "env_example",
+      "path": ".env.example",
+      "operation": "create_or_extend",
+      "purpose": "Document every credential the provider needs, test-mode values only (Rule 8)",
+      "source": "provider.credentials[]",
+      "fragments": []
+    },
+    {
+      "id": "db_schema",
+      "path": "<orm schema path>",
+      "operation": "extend",
+      "purpose": "payments, subscriptions, customers, idempotency_keys, webhook_events_processed",
+      "fragments": ["_db/{orm}.md"],
+      "skip_if": "orm == 'none'"
+    },
+    {
+      "id": "sdk_init",
+      "path": "lib/payments/{provider}.{ext}",
+      "purpose": "SDK or thin REST client, with the API version pinned",
+      "fragments": ["templates/{provider}/reference.md", "_stack/{stack}.md"]
+    },
+    {
+      "id": "errors",
+      "path": "lib/payments/errors.{ext}",
+      "purpose": "Map provider error codes onto the cross-provider taxonomy",
+      "fragments": ["templates/{provider}/errors.md"]
+    },
+    {
+      "id": "notification_handler",
+      "path": "<route>/api/webhook/{provider}",
+      "purpose": "Receive and authenticate provider notifications",
+      "fragments": [
+        "fragments/webhook/_preamble.md",
+        "fragments/webhook/{verification_family}.md",
+        "fragments/notify/{notification_model}.md",
+        "_stack/{stack}.md"
+      ],
+      "must_include_rule_tags": ["// Rule 3: signature", "// Rule 5: raw body", "// Rule 9: replay", "// Rule 10: body size"],
+      "note": "The fragment set is chosen by the provider's verification_family and notification_model, NOT by its name. That is what makes a new provider cost one data entry."
+    },
+    {
+      "id": "checkout",
+      "path": "<route>/api/checkout",
+      "purpose": "Create the payment, with idempotency",
+      "fragments": [
+        "fragments/checkout/{checkout_pattern}.md",
+        "fragments/money/minor_units.md",
+        "fragments/billing/{billing_slot}.md",
+        "_stack/{stack}.md"
+      ],
+      "must_include_rule_tags": ["// Rule 4: idempotency", "// Rule 13: minor units"]
+    },
+    {
+      "id": "commit",
+      "path": "<route>/api/payments/commit",
+      "purpose": "Commit the transaction on return — an uncommitted one auto-reverses",
+      "fragments": ["fragments/notify/return_url_commit.md"],
+      "skip_if": "notification_model != 'return_url_commit'"
+    },
+    {
+      "id": "portal",
+      "path": "<route>/api/portal",
+      "purpose": "Customer self-service: view, change and cancel the subscription",
+      "fragments": ["templates/{provider}/customer-portal.md"],
+      "skip_if": "billing_mode != 'subscription'"
+    },
+    {
+      "id": "refund",
+      "path": "<route>/api/refund",
+      "purpose": "Authorisation-checked refund",
+      "fragments": ["templates/{provider}/refund-endpoint.md", "fragments/money/irreversible_refund.md"],
+      "skip_if": "all required_methods have reversibility == 'irreversible_no_refund'",
+      "note": "On A2A rails 'refund the charge' does not exist. Emitting a refund endpoint there is fiction — emit the payout-based alternative and say so."
+    },
+    {
+      "id": "frontend",
+      "path": "components/CheckoutButton.{ext}",
+      "purpose": "Trigger the checkout",
+      "fragments": ["templates/{provider}/frontend-{frontend_style}.md", "fragments/compliance/pci_script_inventory.md"]
+    },
+    {
+      "id": "script_inventory",
+      "path": "payment-page-scripts.json",
+      "purpose": "PCI DSS 4.0.1 §6.4.3 authorised-script inventory",
+      "fragments": ["fragments/compliance/pci_script_inventory.md"],
+      "skip_if": "provider.pci.requires_script_inventory != true"
+    },
+    {
+      "id": "tax_todo",
+      "path": "PAGOKIT_TAX_TODO.md",
+      "purpose": "The e-invoicing obligation attached to the sale in this market",
+      "fragments": ["fragments/compliance/einvoice.md"],
+      "skip_if": "region has no tax.einvoice.mandate OR provider.mor.is_mor == true"
+    },
+    {
+      "id": "audit_trail",
+      "path": "PAGOKIT_INTEGRATION.md",
+      "purpose": "What was generated, which events are routed, what is still TODO",
+      "fragments": []
+    },
+    {
+      "id": "production_checklist",
+      "path": "PAGOKIT_PRODUCTION_CHECKLIST.md",
+      "purpose": "Steps to go live",
+      "fragments": []
+    }
+  ]
+}

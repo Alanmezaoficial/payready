@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" role="img" aria-label="PagoKit architecture: project-analyzer scans, payment-advisor calls the deterministic advise engine, integration-builder composes fragments by capability family, integration-specialist writes files, and hook validators block insecure writes.">
+  <style>
+    :root, svg { --bg:#ffffff; --ink:#0a0a0a; --muted:#6b7280; --line:#d4d4d8; --coral:#E3754C; --coral-soft:#FBEDE7; --green:#22c55e; --card:#fafafa; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#0d1117; --ink:#e6edf3; --muted:#9198a1; --line:#30363d; --coral:#E3754C; --coral-soft:#2a1a13; --green:#3fb950; --card:#161b22; }
+    }
+    .bg{fill:var(--bg)} .card{fill:var(--card);stroke:var(--line);stroke-width:1.5;rx:8}
+    .eng{fill:var(--coral-soft);stroke:var(--coral);stroke-width:2;rx:8}
+    .t{fill:var(--ink);font-family:ui-sans-serif,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:600}
+    .s{fill:var(--muted);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px}
+    .lbl{fill:var(--coral);font-family:ui-sans-serif,-apple-system,sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em}
+    .h{fill:var(--ink);font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em}
+    .ln{stroke:var(--line);stroke-width:2;fill:none} .lnc{stroke:var(--coral);stroke-width:2;fill:none}
+    .blk{fill:var(--green);font-family:ui-monospace,monospace;font-size:11px;font-weight:700}
+  </style>
+  <rect class="bg" width="900" height="620"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--line)"/></marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--coral)"/></marker>
+  </defs>
+
+  <text class="h" x="40" y="34">PAGOKIT — WHAT RUNS WHERE</text>
+  <text class="s" x="40" y="54">Everything below runs locally. The three coral boxes are ordinary programs, not model output.</text>
+
+  <rect class="card" x="40" y="76" width="380" height="48" rx="8"/>
+  <text class="t" x="60" y="100">Your project</text>
+  <text class="s" x="60" y="116">package.json · routes · schema · .env.example</text>
+
+  <path class="ln" d="M230,124 L230,158" marker-end="url(#a)"/>
+  <rect class="card" x="40" y="158" width="380" height="56" rx="8"/>
+  <text class="t" x="60" y="182">project-analyzer</text>
+  <text class="s" x="60" y="200">stack · ORM · deploy target · existing webhooks · use cases</text>
+
+  <path class="ln" d="M230,214 L230,248" marker-end="url(#a)"/>
+  <rect class="card" x="40" y="248" width="380" height="56" rx="8"/>
+  <text class="t" x="60" y="272">payment-advisor</text>
+  <text class="s" x="60" y="290">asks 3 questions · explains the result · never computes it</text>
+
+  <path class="lnc" d="M420,276 L520,276" marker-end="url(#ac)"/>
+  <rect class="eng" x="520" y="248" width="340" height="72" rx="8"/>
+  <text class="lbl" x="540" y="270">ENGINE 1 · DETERMINISTIC</text>
+  <text class="t" x="540" y="290">scripts/advise.js</text>
+  <text class="s" x="540" y="308">pure function · same input, same ranking · every rejection has a reason</text>
+
+  <path class="ln" d="M230,304 L230,338" marker-end="url(#a)"/>
+  <rect class="card" x="40" y="338" width="380" height="66" rx="8"/>
+  <text class="t" x="60" y="362">integration-builder</text>
+  <text class="s" x="60" y="380">resolves fragments by verification_family,</text>
+  <text class="s" x="60" y="396">notification_model and checkout pattern — not by provider name</text>
+
+  <path class="ln" d="M230,404 L230,438" marker-end="url(#a)"/>
+  <rect class="card" x="40" y="438" width="380" height="56" rx="8"/>
+  <text class="t" x="60" y="462">integration-specialist</text>
+  <text class="s" x="60" y="480">the only component that writes files</text>
+
+  <path class="lnc" d="M420,466 L520,466" marker-end="url(#ac)"/>
+  <rect class="eng" x="520" y="424" width="340" height="86" rx="8"/>
+  <text class="lbl" x="540" y="446">ENGINE 2 · DETERMINISTIC</text>
+  <text class="t" x="540" y="466">hooks/checks/*.js</text>
+  <text class="s" x="540" y="484">runs on every Write · Edit · MultiEdit</text>
+  <text class="blk" x="540" y="502">exit 2 = the write is BLOCKED</text>
+
+  <path class="ln" d="M230,494 L230,528" marker-end="url(#a)"/>
+  <rect class="card" x="40" y="528" width="380" height="56" rx="8"/>
+  <text class="t" x="60" y="552">/pagokit:test</text>
+  <text class="s" x="60" y="570">proves the handler rejects what it should</text>
+
+  <path class="lnc" d="M420,556 L520,556" marker-end="url(#ac)"/>
+  <rect class="eng" x="520" y="528" width="340" height="72" rx="8"/>
+  <text class="lbl" x="540" y="550">ENGINE 3 · DETERMINISTIC</text>
+  <text class="t" x="540" y="570">scripts/sign-event.js</text>
+  <text class="s" x="540" y="588">valid → 2xx · forged → 400 · replayed → 400</text>
+
+  <rect class="card" x="520" y="76" width="340" height="138" rx="8"/>
+  <text class="t" x="540" y="100">The catalog</text>
+  <text class="s" x="540" y="120">providers/&lt;id&gt;.json — typed webhook specs</text>
+  <text class="s" x="540" y="138">methods.json — rails, and whether they can be refunded</text>
+  <text class="s" x="540" y="156">currencies.json — ISO 4217 exponents</text>
+  <text class="s" x="540" y="174">regions.json — rails, tax mandates, acquirer rules</text>
+  <text class="s" x="540" y="196">every claim carries evidence + confidence</text>
+</svg>

@@ -1,0 +1,104 @@
+{
+  "id": "culqi",
+  "name": "Culqi",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 2,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "PE"
+  ],
+  "method_coverage_regions": [
+    "PE"
+  ],
+  "currencies": [
+    "PEN"
+  ],
+  "methods": [
+    "card",
+    "yape",
+    "pagoefectivo",
+    "cuotealo"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "UNKNOWN. Culqi documents webhook configuration via CulqiPanel (Eventos > Webhooks) but publishes NO signature header, algorithm or verification example. Do not invent one. Generator should emit event-id dedup plus a mandatory re-fetch of the charge via GET /charges/{id} before trusting any state change, and a comment flagging the gap.",
+    "expected_filenames": [
+      "webhook",
+      "culqi-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.culqi.com/es/documentacion/pagos-online/llaves",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "CULQI_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "VERIFIED. Public: `pk_(test|live)_XXXX`. Secret: `sk_(test|live)_XXXX`. Same shape as Stripe — safe to reuse the ^(pk|sk)_(test|live)_[A-Za-z0-9]{10,}$ style pattern."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "CULQI_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "CULQI_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "CULQI_API_KEY",
+    "webhook_secret": "CULQI_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "sales_gated",
+    "individual_allowed": false
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN for 2026. Third-party comparisons circulate figures but no verified Culqi rate card was confirmed. Do not populate."
+  },
+  "docs_url": "https://docs.culqi.com/es/documentacion/pagos-online/llaves",
+  "score_modifiers": {},
+  "notes": [
+    "The only genuinely self-serve Peruvian gateway with Stripe-shaped ergonomics, and the most common route to Yape — which has 15M+ active users and no self-serve API of its own. regions.json lists Peru as Mercado Pago only and defers Culqi to 'Phase 2'.",
+    "SDKs: Official Culqi-maintained libraries on GitHub for Node, Python, PHP, Ruby, Go, Java and .NET (github.com/culqi/*). Good coverage.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps izipay and niubiz in PE. Culqi wins on developer experience and self-serve signup; Niubiz wins on bank relationships and rates at volume.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "id": "mollie",
+  "name": "Mollie",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 4,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "NL",
+    "BE",
+    "DE",
+    "FR",
+    "AT",
+    "ES",
+    "IT",
+    "PT",
+    "PL",
+    "IE",
+    "UK",
+    "DK",
+    "SE",
+    "NO",
+    "FI",
+    "CH",
+    "LU",
+    "EU"
+  ],
+  "method_coverage_regions": [
+    "NL",
+    "BE",
+    "DE",
+    "FR",
+    "AT",
+    "ES",
+    "IT",
+    "PT",
+    "PL",
+    "IE",
+    "UK",
+    "DK",
+    "SE",
+    "NO",
+    "FI",
+    "CH",
+    "LU",
+    "EU"
+  ],
+  "currencies": [
+    "CHF",
+    "DKK",
+    "EUR",
+    "GBP",
+    "NOK",
+    "PLN",
+    "SEK"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "ideal",
+    "bancontact",
+    "sepa_debit",
+    "klarna",
+    "blik",
+    "p24",
+    "eps",
+    "multibanco",
+    "satispay",
+    "bizum",
+    "swish",
+    "vipps_mobilepay",
+    "paysafecard",
+    "billie",
+    "riverty"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "TWO SCHEMES — the generator must pick one. Classic webhooks: POST application/x-www-form-urlencoded containing ONLY `id=tr_xxx`, NO signature, NO timestamp; the only correct handling is to re-fetch GET /v2/payments/{id}. Next-gen webhooks: header `X-Mollie-Signature` with value `sha256=<hex>`, HMAC-SHA256 over the unaltered raw body, keyed by the subscription signing secret. NO timestamp is signed, so there is no tolerance window — replay defense must be event-id dedup. Secret rotation via 'Roll secret' (old key valid ~1 day). Verified.",
+    "expected_filenames": [
+      "webhook",
+      "mollie-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.mollie.com",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "MOLLIE_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "API keys prefixed `live_` and `test_`; OAuth access tokens prefixed `access_`. Verified in Mollie support/auth docs. In 2026 API keys and Organization Access Tokens were unified under one 'API access tokens' page."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "MOLLIE_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "MOLLIE_API_KEY",
+    "webhook_secret": "MOLLIE_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UK pricing page, verified: UK domestic consumer cards 1.20% + £0.20; UK commercial + European cards 2.90% + £0.20; iDEAL £0.30 fixed; Bancontact 1.40% + £0.20; SEPA Direct Debit £0.30 fixed; Klarna 4.99% + £0.30; PayPal = PayPal's fee + £0.10. No monthly fee, pay-as-you-go. EUR-market pricing differs (iDEAL commonly €0.29) — not verified this pass."
+  },
+  "docs_url": "https://docs.mollie.com",
+  "score_modifiers": {},
+  "notes": [
+    "The default EU SMB gateway and the single highest-leverage add in this cluster: one integration covers ~20 local European methods (iDEAL, Bancontact, BLIK, P24, EPS, Multibanco, Bizum, Satispay, Swish, Vipps) that Stripe either lacks or prices worse. Self-serve onboarding for sole traders in most EU countries, which Adyen and Checkout.com refuse.",
+    "SDKs: Official SDKs: node (@mollie/api-client), python (mollie-api-python), php (mollie/mollie-api-php), plus official Go and Java SDKs. SDKs ship built-in signature validation helpers for next-gen webhooks.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps stripe on card/Apple Pay/Google Pay/Klarna/SEPA but wins on iDEAL, Bancontact, BLIK, Multibanco, Satispay, Swish, Vipps and on EU sole-trader onboarding.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

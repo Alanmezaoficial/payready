@@ -1,0 +1,23 @@
+{
+  "name": "PayReady",
+  "editions": {
+    "codex": {
+      "label": "Codex",
+      "zip": "payready-codex-1.0.0.zip",
+      "manualLabel": "Windows · PowerShell",
+      "manual": "$repo = Join-Path $env:USERPROFILE 'payready'\n$skills = Join-Path $env:USERPROFILE '.agents/skills'\ngit clone https://github.com/Alanmezaoficial/payready.git $repo\nif ($LASTEXITCODE -ne 0) { throw 'Revisa el clon antes de continuar.' }\nNew-Item -ItemType Directory -Force $skills | Out-Null\nif (Test-Path (Join-Path $skills 'payready')) { throw 'Ya hay una copia de PayReady. Revisa su versión.' }\nCopy-Item (Join-Path $repo 'codex/payready') -Destination $skills -Recurse -ErrorAction Stop",
+      "manualHint": "Sigue la guía de esta edición para macOS o Linux y para la instalación desde el ZIP.",
+      "linkPrompt": "Ayúdame a instalar PayReady para Codex en mi equipo desde https://github.com/Alanmezaoficial/payready. Lee docs/guia-codex.md, verifica Node.js, conserva cualquier instalación existente y explícame cómo activarla en mi proyecto. Trabaja solo en la instalación.",
+      "zipPrompt": "Ayúdame a instalar PayReady desde el ZIP que te comparto. Lee INSTALAR.md, conserva cualquier instalación existente y verifica la carpeta final. Explícame cómo usarla en una sesión nueva. Trabaja solo en la instalación."
+    },
+    "claude": {
+      "label": "Claude Code",
+      "zip": "payready-claude-1.0.0.zip",
+      "manualLabel": "Windows · PowerShell",
+      "manual": "git clone https://github.com/Alanmezaoficial/payready.git \"$env:USERPROFILE/payready\"\nclaude --plugin-dir \"$env:USERPROFILE/payready/claude/payready\"",
+      "manualHint": "Sigue la guía de esta edición para macOS o Linux y para la instalación desde el ZIP.",
+      "linkPrompt": "Ayúdame a instalar PayReady para Claude Code en mi equipo desde https://github.com/Alanmezaoficial/payready. Lee docs/guia-claude.md, verifica Node.js, conserva cualquier instalación existente y explícame cómo activarla en mi proyecto. Trabaja solo en la instalación.",
+      "zipPrompt": "Ayúdame a instalar PayReady desde el ZIP que te comparto. Lee INSTALAR.md, conserva cualquier instalación existente y verifica la carpeta final. Explícame cómo usarla en una sesión nueva. Trabaja solo en la instalación."
+    }
+  }
+}

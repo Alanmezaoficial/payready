@@ -1,0 +1,46 @@
+{
+  "name": "payready",
+  "displayName": "PayReady",
+  "version": "0.2.2",
+  "description": "Picks the right payment provider for your project and writes the integration — checkout, authenticated webhook, database schema, customer portal and refund path — with deterministic validators that BLOCK insecure writes as they happen. Three local engines back it: hook validators that cannot be argued with, a pure-function recommendation engine whose every rejection has a reason, and an event signer that proves a webhook handler rejects forged and replayed events. Knows the payment rails, currency exponents and e-invoicing obligations that decide real integrations, and always states whether it can build a given provider or only advise on it. Local-first, no account, no telemetry. Bilingual EN/ES.",
+  "author": {
+    "name": "Enrique Rocha",
+    "email": "enrique@tododeia.com",
+    "url": "https://tododeia.com"
+  },
+  "homepage": "https://github.com/Alanmezaoficial/payready",
+  "repository": "https://github.com/Alanmezaoficial/payready.git",
+  "license": "MIT",
+  "keywords": [
+    "payments",
+    "checkout",
+    "webhook",
+    "webhook-security",
+    "subscriptions",
+    "billing",
+    "pci",
+    "merchant-of-record",
+    "latam",
+    "claude-code-plugin"
+  ],
+  "userConfig": {
+    "strictMode": {
+      "type": "boolean",
+      "title": "Strict mode",
+      "description": "Promote advisory validators to blocking. Turns the e-invoicing obligation notice and the slow-webhook warning into hard denials. Recommended once you are shipping to real customers.",
+      "default": false
+    },
+    "defaultCountry": {
+      "type": "string",
+      "title": "Default seller country",
+      "description": "ISO-3166 alpha-2 code (MX, CO, US, ES…). Skips the first wizard question when set.",
+      "default": ""
+    },
+    "preferredStack": {
+      "type": "string",
+      "title": "Preferred stack",
+      "description": "Overrides stack auto-detection when your project layout is unusual. E.g. nextjs-app-router, express, fastapi.",
+      "default": ""
+    }
+  }
+}

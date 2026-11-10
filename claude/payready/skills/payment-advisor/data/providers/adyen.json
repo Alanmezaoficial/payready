@@ -1,0 +1,163 @@
+{
+  "id": "adyen",
+  "name": "Adyen",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 4,
+  "integration_level": "advise",
+  "role": "acquirer",
+  "merchant_domicile_regions": [
+    "EU",
+    "UK",
+    "NL",
+    "BE",
+    "DE",
+    "FR",
+    "ES",
+    "IT",
+    "PT",
+    "PL",
+    "SE",
+    "NO",
+    "DK",
+    "FI",
+    "CH",
+    "AT",
+    "IE",
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "EU",
+    "UK",
+    "NL",
+    "BE",
+    "DE",
+    "FR",
+    "ES",
+    "IT",
+    "PT",
+    "PL",
+    "SE",
+    "NO",
+    "DK",
+    "FI",
+    "CH",
+    "AT",
+    "IE",
+    "GLOBAL"
+  ],
+  "currencies": [
+    "CHF",
+    "DKK",
+    "EUR",
+    "GBP",
+    "NOK",
+    "PLN",
+    "SEK"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "ideal",
+    "bancontact",
+    "sepa_debit",
+    "klarna",
+    "blik",
+    "p24",
+    "eps",
+    "multibanco",
+    "mbway",
+    "twint",
+    "swish",
+    "vipps_mobilepay",
+    "wero",
+    "satispay",
+    "bizum",
+    "pay_by_bank",
+    "riverty",
+    "billie"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "CRITICAL DEVIATION — Adyen does NOT sign the raw body for standard payment webhooks. HMAC-SHA256, Base64-encoded, placed in the JSON at `notificationItems[].NotificationRequestItem.additionalData.hmacSignature`, computed over a COLON-delimited concatenation of a field subset: pspReference:originalReference:merchantAccountCode:merchantReference:value:currency:eventCode:success (empty fields become empty strings; `:` and `\\` inside values are backslash-escaped). The HMAC key is hex and must be decoded to binary before use. Non-payment webhooks (Management, Transfer, Report, Balance Platform) ins",
+    "expected_filenames": [
+      "webhook",
+      "adyen-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.adyen.com",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "ADYEN_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Auth header is `X-API-Key` (API key generated per merchant/company account); Adyen keys have no documented stable public prefix regex — UNKNOWN, do not emit a regex. Basic auth (ws user) exists for legacy/classic platforms. Checkout API cur"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "ADYEN_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "ADYEN_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "ADYEN_API_KEY",
+    "webhook_secret": "ADYEN_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "sales_gated",
+    "individual_allowed": false,
+    "note": "Enterprise sales process with volume expectations. Not open to an individual or a small seller."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "Interchange++ model, verified on adyen.com/pricing: fixed processing fee $0.13 per transaction PLUS a payment-method fee. Visa/Mastercard: $0.13 + Interchange+ + 0.60%. iDEAL: $0.13 + €0.22. SEPA Direct Debit: $0.13 + €0.27. Klarna varies by market (e.g. NL 2.99% + €0.49, FI 0.99% + €0.59). No monthly/setup/closure fees but there IS an undisclosed minimum monthly invoice — this is why Adyen is wrong for small merchants."
+  },
+  "docs_url": "https://docs.adyen.com",
+  "score_modifiers": {},
+  "notes": [
+    "The only single integration in this cluster that reaches Wero, TWINT, Swish, Vipps/MobilePay, Satispay, Multibanco and MB WAY at once, and the default for any EU merchant above roughly €1M/yr. Also an acquirer, so it removes the acquirer/gateway split that Redsys, Worldline and Nexi force.",
+    "SDKs: Official libraries in node (@adyen/api-library), python (Adyen), php (adyen/adyen-php-api-library), java, .NET, Go, Ruby. All include HMAC validator helpers — the generator should call the library validator, not hand-roll the colon-concatenation.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps stripe at the top end; replaces the need for separate Worldline/Nexi/Datatrans/Swish/Vipps integrations.",
+    "Onboarding: sales_gated. Enterprise sales process with volume expectations. Not open to an individual or a small seller."
+  ]
+}

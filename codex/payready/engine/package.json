@@ -1,0 +1,37 @@
+{
+  "name": "pagokit-dev",
+  "version": "0.2.2",
+  "private": true,
+  "description": "Dev tooling for the PagoKit Claude Code plugin (schema validation, validator tests).",
+  "scripts": {
+    "build:catalog": "node scripts/build-catalog.js",
+    "check:catalog": "node scripts/build-catalog.js --check",
+    "generate:coverage": "node scripts/generate-coverage.js",
+    "check:coverage": "node scripts/generate-coverage.js --check",
+    "validate:data": "node scripts/validate-data.js",
+    "validate:plugin": "bash scripts/validate-plugin.sh",
+    "test:validators": "bash scripts/test-validators.sh",
+    "verify": "npm run build:catalog && npm run validate:data && npm run test:validators && npm run test:advisor && npm run test:signatures && npm run check:coverage && npm run check:signatures && npm run check:doctor && npm run check:readme && npm run check:errors && npm run check:fragments && npm run self:audit",
+    "test:signatures": "node scripts/test-signatures.js",
+    "test:advisor": "node scripts/test-advisor.js",
+    "generate:signatures": "node scripts/generate-signatures.js",
+    "check:signatures": "node scripts/generate-signatures.js --check",
+    "generate:doctor": "node scripts/generate-doctor-table.js",
+    "check:doctor": "node scripts/generate-doctor-table.js --check",
+    "generate:all": "npm run build:catalog && npm run generate:coverage && npm run generate:signatures && npm run generate:doctor && npm run generate:readme && npm run generate:errors",
+    "generate:readme": "node scripts/generate-readme-tables.js",
+    "check:readme": "node scripts/generate-readme-tables.js --check",
+    "generate:errors": "node scripts/generate-error-codes.js",
+    "check:errors": "node scripts/generate-error-codes.js --check",
+    "self:audit": "node scripts/self-audit.js",
+    "check:fragments": "node scripts/check-fragment-claims.js"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Enrique Rocha (@soyenriquerocha) (https://www.tododeia.com)"
+}

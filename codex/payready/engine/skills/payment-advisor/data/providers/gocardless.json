@@ -1,0 +1,139 @@
+{
+  "id": "gocardless",
+  "name": "GoCardless",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 4,
+  "integration_level": "advise",
+  "role": "banking_rails",
+  "merchant_domicile_regions": [
+    "UK",
+    "EU",
+    "IE",
+    "DE",
+    "FR",
+    "ES",
+    "IT",
+    "NL",
+    "BE",
+    "SE",
+    "DK",
+    "AT",
+    "PT",
+    "PL",
+    "AU",
+    "NZ",
+    "CA",
+    "US"
+  ],
+  "method_coverage_regions": [
+    "UK",
+    "EU",
+    "IE",
+    "DE",
+    "FR",
+    "ES",
+    "IT",
+    "NL",
+    "BE",
+    "SE",
+    "DK",
+    "AT",
+    "PT",
+    "PL",
+    "AU",
+    "NZ",
+    "CA",
+    "US"
+  ],
+  "currencies": [
+    "AUD",
+    "CAD",
+    "DKK",
+    "EUR",
+    "GBP",
+    "NZD",
+    "PLN",
+    "SEK",
+    "USD"
+  ],
+  "methods": [
+    "sepa_debit",
+    "bacs_debit",
+    "ach_debit",
+    "pay_by_bank"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Header `Webhook-Signature`, HMAC-SHA256 as a 64-character lowercase HEX digest over the raw request body, keyed with the endpoint secret used verbatim (do NOT base64-decode the secret). NO timestamp is signed → no tolerance window; dedupe on each individual `events[].id`, NOT on `meta.webhook_id`. Docs explicitly instruct returning HTTP 498 (not 400/200) on signature mismatch, and 2xx within 10 seconds. Events can arrive out of order and duplicated; always re-fetch resource state rather than inferring it from event order. Verified.",
+    "expected_filenames": [
+      "webhook",
+      "gocardless-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.gocardless.com",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "GOCARDLESS_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Bearer access token in the Authorization header, plus a required `GoCardless-Version` date header. Token prefix (live_/sandbox_) NOT confirmed in docs this pass — UNKNOWN. Environments are separated by base URL: api.gocardless.com vs api-sa"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "GOCARDLESS_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "GOCARDLESS_API_KEY",
+    "webhook_secret": "GOCARDLESS_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — not verified this pass. Do not emit a percentage. (GoCardless publishes per-scheme pricing with caps that differ by scheme and by Standard/Advanced/Pro plan; must be re-verified before it enters providers.json.)"
+  },
+  "docs_url": "https://developer.gocardless.com",
+  "score_modifiers": {},
+  "notes": [
+    "Nothing shipped covers the bank-debit MANDATE lifecycle, which is a different state machine from a card charge: mandate creation → customer approval → mandate active → payment submitted → confirmed (3–5 business days later) → possible late failure or indemnity claim weeks after 'success'. European subscription businesses (gyms, utilities, B2B SaaS, insurers) run on SEPA DD and Bacs, not cards, because it kills involuntary churn from card expiry. GoCardless is the only provider here that treats the mandate, not the charge, as the primary object.",
+    "SDKs: Official libraries: node (gocardless-nodejs), python (gocardless-pro), php (gocardless/gocardless-pro), plus Java, Ruby, .NET, Go. All expose a webhook parser that validates Webhook-Signature.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Does not overlap any shipped provider. Complements stripe (which offers sepa_debit but not Bacs/Autogiro/Betalingsservice mandate management).",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

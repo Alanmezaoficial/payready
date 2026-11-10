@@ -1,0 +1,96 @@
+{
+  "id": "mpesa_daraja",
+  "name": "Safaricom M-Pesa (Daraja API)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 6,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "KE"
+  ],
+  "method_coverage_regions": [
+    "KE"
+  ],
+  "currencies": [
+    "KES"
+  ],
+  "methods": [
+    "mpesa"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED NEGATIVE — there is none, and this is the single most important fact in the cluster. Daraja POSTs unsigned JSON to the merchant's CallbackURL / ResultURL / ValidationURL / ConfirmationURL. No header, no HMAC, no timestamp. Authenticity must be constructed by the integrator: (a) an unguessable, per-merchant callback path, (b) Safaricom source-IP allowlisting at the edge, and (c) mandatory re-confirmation via the Transaction Status API keyed on CheckoutRequestID/MerchantRequestID before releasing value. Callback must return HTTP 200 within ~30s or Safaricom retries aggressively — acknow",
+    "expected_filenames": [
+      "webhook",
+      "mpesa_daraja-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.safaricom.co.ke/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "MPESA_DARAJA_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN as a regex. Credentials are a Consumer Key + Consumer Secret (opaque alphanumeric, no prefix) exchanged for a 1-hour OAuth bearer via /oauth/v1/generate?grant_type=client_credentials, plus a separate Passkey used to build the STK `P"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "MPESA_DARAJA_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "MPESA_DARAJA_API_KEY",
+    "webhook_secret": "MPESA_DARAJA_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "Requires a Safaricom paybill or till shortcode, obtained separately from the API credentials."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "The Daraja API itself is free. Real cost is the Safaricom Paybill/Till tariff, which is merchant-negotiated and tiered by transaction band — not a flat percentage. Store as null with a note rather than inventing 1.5%."
+  },
+  "docs_url": "https://developer.safaricom.co.ke/",
+  "score_modifiers": {},
+  "notes": [
+    "CORRECTION FROM ADVERSARIAL REVIEW: Kenya only. Daraja is Safaricom Kenya; Tanzanian M-Pesa is Vodacom on a separate stack with an RSA session-key auth model, so shipping TZ here would generate a dead integration. There is also no signature and no timestamp: authenticity must be constructed from an unguessable callback path, an IP allowlist and a mandatory Transaction Status re-query.",
+    "M-Pesa is not a payment method you add to a card checkout in Kenya — it is the checkout. A generated Kenyan integration without STK Push is non-functional regardless of how good the card path is, and no shipped provider touches it. Direct Daraja also avoids the aggregator markup on the dominant rail.",
+    "SDKs: No official server SDKs. Well-maintained community options: `daraja-api`/`mpesa-node-api` (npm), `django-daraja` and `python-daraja` (PyPI), `smodav/mpesa` (Composer). Generator should emit direct REST; the OAuth-token-cache and Password-builder helpers are the real value-add.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Paystack, Flutterwave, Peach and Kora all resell M-Pesa. Direct Daraja is cheaper and lower-latency but carries the shortcode/go-live bureaucracy; offer both paths and default new merchants to the aggregator.",
+    "Onboarding: application_review. Requires a Safaricom paybill or till shortcode, obtained separately from the API credentials."
+  ]
+}

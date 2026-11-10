@@ -1,0 +1,98 @@
+{
+  "id": "redsys",
+  "name": "Redsys (TPV Virtual)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 4,
+  "integration_level": "advise",
+  "role": "acquirer",
+  "merchant_domicile_regions": [
+    "ES"
+  ],
+  "method_coverage_regions": [
+    "ES"
+  ],
+  "currencies": [
+    "EUR"
+  ],
+  "methods": [
+    "card",
+    "bizum",
+    "apple_pay",
+    "google_pay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Not a JSON webhook — an async HTTP POST 'notificación online' to Ds_Merchant_MerchantURL with form fields `Ds_SignatureVersion`, `Ds_MerchantParameters` (base64url of minified JSON) and `Ds_Signature`. CURRENT official spec, verified verbatim on Redsys' developer site: Ds_SignatureVersion = `HMAC_SHA512_V2`; the per-order key is derived with `cifrado AES CBC` (AES-CBC, zero IV, merchant key truncated/padded to 16 chars, encrypting the order number); the signature is `HMAC SHA-512` over the base64 Ds_MerchantParameters string, base64url-encoded. LEGACY `HMAC_SHA256_V1` (3DES-derived key, HMAC-S",
+    "expected_filenames": [
+      "webhook",
+      "redsys-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://pagosonline.redsys.es/desarrolladores-inicio/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "REDSYS_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "No API key. Credentials are: FUC/merchant code (9 digits), terminal number, and a base64 'clave secreta de comercio' issued by the bank. Test environment: sis-t.redsys.es:25443; live: sis.redsys.es. No key prefix regex exists — emit UNKNOWN"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "REDSYS_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "REDSYS_API_KEY",
+    "webhook_secret": "REDSYS_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "partner_certification",
+    "individual_allowed": false,
+    "note": "Reached through your Spanish acquiring bank, not directly. The bank issues the FUC and terminal."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN and structurally unknowable from Redsys — pricing is set by the acquiring bank in the merchant's TPV contract, not by Redsys. providers.json should model this as fees: null with a note, not a guessed percentage."
+  },
+  "docs_url": "https://pagosonline.redsys.es/desarrolladores-inicio/",
+  "score_modifiers": {},
+  "notes": [
+    "Practically every Spanish bank (Santander, BBVA, CaixaBank, Sabadell, Bankinter, Unicaja…) issues its e-commerce merchant account as a Redsys TPV Virtual, and Bizum for e-commerce is delivered through Redsys. A Spanish SMB that already has a bank merchant contract cannot ship without it, and no shipped provider covers it. It is also the single most-hallucinated integration in this cluster because the widely-copied open-source libraries are on the OLD signature version.",
+    "SDKs: NO official SDKs. Community only: node-redsys-api / redsys-pos (node), sermepa and various composer packages (php), redsys-client (python). Quality varies and several are pinned to HMAC_SHA256_V1 — the generator should emit the crypto inline rather than depend on an abandoned package.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps stripe only on the `bizum` method id. Otherwise no shipped coverage of Spanish bank acquiring.",
+    "Onboarding: partner_certification. Reached through your Spanish acquiring bank, not directly. The bank issues the FUC and terminal."
+  ]
+}

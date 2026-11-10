@@ -1,0 +1,122 @@
+{
+  "id": "revolut_merchant",
+  "name": "Revolut Merchant (Revolut Business)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 4,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "UK",
+    "EU",
+    "IE",
+    "FR",
+    "DE",
+    "ES",
+    "IT",
+    "NL",
+    "PL",
+    "LT",
+    "US"
+  ],
+  "method_coverage_regions": [
+    "UK",
+    "EU",
+    "IE",
+    "FR",
+    "DE",
+    "ES",
+    "IT",
+    "NL",
+    "PL",
+    "LT",
+    "US"
+  ],
+  "currencies": [
+    "EUR",
+    "GBP",
+    "PLN",
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "revolut_pay",
+    "pay_by_bank"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "BEST-IN-CLASS AND FULLY VERIFIED. Header `Revolut-Signature` with value `v1=<hex>`; separate header `Revolut-Request-Timestamp` carries the event time in MILLISECONDS since epoch (e.g. 1683650202360). Signed payload = `v1` + `.` + timestamp + `.` + raw body, joined by full stops; HMAC-SHA256, hex-encoded, prefixed back as `v1=`. Documented tolerance: reject if Revolut-Request-Timestamp is more than 5 MINUTES from current UTC. `Revolut-Signature` may contain MULTIPLE comma-separated signatures while several signing secrets are active (rotation) — the verifier must accept if ANY matches, which n",
+    "expected_filenames": [
+      "webhook",
+      "revolut_merchant-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.revolut.com/docs/merchant",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "REVOLUT_MERCHANT_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Merchant API uses a secret API key as a Bearer token, with separate sandbox and production keys and distinct base URLs (sandbox-merchant.revolut.com vs merchant.revolut.com). Key prefix format NOT verified this pass — UNKNOWN."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "REVOLUT_MERCHANT_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "REVOLUT_MERCHANT_API_KEY",
+    "webhook_secret": "REVOLUT_MERCHANT_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "Business account approval precedes merchant API access."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — not verified this pass. Revolut publishes merchant-account pricing per plan and region; do not emit a percentage."
+  },
+  "docs_url": "https://developer.revolut.com/docs/merchant",
+  "score_modifiers": {},
+  "notes": [
+    "The cheapest credible card acceptance for EU/UK SMBs that already bank with Revolut Business, with same-account instant settlement instead of a T+2 payout cycle. Revolut Pay also converts unusually well for the large Revolut consumer base in CEE and the Baltics. Notably, its webhook design is the best-specified in this cluster and is the right template to copy.",
+    "SDKs: No first-party server SDKs of Stripe's calibre; Revolut publishes OpenAPI specs, a JS/Web checkout widget (@revolut/checkout) and mobile SDKs. Server-side is plain REST — generate a thin typed client.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps stripe on cards for EU/UK SMBs; unique on `revolut_pay` and on instant settlement into a business account.",
+    "Onboarding: application_review. Business account approval precedes merchant API access."
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "id": "authorize_net",
+  "name": "Authorize.Net (Visa Acceptance)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 7,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "US",
+    "CA",
+    "UK",
+    "AU",
+    "EU"
+  ],
+  "method_coverage_regions": [
+    "US",
+    "CA",
+    "UK",
+    "AU",
+    "EU"
+  ],
+  "currencies": [
+    "AUD",
+    "CAD",
+    "GBP",
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "ach_debit",
+    "apple_pay",
+    "google_pay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED. Header `X-ANET-Signature`, value formatted `sha512=<hex>`. HMAC-SHA512 of the raw notification body keyed by the merchant's Signature Key (found under Account > Settings > Security Settings > API Credentials and Keys). No timestamp is signed — event-id dedup required.",
+    "expected_filenames": [
+      "webhook",
+      "authorize_net-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.authorize.net/api/reference/features/webhooks.html",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "AUTHORIZE_NET_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "VERIFIED shape: three separate credentials — API Login ID, Transaction Key, and a hex Signature Key used only for webhooks. No `sk_`/`pk_` prefix exists. Sandbox base URL `https://apitest.authorize.net`, production `https://api.authorize.ne"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "AUTHORIZE_NET_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "AUTHORIZE_NET_API_KEY",
+    "webhook_secret": "AUTHORIZE_NET_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "A gateway, not an acquirer: you also need your own merchant account, which is a separate underwriting process. That is exactly why it serves verticals other providers ban."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — Authorize.Net charges a gateway fee (monthly + per-transaction); the actual processing rate comes from the separate merchant account and is negotiated. This split is the point: a generator must not present one blended number here."
+  },
+  "docs_url": "https://developer.authorize.net/api/reference/features/webhooks.html",
+  "score_modifiers": {},
+  "notes": [
+    "It is the gateway-with-your-own-merchant-account architecture, and that architecture — not any particular brand — is the only thing that works for the regulated verticals in this cluster. Firearms/FFL, CBD, nutraceuticals, kratom, gun ranges, ammunition and most 'high-risk' MCCs are banned outright by Stripe, Square and every aggregator in the shipped set. Those merchants get a dedicated MID from a high-risk acquirer (Easy Pay Direct, Corepay, PaymentCloud, Durango) and point it at a gateway. PagoKit currently has no template for that shape at all.",
+    "SDKs: Official SDKs for PHP, Node, Python, Java, .NET, Ruby (`authorizenet` on npm/PyPI, `authorizenet/authorizenet` on Packagist). Long-lived, but the API is XML/JSON-over-POST in an older idiom than Stripe's. Not re-verified this session beyond the docs page.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Represents the same slot as NMI. Overlaps nothing shipped — Stripe/MercadoPago/Wompi/LemonSqueezy are all aggregator or MoR models.",
+    "Onboarding: application_review. A gateway, not an acquirer: you also need your own merchant account, which is a separate underwriting process. That is exactly why it serves verticals other providers ban."
+  ]
+}

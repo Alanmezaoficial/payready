@@ -1,0 +1,126 @@
+{
+  "id": "xendit",
+  "name": "Xendit",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 5,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "ID",
+    "PH",
+    "VN",
+    "TH",
+    "MY"
+  ],
+  "method_coverage_regions": [
+    "ID",
+    "PH",
+    "VN",
+    "TH",
+    "MY"
+  ],
+  "currencies": [
+    "IDR",
+    "MYR",
+    "PHP",
+    "THB",
+    "VND"
+  ],
+  "methods": [
+    "card",
+    "qris",
+    "virtual_account_id",
+    "gopay",
+    "ovo",
+    "dana",
+    "shopeepay",
+    "gcash",
+    "maya",
+    "qr_ph",
+    "grabpay",
+    "alfamart_indomaret",
+    "kredivo",
+    "billease"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "NO HMAC AND NO SIGNATURE. Xendit sends a STATIC shared secret in the x-callback-token header, identical on every event, per account. There is no timestamp, no per-payload digest, and therefore no replay protection whatsoever. VERIFIED from docs.xendit.co/docs/handling-webhooks and integration-security. Generator MUST NOT emit HMAC code here. Correct handling: constant-time compare of the token, HTTPS-only, mandatory idempotency/dedup on payment_id + capture_id (Xendit's own documented advice), and IP allowlisting where offered. Flag the token as a bearer credential that leaks like a password.",
+    "expected_filenames": [
+      "webhook",
+      "xendit-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.xendit.co/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "XENDIT_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "HTTP Basic where the SECRET KEY is the username and the password is EMPTY (the trailing colon before base64 is required — a classic integration bug). VERIFIED prefixes: xnd_development_ (test secret), xnd_production_ (live secret), xnd_publ"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "XENDIT_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "XENDIT_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "XENDIT_API_KEY",
+    "webhook_secret": "XENDIT_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "Published per-method, not per-card-percentage. VERIFIED examples: ID QRIS 0.70% incl. VAT + IDR 4,000 processing; ID Virtual Account IDR 9,000 + IDR 4,000 processing; PH GCash 3.00% + PHP 11.00; PH QRPH 1.50% (min PHP 15) + PHP 11.00. Indonesian PPN/VAT 11% applies on top of fees. Card rates vary by market — UNKNOWN, do not guess."
+  },
+  "docs_url": "https://docs.xendit.co/",
+  "score_modifiers": {},
+  "notes": [
+    "One integration covers both of Southeast Asia's two biggest non-card markets (Indonesia and the Philippines) plus VN/TH/MY. Nothing shipped touches SEA at all. It is also the cluster's clearest security anti-pattern and must be flagged, not silently generated.",
+    "SDKs: node: xendit-node; python: xendit-python; php: xendit/xendit-php. Official and actively maintained.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps PayMongo in PH and Midtrans/DOKU in ID. If PagoKit ships only one SEA provider, this is the one — but it costs the generator a correct non-HMAC webhook path.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

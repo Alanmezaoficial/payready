@@ -1,0 +1,127 @@
+{
+  "id": "airwallex",
+  "name": "Airwallex",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 5,
+  "integration_level": "advise",
+  "role": "acquirer",
+  "merchant_domicile_regions": [
+    "HK",
+    "SG",
+    "AU",
+    "NZ",
+    "JP",
+    "CN",
+    "MY",
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "HK",
+    "SG",
+    "AU",
+    "NZ",
+    "JP",
+    "CN",
+    "MY",
+    "GLOBAL"
+  ],
+  "currencies": [
+    "AUD",
+    "CNY",
+    "HKD",
+    "JPY",
+    "MYR",
+    "NZD",
+    "SGD"
+  ],
+  "methods": [
+    "card",
+    "fps",
+    "payme",
+    "alipay_hk",
+    "octopus",
+    "paynow",
+    "payto",
+    "becs_debit",
+    "alipay",
+    "wechat_pay",
+    "apple_pay",
+    "google_pay",
+    "klarna",
+    "afterpay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Two headers: x-timestamp and x-signature. Build value_to_digest = x-timestamp (as string) + raw JSON payload, HMAC-SHA256 with the per-notification-endpoint secret key, hex-encode, compare to x-signature. Timestamp IS covered, and Airwallex explicitly instructs you to then check now - timestamp against YOUR OWN tolerance (it prescribes no number — use 300s and document it as your choice, not theirs). VERIFIED from airwallex.com/docs/developer-tools/webhooks/listen-for-webhook-events.",
+    "expected_filenames": [
+      "webhook",
+      "airwallex-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://www.airwallex.com/docs",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "AIRWALLEX_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN key string format. Auth model is two-step and unlike the rest of this cluster: exchange a Client ID + API key for a short-lived Bearer access token via /api/v1/authentication/login, then send that token. Generated code MUST include "
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "AIRWALLEX_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "AIRWALLEX_API_KEY",
+    "webhook_secret": "AIRWALLEX_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — Airwallex prices per market and per plan and publishes no single global card rate. Do not emit a number."
+  },
+  "docs_url": "https://www.airwallex.com/docs",
+  "score_modifiers": {},
+  "notes": [
+    "Covers the two APAC markets nobody else in this list serves well — Hong Kong (FPS, PayMe, Octopus, Alipay HK) and Australia (PayTo, the new mandate rail) — while also giving a multi-currency treasury/settlement layer, which is what an APAC-selling SaaS actually needs. Its webhook scheme is also a clean timestamped-HMAC template.",
+    "SDKs: No broadly adopted official server SDK in the Stripe mould; Airwallex ships JS/React components (airwallex-payment-elements), mobile SDKs, and expects raw REST + OAuth-style access tokens server-side. Generate raw REST.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Stripe in SG/AU/HK/JP. Wins specifically on HK local methods, AU PayTo, and holding/settling in multiple APAC currencies.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

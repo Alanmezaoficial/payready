@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hainrixz/agente-pagokit/schemas/use_cases.schema.json",
+  "title": "PagoKit Use Cases (schema v2)",
+  "description": "Schema for skills/payment-advisor/data/use_cases.json. Detected situations that override the default provider ranking.",
+  "type": "object",
+  "required": ["use_cases"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "_comment": {"type": "string"},
+    "use_cases": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {
+        "type": "object",
+        "required": ["trigger_heuristics", "confidence_threshold"],
+        "properties": {
+          "description": {"type": "string"},
+          "trigger_heuristics": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "pattern": "^(table|model|route|package|config|file|env|dependency):.+$"}
+          },
+          "confidence_threshold": {"type": "number", "minimum": 0, "maximum": 1},
+          "ask_if_below_threshold": {"type": "string"},
+          "context_note": {"type": "string"},
+          "required_provider_features": {"type": "array", "items": {"type": "string"}},
+          "required_role": {"type": "string"},
+          "required_layer": {"type": "string"},
+          "recommended_providers_ranked": {"type": "array", "items": {"type": "string"}},
+          "blocked_providers": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Hard exclusion, not a warning. mobile_iap must BLOCK card PSPs for iOS digital goods."
+          },
+          "blocked_reason": {"type": "string"},
+          "compliance_artifacts": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Non-code files the integration must also emit (PAD mandate text, payment-page-scripts.json, pre-debit notice)."
+          },
+          "template_path": {"type": "string"},
+          "regions": {
+            "type": "object",
+            "propertyNames": {"pattern": "^[A-Z]{2}$"},
+            "additionalProperties": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

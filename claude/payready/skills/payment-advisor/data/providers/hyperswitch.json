@@ -1,0 +1,102 @@
+{
+  "id": "hyperswitch",
+  "name": "Hyperswitch (Juspay)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 7,
+  "integration_level": "advise",
+  "role": "orchestrator",
+  "merchant_domicile_regions": [
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "GLOBAL"
+  ],
+  "currencies": [
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "upi",
+    "pix",
+    "klarna",
+    "sepa_debit",
+    "ach_debit"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "none",
+    "algorithm": "VERIFIED from primary docs. Outgoing merchant webhooks carry `x-webhook-signature-512` — HMAC-SHA512 — with `x-webhook-signature-256` (HMAC-SHA256) available as a fallback for stacks that cannot do SHA-512. NOTE the deviation: every other provider in PagoKit is SHA-256; a generator that hardcodes SHA-256 produces a verifier that silently rejects every Hyperswitch event. Timestamp signing UNKNOWN — not stated in the fetched page.",
+    "expected_filenames": [
+      "webhook",
+      "hyperswitch-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.hyperswitch.io/integration-guide/webhooks",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "HYPERSWITCH_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN — an `api-key` header is used but no prefix was verified."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "HYPERSWITCH_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "HYPERSWITCH_API_KEY",
+    "webhook_secret": "HYPERSWITCH_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "Open source, self-hosted: free (infrastructure cost only). Juspay-managed cloud pricing UNKNOWN."
+  },
+  "docs_url": "https://docs.hyperswitch.io/integration-guide/webhooks",
+  "score_modifiers": {},
+  "notes": [
+    "Apache-2.0 payment orchestration in Rust, self-hostable, 200+ connectors. It is the only credible answer to the question PagoKit implicitly raises every time it generates a provider-specific integration: 'what happens when I outgrow this provider or need a fallback when it goes down?' Adding it lets PagoKit generate an abstraction layer instead of another lock-in.",
+    "SDKs: Official Node, Python, PHP, Rust, Java and .NET API clients, plus Hyperswitch Web/React/mobile SDKs. Docker/Helm/CDK for self-hosting.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps primer, gr4vy, spreedly (all skipped — sales-led). Sits ABOVE stripe/adyen/checkout_com rather than beside them; PagoKit needs an orchestration `layer` concept for this row to make sense.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

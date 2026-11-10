@@ -1,0 +1,122 @@
+{
+  "id": "placetopay",
+  "name": "Placetopay (Evertec)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 3,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "CO",
+    "EC",
+    "CL",
+    "PE",
+    "CR",
+    "PA",
+    "GT",
+    "HN",
+    "DO"
+  ],
+  "method_coverage_regions": [
+    "CO",
+    "EC",
+    "CL",
+    "PE",
+    "CR",
+    "PA",
+    "GT",
+    "HN",
+    "DO"
+  ],
+  "currencies": [
+    "CLP",
+    "COP",
+    "CRC",
+    "DOP",
+    "GTQ",
+    "HNL",
+    "PEN",
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "pse",
+    "bre_b",
+    "sinpe_movil",
+    "nequi"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "NOT AN HMAC HEADER. Placetopay uses WS-Security UsernameToken Profile 1.1 in an `auth` object inside the JSON body, containing login, tranKey, nonce and seed. tranKey = base64(SHA256(nonce_raw + seed + secretKey)); seed is the current time in ISO-8601, so a timestamp IS covered. There is no static signature header to verify inbound notifications — the same auth object model applies, and the recommended pattern is to query session status rather than trust a payload. Treat as `hmac_field_concat` with per-request derivation.",
+    "expected_filenames": [
+      "webhook",
+      "placetopay-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.placetopay.dev/en/gateway/authentication",
+      "verified_at": "2026-08-31",
+      "confidence": "unverified",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "PLACETOPAY_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "login + secretKey pair; the secretKey NEVER goes on the wire — only the derived tranKey does. This is a genuinely different credential_model and cannot be expressed as secret_key_pattern."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "PLACETOPAY_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "PLACETOPAY_API_KEY",
+    "webhook_secret": "PLACETOPAY_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "application_review",
+    "individual_allowed": false,
+    "note": "Commercial agreement per country."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. Per-country and per-merchant contract. Do not populate."
+  },
+  "docs_url": "https://docs.placetopay.dev/en/gateway/authentication",
+  "score_modifiers": {},
+  "notes": [
+    "Evertec-owned and the most widely deployed gateway across Central America and the Andean region — the practical answer for GT, HN, CR, PA and DO where regions.json has nothing. Its WSSE auth model is unlike anything currently in providers.json.",
+    "SDKs: Community SDKs exist (notably PHP via dnetix/redirection); official first-party coverage is thin. Docs are good and OpenAPI-adjacent.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps kushki across the Andean markets and dlocal_go in Central America. Its advantage is direct local acquiring in CR/GT/HN/PA/DO rather than aggregation.",
+    "Onboarding: application_review. Commercial agreement per country."
+  ]
+}

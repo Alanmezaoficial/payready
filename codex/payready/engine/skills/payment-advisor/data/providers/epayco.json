@@ -1,0 +1,107 @@
+{
+  "id": "epayco",
+  "name": "ePayco",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 3,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "CO"
+  ],
+  "method_coverage_regions": [
+    "CO"
+  ],
+  "currencies": [
+    "COP"
+  ],
+  "methods": [
+    "card",
+    "pse",
+    "nequi",
+    "daviplata",
+    "efecty",
+    "baloto",
+    "su_red"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "FIELD-CONCATENATION HASH, not HMAC and not over the body. `x_signature` = SHA256 of six specific fields joined by the `^` character, in this exact order: p_cust_id_cliente ^ p_key ^ x_ref_payco ^ x_transaction_id ^ x_amount ^ x_currency_code. Plain SHA-256, no HMAC keying, NO timestamp — replay mitigation must be x_ref_payco dedup. A generator that hashes the raw JSON body will never match. Confirmation is also form-encoded, not JSON.",
+    "expected_filenames": [
+      "webhook",
+      "epayco-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.epayco.com/docs/url-de-confirmacion",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "EPAYCO_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Uses P_CUST_ID_CLIENTE, P_KEY, PUBLIC_KEY and PRIVATE_KEY — four distinct values, no prefixes. The p_key participates in the signature itself. Does not fit the two-field key schema."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "EPAYCO_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "EPAYCO_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "EPAYCO_API_KEY",
+    "webhook_secret": "EPAYCO_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN for 2026. Do not populate."
+  },
+  "docs_url": "https://docs.epayco.com/docs/url-de-confirmacion",
+  "score_modifiers": {},
+  "notes": [
+    "The long-tail Colombian gateway with the broadest cash-network coverage and the lowest onboarding bar for individual sellers. Its signature scheme is the canonical example of a field-concatenation hash that never touches the request body — a pattern the generator currently cannot express.",
+    "SDKs: Official epayco libraries exist for PHP, Node, Python and Ruby (github.com/epayco), plus WooCommerce/PrestaShop plugins. Coverage is decent but the repos are aging.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Third CO option after wompi and bold. Choose ePayco for cash-network breadth (efecty/baloto/su_red already in methods.json) and for individual sellers who fail Wompi's KYC.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "id": "paystack",
+  "name": "Paystack",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 6,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "NG",
+    "GH",
+    "ZA",
+    "KE",
+    "CI"
+  ],
+  "method_coverage_regions": [
+    "NG",
+    "GH",
+    "ZA",
+    "KE",
+    "CI"
+  ],
+  "currencies": [
+    "GHS",
+    "KES",
+    "NGN",
+    "XOF",
+    "ZAR"
+  ],
+  "methods": [
+    "card",
+    "verve",
+    "ng_bank_transfer",
+    "ng_ussd",
+    "nqr",
+    "mpesa",
+    "mtn_momo",
+    "apple_pay",
+    "eft_za"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED. Header `x-paystack-signature`; HMAC-SHA512 of the RAW request body keyed with the live/test secret key, hex-encoded. No timestamp in the signature, so a valid payload is replayable — replay strategy must be event-id dedup plus the documented IP allowlist (52.31.139.75, 52.49.173.169, 52.214.14.220) plus a server-side call to /transaction/verify before fulfilment. Retries: every 3 min x4, then hourly up to 72h (live). Note SHA-512, not SHA-256 — the single most-hallucinated detail for this provider.",
+    "expected_filenames": [
+      "webhook",
+      "paystack-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://paystack.com/docs",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "PAYSTACK_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "VERIFIED. Secret `^sk_(test|live)_[A-Za-z0-9]+$`, public `^pk_(test|live)_[A-Za-z0-9]+$`. Same prefix convention as Stripe, which makes secret-scanning rules ambiguous — disambiguate by API host, not prefix."
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "PAYSTACK_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "PAYSTACK_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "PAYSTACK_API_KEY",
+    "webhook_secret": "PAYSTACK_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "VERIFIED for Nigeria local cards: 1.5% + NGN 100, the NGN 100 waived under NGN 2,500, total capped at NGN 2,000. International 3.9% + NGN 100. Per-country pricing differs materially (GHS/ZAR/KES schedules are separate) — do not extrapolate the NG number."
+  },
+  "docs_url": "https://paystack.com/docs",
+  "score_modifiers": {},
+  "notes": [
+    "The default developer on-ramp for Nigeria and the closest thing in this cluster to Stripe-grade DX; no shipped provider can accept NGN at all. Also the cheapest path to Verve cards, NUBAN virtual-account transfers and USSD, which together outweigh cards in Nigerian volume.",
+    "SDKs: No first-party server SDKs. Community libraries only (`paystack-node`/`paystack-sdk` on npm, `paystack` on PyPI, `yabacon/paystack-php`). Generator should emit direct REST + fetch/requests/Guzzle rather than pick a community package.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Flutterwave in NG/GH/KE/ZA/CI. Paystack wins on DX and NG depth; Flutterwave wins on breadth. Ship both, route by country count.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

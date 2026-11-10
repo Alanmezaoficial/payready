@@ -1,0 +1,102 @@
+{
+  "id": "midtrans",
+  "name": "Midtrans (GoTo Financial)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 5,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "ID"
+  ],
+  "method_coverage_regions": [
+    "ID"
+  ],
+  "currencies": [
+    "IDR"
+  ],
+  "methods": [
+    "card",
+    "qris",
+    "virtual_account_id",
+    "gopay",
+    "shopeepay",
+    "dana",
+    "alfamart_indomaret",
+    "kredivo",
+    "akulaku"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "NOT A HEADER. Midtrans puts signature_key INSIDE the JSON notification body. Verify with plain SHA-512 (not HMAC) of the concatenated string order_id + status_code + gross_amount + ServerKey, then compare to body.signature_key. No timestamp, no tolerance window, no replay protection — so dedup on order_id + transaction_status is mandatory. VERIFIED from docs.midtrans.com/docs/https-notification-webhooks. Additional trap: gross_amount must be used as the exact string Midtrans sent (e.g. \"10000.00\"); reformatting it as a number breaks the hash.",
+    "expected_filenames": [
+      "webhook",
+      "midtrans-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.midtrans.com/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "MIDTRANS_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Server Key and Client Key. Sandbox keys are prefixed SB-Mid-server- / SB-Mid-client-; production drop the SB- prefix (Mid-server- / Mid-client-). Prefix pattern is widely observed and consistent with the sandbox/production split, but I did "
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "MIDTRANS_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "MIDTRANS_API_KEY",
+    "webhook_secret": "MIDTRANS_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "Standard published rates: credit card 2.9% + IDR 2,000 per transaction; bank transfer / VA IDR 4,000 flat. No setup or subscription fee. Medium confidence — from aggregator/review sources rather than a fetched Midtrans rate card."
+  },
+  "docs_url": "https://docs.midtrans.com/",
+  "score_modifiers": {},
+  "notes": [
+    "The default Indonesian gateway for local merchants and the one whose verification scheme most reliably breaks generated code: the signature is not a header and not an HMAC. Also the cleanest path to Indonesian Virtual Account, which is still the country's dominant online rail.",
+    "SDKs: node: midtrans-client; python: midtransclient; php: midtrans/midtrans-php. All official (github.com/Midtrans).",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Overlaps Xendit in ID. Midtrans is more common among Indonesia-native merchants; Xendit is more common among regional/VC-backed ones.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

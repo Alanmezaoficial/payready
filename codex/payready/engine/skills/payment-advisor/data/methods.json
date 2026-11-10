@@ -1,0 +1,1577 @@
+{
+  "$schema": "../../../schemas/methods.schema.json",
+  "methods": [
+    {
+      "id": "ach_credit",
+      "label": "ACH Credit",
+      "category": "bank_transfer",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "multi_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "bancolombia_button",
+      "label": "Botón Bancolombia",
+      "category": "bank_transfer",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "same_day",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund",
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "bancolombia_transfer",
+      "label": "Bancolombia Transfer",
+      "category": "bank_transfer",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "same_day",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund",
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "benefit",
+      "label": "BenefitPay",
+      "category": "bank_transfer",
+      "regions": [
+        "BH"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "bre_b",
+      "label": "Bre-B",
+      "category": "bank_transfer",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Colombia's instant payment rail operated by Banco de la Republica."
+    },
+    {
+      "id": "eft_za",
+      "label": "Instant EFT (South Africa)",
+      "category": "bank_transfer",
+      "regions": [
+        "ZA"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "eps",
+      "label": "EPS",
+      "category": "bank_transfer",
+      "regions": [
+        "AT"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "faster_payments",
+      "label": "Faster Payments",
+      "category": "bank_transfer",
+      "regions": [
+        "UK"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "fednow",
+      "label": "FedNow",
+      "category": "bank_transfer",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "fps",
+      "label": "FPS",
+      "category": "bank_transfer",
+      "regions": [
+        "HK"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "giropay",
+      "label": "giropay (retired)",
+      "category": "bank_transfer",
+      "regions": [
+        "DE"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund",
+      "deny_list": true,
+      "sunset_at": "2024-12-31",
+      "notes": "Shut down. Present only so the generator refuses to emit it."
+    },
+    {
+      "id": "ideal",
+      "label": "iDEAL",
+      "category": "bank_transfer",
+      "regions": [
+        "NL"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund",
+      "succeeded_by": "wero",
+      "notes": "iDEAL is migrating onto the Wero infrastructure over 2026-2027."
+    },
+    {
+      "id": "instapay",
+      "label": "InstaPay",
+      "category": "bank_transfer",
+      "regions": [
+        "PH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Philippine real-time credit transfer, the rail under QR Ph. A per-transaction cap applies; PESONet is the batch alternative for larger amounts."
+    },
+    {
+      "id": "instapay_eg",
+      "label": "InstaPay (Egypt)",
+      "category": "bank_transfer",
+      "regions": [
+        "EG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "instapay_ph",
+      "label": "InstaPay",
+      "category": "bank_transfer",
+      "regions": [
+        "PH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "knet",
+      "label": "KNET",
+      "category": "bank_transfer",
+      "regions": [
+        "KW"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "netbanking_in",
+      "label": "Net Banking (India)",
+      "category": "bank_transfer",
+      "regions": [
+        "IN"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Redirect to the bank's own page. Still material for high-ticket purchases where UPI limits bind. Success rates vary widely by bank; retry logic should offer UPI as the fallback."
+    },
+    {
+      "id": "ng_bank_transfer",
+      "label": "Nigerian bank transfer / virtual NUBAN account",
+      "category": "bank_transfer",
+      "regions": [
+        "NG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "The dominant Nigerian online rail, ahead of cards. Merchant issues a dedicated/reserved NUBAN virtual account per customer or per order; customer pushes via their bank app; NIBSS Instant Payments settles in seconds. Priced as a low flat NGN fee with a cap, not a percentage — materially cheaper than card. Paystack, Monnify, Squad, Kora."
+    },
+    {
+      "id": "ng_ussd",
+      "label": "USSD (Nigeria)",
+      "category": "bank_transfer",
+      "regions": [
+        "NG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "nibss_instant",
+      "label": "NIBSS Instant Payment",
+      "category": "bank_transfer",
+      "regions": [
+        "NG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "p24",
+      "label": "Przelewy24",
+      "category": "bank_transfer",
+      "regions": [
+        "PL"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "payshap",
+      "label": "PayShap",
+      "category": "bank_transfer",
+      "regions": [
+        "ZA"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "pse",
+      "label": "PSE (Pagos Seguros en Línea)",
+      "category": "bank_transfer",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "same_day",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund",
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "rtp",
+      "label": "RTP (Real-Time Payments)",
+      "category": "bank_transfer",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "sepa_inst",
+      "label": "SEPA Instant Credit Transfer",
+      "category": "bank_transfer",
+      "regions": [
+        "EU"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "sofort",
+      "label": "Sofort (retired)",
+      "category": "bank_transfer",
+      "regions": [
+        "DE"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund",
+      "deny_list": true,
+      "notes": "Retired in favour of direct bank transfer methods. Present only so the generator refuses to emit it."
+    },
+    {
+      "id": "spei",
+      "label": "SPEI",
+      "category": "bank_transfer",
+      "regions": [
+        "MX"
+      ],
+      "settlement_speed": "instant",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund",
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "transferencia_cl",
+      "label": "Transferencia bancaria (CL)",
+      "category": "bank_transfer",
+      "regions": [
+        "CL"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "transferencias_30",
+      "label": "Transferencias 3.0",
+      "category": "bank_transfer",
+      "regions": [
+        "AR"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "upi",
+      "label": "UPI",
+      "category": "bank_transfer",
+      "regions": [
+        "IN"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "India's instant rail. Both a QR and an address-based push rail."
+    },
+    {
+      "id": "virtual_account_id",
+      "label": "Virtual Account (Indonesia)",
+      "category": "bank_transfer",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "same_day",
+      "reversibility": "refund_only",
+      "async_pending": true,
+      "expiry_seconds": 86400
+    },
+    {
+      "id": "ebt_snap",
+      "label": "SNAP EBT",
+      "category": "benefits",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "USDA-authorized processors only, with mandatory split-tender."
+    },
+    {
+      "id": "hsa_fsa",
+      "label": "HSA / FSA card",
+      "category": "benefits",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback"
+    },
+    {
+      "id": "afterpay",
+      "label": "Afterpay / Clearpay",
+      "category": "bnpl",
+      "regions": [
+        "US",
+        "UK",
+        "AU",
+        "NZ",
+        "CA"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 120
+    },
+    {
+      "id": "akulaku",
+      "label": "Akulaku PayLater",
+      "category": "bnpl",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "billease",
+      "label": "BillEase",
+      "category": "bnpl",
+      "regions": [
+        "PH"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "billie",
+      "label": "Billie (B2B invoice / BNPL)",
+      "category": "bnpl",
+      "regions": [
+        "DE",
+        "AT",
+        "NL"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "B2B buy-now-pay-later: pay-by-invoice with net terms for business buyers, underwritten by Billie. Fills a gap PagoKit has no method for — B2B invoice terms in DACH, where 'Kauf auf Rechnung' is still an expected checkout option. Available via Mollie and Adyen."
+    },
+    {
+      "id": "emi_in",
+      "label": "EMI / Cardless EMI (India)",
+      "category": "bnpl",
+      "regions": [
+        "IN"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "Card-issuer EMI plans plus cardless EMI lenders. The merchant either absorbs interest (no-cost EMI) or the customer pays it; the distinction changes the amount charged and must be an explicit config, never a default."
+    },
+    {
+      "id": "klarna",
+      "label": "Klarna (BNPL)",
+      "category": "bnpl",
+      "regions": [
+        "US",
+        "UK",
+        "EU",
+        "AU"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 120
+    },
+    {
+      "id": "kredivo",
+      "label": "Kredivo",
+      "category": "bnpl",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "riverty",
+      "label": "Riverty (formerly European AfterPay)",
+      "category": "bnpl",
+      "regions": [
+        "NL",
+        "BE",
+        "DE",
+        "AT",
+        "CH"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback",
+      "renamed_from": "afterpay_europe",
+      "notes": "A DIFFERENT company from Block&apos;s Afterpay/Clearpay. Confusing the two picks the wrong integration."
+    },
+    {
+      "id": "shopee_paylater",
+      "label": "SPayLater (Shopee PayLater)",
+      "category": "bnpl",
+      "regions": [
+        "PH",
+        "ID",
+        "TH",
+        "MY"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "tabby_bnpl",
+      "label": "Tabby",
+      "category": "bnpl",
+      "regions": [
+        "AE",
+        "SA",
+        "KW",
+        "BH",
+        "QA"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback"
+    },
+    {
+      "id": "valu",
+      "label": "valU (Egypt BNPL/installments)",
+      "category": "bnpl",
+      "regions": [
+        "EG"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "Egypt's leading consumer installment provider. Egyptian ecommerce is installment-heavy for mid-to-high ticket items; card-installment plans (bank-issued) are a parallel mechanism worth modelling separately."
+    },
+    {
+      "id": "bancontact",
+      "label": "Bancontact",
+      "category": "card",
+      "regions": [
+        "BE"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "card",
+      "label": "Credit/Debit Card",
+      "category": "card",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 120
+    },
+    {
+      "id": "mada",
+      "label": "mada",
+      "category": "card",
+      "regions": [
+        "SA"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback",
+      "notes": "Roughly 93% of Saudi card volume. Requires a locally licensed acquirer."
+    },
+    {
+      "id": "meeza",
+      "label": "Meeza",
+      "category": "card",
+      "regions": [
+        "EG"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback"
+    },
+    {
+      "id": "omannet",
+      "label": "OmanNet",
+      "category": "card",
+      "regions": [
+        "OM"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback"
+    },
+    {
+      "id": "redcompra",
+      "label": "Redcompra",
+      "category": "card",
+      "regions": [
+        "CL"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "Chile's domestic debit network. Reached through Transbank."
+    },
+    {
+      "id": "unionpay",
+      "label": "UnionPay",
+      "category": "card",
+      "regions": [
+        "CN",
+        "HK",
+        "GLOBAL"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "verve",
+      "label": "Verve",
+      "category": "card",
+      "regions": [
+        "NG"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback"
+    },
+    {
+      "id": "card_present",
+      "label": "Card present (terminal)",
+      "category": "card_present",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback",
+      "notes": "Different liability regime from card-not-present. EMV shifts fraud liability to the issuer."
+    },
+    {
+      "id": "alfamart_indomaret",
+      "label": "Alfamart / Indomaret (cash over counter)",
+      "category": "cash_voucher",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Indonesian convenience-store cash payment against a payment code. Same async-pending semantics as OXXO and boleto."
+    },
+    {
+      "id": "baloto",
+      "label": "Baloto",
+      "category": "cash_voucher",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "boleto",
+      "label": "Boleto Bancário",
+      "category": "cash_voucher",
+      "regions": [
+        "BR"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "efecty",
+      "label": "Efecty",
+      "category": "cash_voucher",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "fawry_cash",
+      "label": "Fawry",
+      "category": "cash_voucher",
+      "regions": [
+        "EG"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "async_pending": true,
+      "expiry_seconds": 259200
+    },
+    {
+      "id": "konbini",
+      "label": "Konbini",
+      "category": "cash_voucher",
+      "regions": [
+        "JP"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "async_pending": true,
+      "pending_status_lies": true,
+      "expiry_seconds": 259200,
+      "notes": "Some providers report an authorized-shaped status while the voucher is still UNPAID. Fulfilling on it ships free goods."
+    },
+    {
+      "id": "multibanco",
+      "label": "Multibanco",
+      "category": "cash_voucher",
+      "regions": [
+        "PT"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "async_pending": true,
+      "expiry_seconds": 259200
+    },
+    {
+      "id": "oxxo",
+      "label": "OXXO (cash voucher)",
+      "category": "cash_voucher",
+      "regions": [
+        "MX"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "pago_facil",
+      "label": "Pago Fácil",
+      "category": "cash_voucher",
+      "regions": [
+        "AR"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "pagoefectivo",
+      "label": "PagoEfectivo",
+      "category": "cash_voucher",
+      "regions": [
+        "PE"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "paysafecard",
+      "label": "paysafecard",
+      "category": "cash_voucher",
+      "regions": [
+        "AT",
+        "DE",
+        "EU"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Prepaid 16-digit PIN voucher bought in cash at retail. Real share in Austria, Germany and gaming/digital goods where the buyer has no card or wants no card trail. Reachable via Mollie and Adyen — no need to integrate Paysafe directly."
+    },
+    {
+      "id": "rapipago",
+      "label": "Rapipago",
+      "category": "cash_voucher",
+      "regions": [
+        "AR"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "servipag",
+      "label": "Servipag",
+      "category": "cash_voucher",
+      "regions": [
+        "CL"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "su_red",
+      "label": "Su Red",
+      "category": "cash_voucher",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": true,
+      "reversibility": "refund_only",
+      "expiry_seconds": 259200,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "usdc",
+      "label": "USDC Stablecoin",
+      "category": "crypto",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "instant",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "usdt",
+      "label": "USDT Stablecoin",
+      "category": "crypto",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "ach_debit",
+      "label": "ACH Direct Debit",
+      "category": "direct_debit",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "multi_day",
+      "irreversible": false,
+      "reversibility": "mandate_indemnity",
+      "reversal_window_days": 60,
+      "async_pending": true,
+      "pending_status_lies": false
+    },
+    {
+      "id": "bacs_debit",
+      "label": "Bacs Direct Debit",
+      "category": "direct_debit",
+      "regions": [
+        "UK"
+      ],
+      "settlement_speed": "multi_day",
+      "reversibility": "mandate_indemnity",
+      "reversal_window_days": 395,
+      "notes": "The Direct Debit Guarantee allows an indemnity claim long after a payment reports as successful."
+    },
+    {
+      "id": "becs_debit",
+      "label": "BECS Direct Debit (Australia)",
+      "category": "direct_debit",
+      "regions": [
+        "AU"
+      ],
+      "settlement_speed": "weekly",
+      "reversibility": "refund_only",
+      "notes": "Legacy AU direct debit with multi-day settlement and a long dispute window. Prefer PayTo for new integrations."
+    },
+    {
+      "id": "pac_chile",
+      "label": "PAC (Chile direct debit)",
+      "category": "direct_debit",
+      "regions": [
+        "CL"
+      ],
+      "settlement_speed": "multi_day",
+      "reversibility": "mandate_indemnity"
+    },
+    {
+      "id": "payto",
+      "label": "PayTo",
+      "category": "direct_debit",
+      "regions": [
+        "AU"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "mandate_indemnity"
+    },
+    {
+      "id": "pix_automatico",
+      "label": "Pix Automatico",
+      "category": "direct_debit",
+      "regions": [
+        "BR"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "mandate_indemnity",
+      "notes": "Recurring debit over the Pix rail. A mandate lifecycle, not a card on file."
+    },
+    {
+      "id": "sepa_debit",
+      "label": "SEPA Direct Debit",
+      "category": "direct_debit",
+      "regions": [
+        "EU"
+      ],
+      "settlement_speed": "multi_day",
+      "irreversible": false,
+      "reversibility": "mandate_indemnity",
+      "reversal_window_days": 56,
+      "async_pending": true,
+      "pending_status_lies": false,
+      "notes": "Mandate indemnity: the payer can claim back for 8 weeks no-questions-asked, and 13 months if unauthorised. A \"successful\" charge is not final."
+    },
+    {
+      "id": "upi_autopay",
+      "label": "UPI AutoPay",
+      "category": "direct_debit",
+      "regions": [
+        "IN"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "mandate_indemnity",
+      "notes": "RBI e-mandate rules apply: pre-debit notice and additional factor authentication above the threshold."
+    },
+    {
+      "id": "mpesa",
+      "label": "M-Pesa",
+      "category": "mobile_money",
+      "regions": [
+        "KE",
+        "TZ"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "STK Push is fire-and-confirm: a timeout means UNKNOWN, never FAILED. Always re-query Transaction Status."
+    },
+    {
+      "id": "mtn_momo",
+      "label": "MTN MoMo",
+      "category": "mobile_money",
+      "regions": [
+        "GH",
+        "UG",
+        "CI"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "pay_by_bank",
+      "label": "Pay by Bank (open banking)",
+      "category": "open_banking",
+      "regions": [
+        "UK",
+        "EU"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "apple_iap",
+      "label": "Apple In-App Purchase",
+      "category": "other",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "multi_day",
+      "reversibility": "refund_only",
+      "notes": "Apple is the merchant of record. Settlement lags 30-45 days and the refund decision is not the developer&apos;s."
+    },
+    {
+      "id": "google_play_billing",
+      "label": "Google Play Billing",
+      "category": "other",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "multi_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "bizum",
+      "label": "Bizum",
+      "category": "qr",
+      "regions": [
+        "ES"
+      ],
+      "settlement_speed": "instant",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund",
+      "requires_gateway": true,
+      "reachable_via": [
+        "stripe"
+      ]
+    },
+    {
+      "id": "codi",
+      "label": "CoDi",
+      "category": "qr",
+      "regions": [
+        "MX"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "duitnow",
+      "label": "DuitNow",
+      "category": "qr",
+      "regions": [
+        "MY"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "nqr",
+      "label": "NQR (NIBSS QR)",
+      "category": "qr",
+      "regions": [
+        "NG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Nigeria's interoperable national QR standard, operated by NIBSS. Scan-to-pay from any participating bank app. Lower adoption than bank transfer online but rising in-person."
+    },
+    {
+      "id": "paynow",
+      "label": "PayNow",
+      "category": "qr",
+      "regions": [
+        "SG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "pix",
+      "label": "Pix",
+      "category": "qr",
+      "regions": [
+        "BR"
+      ],
+      "settlement_speed": "instant",
+      "irreversible": true,
+      "notes": "Brazilian instant payment rail. No chargeback: \"refund the charge\" does not exist as an API operation. The MED dispute mechanism is a separate Bacen process, not a PSP refund.",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "pix_parcelado",
+      "label": "Pix Parcelado",
+      "category": "qr",
+      "regions": [
+        "BR"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "promptpay",
+      "label": "PromptPay",
+      "category": "qr",
+      "regions": [
+        "TH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "qr_ph",
+      "label": "QR Ph",
+      "category": "qr",
+      "regions": [
+        "PH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "BSP's national QR standard, riding InstaPay. Interoperable across banks and wallets. The person-to-merchant tier is the one merchants use."
+    },
+    {
+      "id": "qr_simple_bo",
+      "label": "QR Simple (Bolivia)",
+      "category": "qr",
+      "regions": [
+        "BO"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "The ASFI/BCB-standardised interoperable QR that has become Bolivia's main digital rail — currently the ONLY realistic programmatic method for a country regions.json lists with zero providers. Accessed through local integrators (CUCU, XMART, PagosNet/Red Enlace) that expose QR-creation APIs plus webhook confirmation, or via dlocal_go."
+    },
+    {
+      "id": "qris",
+      "label": "QRIS",
+      "category": "qr",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "airtel_money",
+      "label": "Airtel Money",
+      "category": "wallet",
+      "regions": [
+        "KE",
+        "TZ",
+        "UG",
+        "ZM",
+        "RW",
+        "MW",
+        "NG",
+        "CD",
+        "GA",
+        "TD",
+        "NE",
+        "CG",
+        "SC",
+        "MG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Second mobile-money rail across 14 African markets; frequently the difference between 60% and 90% wallet coverage in Zambia, Malawi and Tanzania. OAuth2 auth, USSD/STK confirmation, async callback."
+    },
+    {
+      "id": "alipay",
+      "label": "Alipay",
+      "category": "wallet",
+      "regions": [
+        "CN"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "alipay_hk",
+      "label": "AlipayHK",
+      "category": "wallet",
+      "regions": [
+        "HK"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "alipay_plus",
+      "label": "Alipay+",
+      "category": "wallet",
+      "regions": [
+        "APAC"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "A network, not a single wallet: one contract and one signature scheme fan out to roughly 25 regional wallets."
+    },
+    {
+      "id": "apple_pay",
+      "label": "Apple Pay",
+      "category": "wallet",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 120
+    },
+    {
+      "id": "blik",
+      "label": "BLIK",
+      "category": "wallet",
+      "regions": [
+        "PL"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "expiry_seconds": 120,
+      "notes": "The 6-digit code expires in 120 seconds. Without a timeout branch the order hangs."
+    },
+    {
+      "id": "cash_app_pay",
+      "label": "Cash App Pay",
+      "category": "wallet",
+      "regions": [
+        "US"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "chargeback"
+    },
+    {
+      "id": "cuotealo",
+      "label": "Cuotealo",
+      "category": "wallet",
+      "regions": [
+        "PE"
+      ]
+    },
+    {
+      "id": "dana",
+      "label": "DANA",
+      "category": "wallet",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "daviplata",
+      "label": "Daviplata",
+      "category": "wallet",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "requires_gateway": true,
+      "reachable_via": [
+        "wompi"
+      ]
+    },
+    {
+      "id": "dimo",
+      "label": "DiMo",
+      "category": "wallet",
+      "regions": [
+        "MX"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "eg_mobile_wallet",
+      "label": "Egyptian mobile wallet (Vodafone Cash / Orange Money / Etisalat Cash)",
+      "category": "wallet",
+      "regions": [
+        "EG"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "Telco wallets settled through the CBE wallet switch; usually exposed as one aggregated method by Paymob/Kashier rather than three separate integrations."
+    },
+    {
+      "id": "gcash",
+      "label": "GCash",
+      "category": "wallet",
+      "regions": [
+        "PH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "google_pay",
+      "label": "Google Pay",
+      "category": "wallet",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 120
+    },
+    {
+      "id": "gopay",
+      "label": "GoPay",
+      "category": "wallet",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "grabpay",
+      "label": "GrabPay",
+      "category": "wallet",
+      "regions": [
+        "SG",
+        "MY",
+        "PH",
+        "TH",
+        "VN",
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "kakao_pay",
+      "label": "KakaoPay",
+      "category": "wallet",
+      "regions": [
+        "KR"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "link",
+      "label": "Stripe Link",
+      "category": "wallet",
+      "regions": [
+        "US",
+        "EU",
+        "UK"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 120
+    },
+    {
+      "id": "maya",
+      "label": "Maya",
+      "category": "wallet",
+      "regions": [
+        "PH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "mbway",
+      "label": "MB WAY",
+      "category": "wallet",
+      "regions": [
+        "PT"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "expiry_seconds": 240
+    },
+    {
+      "id": "mercadopago_wallet",
+      "label": "Mercado Pago Wallet",
+      "category": "wallet",
+      "regions": [
+        "AR",
+        "BR",
+        "CL",
+        "CO",
+        "MX",
+        "PE",
+        "UY"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "modo",
+      "label": "MODO",
+      "category": "wallet",
+      "regions": [
+        "AR"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "nequi",
+      "label": "Nequi",
+      "category": "wallet",
+      "regions": [
+        "CO"
+      ],
+      "settlement_speed": "instant",
+      "irreversible": true,
+      "reversibility": "irreversible_no_refund",
+      "requires_gateway": true,
+      "reachable_via": [
+        "wompi"
+      ]
+    },
+    {
+      "id": "octopus",
+      "label": "Octopus",
+      "category": "wallet",
+      "regions": [
+        "HK"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "Online acceptance is newer than its transit and retail heritage; Airwallex added it for HK online payments in 2026."
+    },
+    {
+      "id": "ovo",
+      "label": "OVO",
+      "category": "wallet",
+      "regions": [
+        "ID"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "payme",
+      "label": "PayMe (HSBC)",
+      "category": "wallet",
+      "regions": [
+        "HK"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "paypal",
+      "label": "PayPal",
+      "category": "wallet",
+      "regions": [
+        "GLOBAL"
+      ],
+      "settlement_speed": "next_day",
+      "irreversible": false,
+      "reversibility": "chargeback",
+      "reversal_window_days": 180
+    },
+    {
+      "id": "plin",
+      "label": "Plin",
+      "category": "wallet",
+      "regions": [
+        "PE"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "revolut_pay",
+      "label": "Revolut Pay",
+      "category": "wallet",
+      "regions": [
+        "UK",
+        "EU"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "refund_only",
+      "notes": "One-tap checkout for Revolut's consumer base, strong in the UK, Ireland, the Baltics and CEE. Available through Revolut Merchant and some PSPs."
+    },
+    {
+      "id": "satispay",
+      "label": "Satispay",
+      "category": "wallet",
+      "regions": [
+        "IT"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "shopeepay",
+      "label": "ShopeePay",
+      "category": "wallet",
+      "regions": [
+        "ID",
+        "PH",
+        "MY",
+        "TH",
+        "SG",
+        "VN"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "sinpe_movil",
+      "label": "Sinpe Movil",
+      "category": "wallet",
+      "regions": [
+        "CR"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "swish",
+      "label": "Swish",
+      "category": "wallet",
+      "regions": [
+        "SE"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "tng_ewallet",
+      "label": "Touch 'n Go eWallet",
+      "category": "wallet",
+      "regions": [
+        "MY"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "truemoney",
+      "label": "TrueMoney Wallet",
+      "category": "wallet",
+      "regions": [
+        "TH",
+        "MY",
+        "PH",
+        "VN",
+        "ID",
+        "KH",
+        "MM"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "twint",
+      "label": "TWINT",
+      "category": "wallet",
+      "regions": [
+        "CH"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "vipps",
+      "label": "Vipps MobilePay",
+      "category": "wallet",
+      "regions": [
+        "NO",
+        "DK",
+        "FI"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "vipps_mobilepay",
+      "label": "Vipps / MobilePay",
+      "category": "wallet",
+      "regions": [
+        "NO",
+        "DK",
+        "FI"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "refund_only",
+      "notes": "One merged company and one API across three countries (Vipps in NO, MobilePay in DK/FI). Refunds supported. Can return consented user profile data (name, email, address), which lets the generated checkout skip an address form. Direct API is public and self-serve; also reachable via Adyen, Mollie and Nexi."
+    },
+    {
+      "id": "wallet_in",
+      "label": "Indian PPI wallets (Paytm, PhonePe, Amazon Pay, Mobikwik)",
+      "category": "wallet",
+      "regions": [
+        "IN"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only",
+      "notes": "Prepaid Payment Instruments. Declining share as UPI absorbs the use case, but still requested. Full-KYC vs min-KYC wallets have different balance limits."
+    },
+    {
+      "id": "wechat_pay",
+      "label": "WeChat Pay",
+      "category": "wallet",
+      "regions": [
+        "CN"
+      ],
+      "settlement_speed": "next_day",
+      "reversibility": "refund_only"
+    },
+    {
+      "id": "wero",
+      "label": "Wero (EPI)",
+      "category": "wallet",
+      "regions": [
+        "EU"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "yape",
+      "label": "Yape",
+      "category": "wallet",
+      "regions": [
+        "PE"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund"
+    },
+    {
+      "id": "yappy",
+      "label": "Yappy",
+      "category": "wallet",
+      "regions": [
+        "PA"
+      ],
+      "settlement_speed": "instant",
+      "reversibility": "irreversible_no_refund",
+      "notes": "No self-serve merchant API. Reached through an aggregator, not integrated directly."
+    }
+  ],
+  "_comment": "A method is a rail a buyer can pay with - not a provider. `reversibility` drives whether the generator emits a refund path at all."
+}

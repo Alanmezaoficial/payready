@@ -1,0 +1,142 @@
+{
+  "id": "antom",
+  "name": "Antom (Ant International — Alipay+ / Alipay / WeChat Pay acquiring)",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 5,
+  "integration_level": "advise",
+  "role": "aggregator",
+  "merchant_domicile_regions": [
+    "CN",
+    "HK",
+    "SG",
+    "MY",
+    "TH",
+    "ID",
+    "PH",
+    "VN",
+    "KR",
+    "JP",
+    "GLOBAL"
+  ],
+  "method_coverage_regions": [
+    "CN",
+    "HK",
+    "SG",
+    "MY",
+    "TH",
+    "ID",
+    "PH",
+    "VN",
+    "KR",
+    "JP",
+    "GLOBAL"
+  ],
+  "currencies": [
+    "CNY",
+    "HKD",
+    "IDR",
+    "JPY",
+    "KRW",
+    "MYR",
+    "PHP",
+    "SGD",
+    "THB",
+    "VND"
+  ],
+  "methods": [
+    "alipay",
+    "alipay_plus",
+    "wechat_pay",
+    "unionpay",
+    "card",
+    "gcash",
+    "dana",
+    "truemoney",
+    "tng_ewallet",
+    "kakao_pay",
+    "gopay",
+    "shopeepay"
+  ],
+  "supports": {
+    "subscriptions": false,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Signature header with a structured value: algorithm=RSA256,keyVersion=1,signature=<url-encoded base64>. Verification is SHA256withRSA against ANTOM'S PUBLIC KEY (asymmetric — you do NOT share an HMAC secret), over a content string built from httpMethod + requestPath + clientId + Request-Time + rawBody. The Request-Time header is an ISO-8601 timestamp with offset and IS part of the signed content, so a tolerance window is enforceable. Docs explicitly warn: use the HTTP body directly, never re-serialize the JSON. VERIFIED from docs.antom.com/ac/ams/digital_signature and /ac/cashierpay/notificati",
+    "expected_filenames": [
+      "webhook",
+      "antom-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.antom.com/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "ANTOM_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "Not an sk_/pk_ model at all. Credentials are a Client-Id plus an RSA KEY PAIR: you upload your public key and hold the private key for request signing; you download Antom's public key to verify responses and notifications. Generated code mu"
+    },
+    {
+      "id": "publishable",
+      "kind": "publishable_key",
+      "env_var": "ANTOM_PUBLIC_KEY",
+      "pattern": null,
+      "scope": "client"
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "ANTOM_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "ANTOM_API_KEY",
+    "webhook_secret": "ANTOM_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "sales_gated",
+    "individual_allowed": false,
+    "note": "Ant International enterprise onboarding."
+  },
+  "kyc": {
+    "individual_allowed": false
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — Antom quotes per merchant and per wallet; no public rate card. Do not emit a number."
+  },
+  "docs_url": "https://docs.antom.com/",
+  "score_modifiers": {},
+  "notes": [
+    "One integration reaches Alipay, WeChat Pay and the whole Alipay+ wallet network (GCash, TNG, DANA, TrueMoney, KakaoPay and ~25 others) — the single highest-leverage entry in the cluster. It is also the only provider here using asymmetric RSA signing, which no shipped template covers.",
+    "SDKs: Official SDKs exist for Java, PHP, Node and Python under the Antom/Alipay open-platform orgs, but they are lower-traffic than Western equivalents and the signing helper is the main reason to use them. Do not hand-roll RSA signing if an SDK signing tool is available.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Supersedes trying to integrate Alipay and WeChat Pay separately. Also now the parent of 2C2P — if you add Antom, 2C2P becomes a redundancy rather than an addition for most merchants.",
+    "Onboarding: sales_gated. Ant International enterprise onboarding."
+  ]
+}

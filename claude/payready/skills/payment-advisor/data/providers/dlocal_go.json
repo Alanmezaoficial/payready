@@ -1,0 +1,129 @@
+{
+  "id": "dlocal_go",
+  "name": "dLocal Go",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 2,
+  "integration_level": "advise",
+  "role": "aggregator",
+  "merchant_domicile_regions": [
+    "AR",
+    "BR",
+    "CL",
+    "CO",
+    "MX",
+    "PE",
+    "UY"
+  ],
+  "method_coverage_regions": [
+    "AR",
+    "BR",
+    "CL",
+    "CO",
+    "MX",
+    "PE",
+    "UY"
+  ],
+  "currencies": [
+    "ARS",
+    "BRL",
+    "CLP",
+    "COP",
+    "MXN",
+    "PEN",
+    "UYU"
+  ],
+  "methods": [
+    "card",
+    "pix",
+    "spei",
+    "pse",
+    "boleto",
+    "oxxo",
+    "yape",
+    "plin",
+    "sinpe_movil",
+    "nequi",
+    "efecty",
+    "rapipago",
+    "pago_facil",
+    "servipag",
+    "pagoefectivo",
+    "qr_simple_bo",
+    "yappy"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": false,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "Header `Signature`, HMAC-SHA256. Signed string is built from x-login + secretKey + the `X-Date` header + the raw request body, so a timestamp IS covered. Exact concatenation order not stated in public docs — treat as timestamp-window + event-id-dedup. Outbound API auth uses `Authorization: V2-HMAC-SHA256, Signature: {sig}` with `X-Date`, `X-Login`, `X-Trans-Key` headers.",
+    "expected_filenames": [
+      "webhook",
+      "dlocal_go-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.dlocal.com/",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "DLOCAL_GO_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN. Credentials are x-login / x-trans-key / secret-key rather than a prefixed single key. Does not fit secret_key_pattern regex."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "DLOCAL_GO_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "DLOCAL_GO_API_KEY",
+    "webhook_secret": "DLOCAL_GO_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN. dLocal Go advertises published country rate cards behind signup; no public per-country percentage verified. Do not populate card_domestic_pct."
+  },
+  "docs_url": "https://docs.dlocal.com/",
+  "score_modifiers": {},
+  "notes": [
+    "CORRECTION FROM ADVERSARIAL REVIEW: The research documented this against dLocal ENTERPRISE, not dLocal Go. Re-verify the scheme against docs.dlocalgo.com before promoting: it is Authorization: V2-HMAC-SHA256 signing API_KEY + payload, with no timestamp. The 17-country claim is unverified and the reachable country list omits Central America.",
+    "One self-serve API replaces the Lemon Squeezy MoR fallback that regions.json currently uses for eleven LATAM countries with no local provider (CR, PA, GT, SV, HN, NI, DO, BO, PY, UY, EC). Highest leverage single integration in the cluster.",
+    "SDKs: No official first-party Node/Python/PHP package verified on npm/PyPI/Packagist. Platform plugins (WooCommerce, Shopify, VTEX) exist. Treat as REST-only; generate a thin HTTP client.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Replaces lemonsqueezy as the fallback for CR/PA/GT/SV/HN/NI/DO/BO/PY/UY/EC. Overlaps mercadopago in AR/BR/CL/CO/MX/PE/UY but wins on Central America and the Andean small markets. Prefer dlocal_go over the dLocal Enterprise API, which requires sales onboarding.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

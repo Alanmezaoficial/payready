@@ -1,0 +1,117 @@
+{
+  "id": "square",
+  "name": "Square",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 7,
+  "integration_level": "advise",
+  "role": "acquirer",
+  "merchant_domicile_regions": [
+    "US",
+    "CA",
+    "UK",
+    "AU",
+    "JP",
+    "IE",
+    "FR",
+    "ES"
+  ],
+  "method_coverage_regions": [
+    "US",
+    "CA",
+    "UK",
+    "AU",
+    "JP",
+    "IE",
+    "FR",
+    "ES"
+  ],
+  "currencies": [
+    "AUD",
+    "CAD",
+    "EUR",
+    "GBP",
+    "JPY",
+    "USD"
+  ],
+  "methods": [
+    "card",
+    "apple_pay",
+    "google_pay",
+    "cash_app_pay",
+    "afterpay"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": false,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "VERIFIED, and uniquely fragile — the signed payload includes something no other provider signs. Header `x-square-hmacsha256-signature`. HMAC-SHA256, base64, computed over `<notification URL> + <raw body>` — i.e. the exact configured notification URL is part of the signed string. Consequence PagoKit MUST generate correctly: the URL your app sees behind a proxy/tunnel (ngrok, load balancer, trailing slash difference) will not match the configured URL and verification fails with a correct secret. NO timestamp is signed — dedup on `event_id`. A `square-environment` header indicates sandbox vs prod",
+    "expected_filenames": [
+      "webhook",
+      "square-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://developer.squareup.com/docs/webhooks/step3validate",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "SQUARE_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "UNKNOWN. The commonly cited `EAAA…` access-token prefix and `sq0idp-` / `sandbox-sq0idb-` application IDs were NOT verified in this pass."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "SQUARE_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "SQUARE_API_KEY",
+    "webhook_secret": "SQUARE_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN — not verified this pass. Square publishes per-country rates that differ sharply between card-present and card-not-present; a single `card_domestic_pct` would be wrong for half of Square's use cases."
+  },
+  "docs_url": "https://developer.squareup.com/docs/webhooks/step3validate",
+  "score_modifiers": {},
+  "notes": [
+    "The only entry here that unifies in-person (terminal/POS) and online payments under one API and one ledger. For a Claude Code user building for a physical business — a restaurant, a salon, a retail shop — Stripe Terminal is an add-on, whereas Square is the native answer. Also the only provider that natively settles Cash App Pay, which is material for US Gen-Z conversion. Ships an official MCP server.",
+    "SDKs: Official: Node `square`, Python `squareup`, PHP `square/square`, plus Java/.NET/Ruby and Web Payments SDK / mobile In-App Payments SDK.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: No overlap with any shipped provider on card-present. Overlaps stripe online-only.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

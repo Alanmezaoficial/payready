@@ -1,0 +1,97 @@
+{
+  "id": "asaas",
+  "name": "Asaas",
+  "last_verified_at": "2026-08-31",
+  "verified_by": "llm-generated",
+  "status": "active",
+  "phase": 2,
+  "wave": 1,
+  "integration_level": "advise",
+  "role": "psp",
+  "merchant_domicile_regions": [
+    "BR"
+  ],
+  "method_coverage_regions": [
+    "BR"
+  ],
+  "currencies": [
+    "BRL"
+  ],
+  "methods": [
+    "pix",
+    "pix_automatico",
+    "boleto",
+    "card"
+  ],
+  "supports": {
+    "subscriptions": true,
+    "one_time": true,
+    "marketplace_payouts": true,
+    "merchant_of_record": false,
+    "save_card": true,
+    "iap_compatible": false,
+    "agentic_toolkit": false
+  },
+  "notification_model": "webhook",
+  "webhook": {
+    "verification_family": "unverified",
+    "algorithm": "NO CRYPTOGRAPHIC SIGNATURE. Asaas sends a shared secret verbatim in the `asaas-access-token` header; you compare it to the authToken you set (or that Asaas auto-generated) on the webhook. authToken is 32–255 chars. This is bearer-token verification, NOT HMAC — generator must emit a constant-time string compare, never a digest computation. Since nothing is signed over the body, event-id dedup plus a re-fetch is mandatory.",
+    "expected_filenames": [
+      "webhook",
+      "asaas-webhook"
+    ],
+    "required_events_minimum": [],
+    "evidence": {
+      "source_url": "https://docs.asaas.com/docs/sobre-os-webhooks",
+      "verified_at": "2026-08-31",
+      "confidence": "medium",
+      "verified_by": "llm-generated",
+      "note": "Catalog import from adversarially-checked research. The scheme above is quoted from that research and has NOT been transcribed into typed fields, so PagoKit will not generate a verifier. Promoting this provider to generic or build means reading the provider docs and typing the scheme in."
+    }
+  },
+  "credentials": [
+    {
+      "id": "secret",
+      "kind": "api_key",
+      "env_var": "ASAAS_API_KEY",
+      "pattern": null,
+      "scope": "server",
+      "note": "API key sent in an `access_token` header. Sandbox and production keys are distinct. No verified prefix regex — leave null."
+    },
+    {
+      "id": "webhook_secret",
+      "kind": "webhook_secret",
+      "env_var": "ASAAS_WEBHOOK_SECRET",
+      "pattern": null,
+      "scope": "server"
+    }
+  ],
+  "env_vars": {
+    "secret": "ASAAS_API_KEY",
+    "webhook_secret": "ASAAS_WEBHOOK_SECRET"
+  },
+  "onboarding": {
+    "model": "self_serve",
+    "individual_allowed": true
+  },
+  "kyc": {
+    "individual_allowed": true
+  },
+  "developer_experience": {
+    "sdk_quality": 3,
+    "docs_quality": 3,
+    "sandbox": true
+  },
+  "fees": {
+    "notes": "UNKNOWN for 2026. Asaas publishes per-plan pricing behind signup; no verified figure. Do not populate."
+  },
+  "docs_url": "https://docs.asaas.com/docs/sobre-os-webhooks",
+  "score_modifiers": {},
+  "notes": [
+    "The most accessible route to Pix Automático — Brazil's new recurring-payment rail — with documented webhook flows for it today. This is the provider that lets PagoKit generate a Brazilian subscription integration that does not depend on saving a card.",
+    "SDKs: No official first-party Node/Python/PHP package verified. Community wrappers exist. REST-only; generate a thin client.",
+    "Developer-experience scores are unrated placeholders (3/3); they are not used in ranking.",
+    "Overlaps: Complements pagarme rather than replacing it. Choose asaas when the use case is recurring billing on Pix Automático or boleto; choose pagarme for card installments and marketplace split.",
+    "Onboarding model was inferred during the catalog import and is not verified. Confirm it before relying on the \"can this user actually get keys\" filter."
+  ]
+}

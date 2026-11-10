@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400" role="img" aria-label="Fragments keyed by verification family are additive, not multiplicative: 40 providers map onto 14 webhook families, so the file count grows by one small override per provider instead of by provider times stack times billing mode.">
+  <style>
+    :root, svg { --bg:#ffffff; --ink:#0a0a0a; --muted:#6b7280; --line:#d4d4d8; --coral:#E3754C; --coral-soft:#FBEDE7; --red:#dc2626; --green:#16a34a; --card:#fafafa; }
+    @media (prefers-color-scheme: dark) {
+      svg { --bg:#0d1117; --ink:#e6edf3; --muted:#9198a1; --line:#30363d; --coral:#E3754C; --coral-soft:#2a1a13; --red:#f85149; --green:#3fb950; --card:#161b22; }
+    }
+    .bg{fill:var(--bg)} .card{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+    .hot{fill:var(--coral-soft);stroke:var(--coral);stroke-width:2}
+    .t{fill:var(--ink);font-family:ui-sans-serif,-apple-system,sans-serif;font-size:13px;font-weight:600}
+    .s{fill:var(--muted);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px}
+    .h{fill:var(--ink);font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em}
+    .big{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:30px;font-weight:800}
+    .bad{fill:var(--red)} .good{fill:var(--green)}
+    .ln{stroke:var(--line);stroke-width:1.5;fill:none}
+    .cap{fill:var(--muted);font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px}
+  </style>
+  <rect class="bg" width="900" height="400"/>
+  <text class="h" x="40" y="34">WHY THE FILE COUNT DOESN'T EXPLODE</text>
+
+  <rect class="card" x="40" y="60" width="380" height="150" rx="8"/>
+  <text class="t" x="60" y="86">One template per provider — multiplicative</text>
+  <text class="s" x="60" y="110">providers × stacks × billing modes</text>
+  <text class="s" x="60" y="130">40 × 8 × 3</text>
+  <text class="big bad" x="60" y="172">960 files</text>
+  <text class="s" x="60" y="194">~240,000 lines, all re-edited when one convention changes</text>
+
+  <rect class="hot" x="480" y="60" width="380" height="150" rx="8"/>
+  <text class="t" x="500" y="86">One fragment per family — additive</text>
+  <text class="s" x="500" y="110">14 webhook + 5 checkout + 3 notify + 4 billing</text>
+  <text class="s" x="500" y="130">+ 4 money + 3 compliance + adapters + overrides</text>
+  <text class="big good" x="500" y="172">~91 files</text>
+  <text class="s" x="500" y="194">provider 41 costs one JSON entry + a ~50-line override</text>
+
+  <text class="h" x="40" y="256">THE 14 WEBHOOK VERIFICATION FAMILIES</text>
+  <text class="cap" x="40" y="276">Every payment provider's scheme is one of these. That is the whole trick.</text>
+
+  <g class="s">
+    <rect class="card" x="40" y="292" width="196" height="24" rx="4"/><text x="50" y="308">hmac_raw_body</text>
+    <rect class="card" x="244" y="292" width="196" height="24" rx="4"/><text x="254" y="308">hmac_timestamp_body</text>
+    <rect class="card" x="448" y="292" width="196" height="24" rx="4"/><text x="458" y="308">hmac_field_concat</text>
+    <rect class="card" x="652" y="292" width="208" height="24" rx="4"/><text x="662" y="308">hmac_body_transform</text>
+
+    <rect class="card" x="40" y="322" width="196" height="24" rx="4"/><text x="50" y="338">standard_webhooks</text>
+    <rect class="card" x="244" y="322" width="196" height="24" rx="4"/><text x="254" y="338">body_embedded_sig</text>
+    <rect class="card" x="448" y="322" width="196" height="24" rx="4"/><text x="458" y="338">shared_secret_header</text>
+    <rect class="card" x="652" y="322" width="208" height="24" rx="4"/><text x="662" y="338">signed_headers</text>
+
+    <rect class="card" x="40" y="352" width="196" height="24" rx="4"/><text x="50" y="368">asymmetric_rsa</text>
+    <rect class="card" x="244" y="352" width="196" height="24" rx="4"/><text x="254" y="368">asymmetric_jws</text>
+    <rect class="card" x="448" y="352" width="196" height="24" rx="4"/><text x="458" y="368">mtls_or_ip</text>
+    <rect class="card" x="652" y="352" width="100" height="24" rx="4"/><text x="662" y="368">none_refetch</text>
+    <rect class="card" x="760" y="352" width="100" height="24" rx="4"/><text x="770" y="368">sdk_verifier</text>
+  </g>
+</svg>
